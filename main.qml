@@ -17,6 +17,68 @@ ApplicationWindow {
     // Background color
     color: "#302020"
 
+    Rectangle {
+        id: animDeleg
+        color: window.color
+        visible: animation.running
+        z: 2
+
+        Image {
+            id: animImage
+            anchors.fill: parent
+        }
+
+        ParallelAnimation {
+            id: animation
+            running: false
+            property int duration: 500
+            property var targetPos: taskList.mapToGlobal(-window.x, -window.y)
+
+            OpacityAnimator {
+                target: animDeleg
+                from: 1
+                to: 0
+                duration: animation.duration*2
+                easing.type: Easing.OutSine
+            }
+
+            XAnimator {
+                target: animDeleg
+                from: 0
+                to: animation.targetPos.x
+                duration: animation.duration
+                easing.type: Easing.OutSine
+            }
+
+            YAnimator {
+                target: animDeleg
+                from: 0
+                to: animation.targetPos.y
+                duration: animation.duration
+                easing.type: Easing.OutSine
+            }
+
+            NumberAnimation {
+                target: animDeleg
+                property: "width"
+                from: selection.width
+                to: taskList.width
+                duration: animation.duration
+                easing.type: Easing.OutSine
+            }
+
+            NumberAnimation {
+                target: animDeleg
+                property: "height"
+                from: selection.height
+                to: taskList.height
+                duration: animation.duration
+                easing.type: Easing.OutSine
+            }
+        }
+    }
+
+
     ColumnLayout {
         id: columnLayout
         anchors.fill: parent
@@ -214,6 +276,13 @@ ApplicationWindow {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    onClicked: {
+                        selection.grabToImage(function (image) {
+                            animImage.source = image.url;
+                            animation.start();
+                        });
+                    }
                 }
             }
         }
@@ -242,7 +311,7 @@ ApplicationWindow {
                 model: ListModel {
                     ListElement { status: "Failed burning openSUSE Leap 42.3 DVD"; progress: 0; color: "#d08080" }
                     ListElement { status: "Finished openSUSE Tumbleweed Kubic"; progress: 100; color: "#90d090" }
-                    ListElement { status: "Downloading openSUSE Tumbleweed KDE Live"; progress: 30; color: "#909090" }
+                    ListElement { status: "Downloading openSUSE Tumbleweed KDE Live"; progress: 30; color: "#a0a0a0" }
                 }
 
                 spacing: 5
