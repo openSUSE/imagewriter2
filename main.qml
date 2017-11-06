@@ -125,70 +125,54 @@ ApplicationWindow {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                GridLayout {
-                    width: parent.parent.width
-                    columns: 2
+                    GridLayout {
+                        width: parent.parent.width
+                        columns: 2
 
-                    Label {
-                        color: "#c2c2c2"
-                        text: qsTr("Distribution:")
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        horizontalAlignment: Text.AlignRight
-                        font.pointSize: 11
-                    }
+                        Label {
+                            color: "#c2c2c2"
+                            text: qsTr("Distribution:")
+                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                            horizontalAlignment: Text.AlignRight
+                            font.pointSize: 11
+                        }
 
-                    ComboBox {
-                        Layout.fillWidth: true
-                        model: ["openSUSE Leap", "openSUSE Tumbleweed"]
-                    }
+                        ComboBox {
+                            id: comb
+                            Layout.fillWidth: true
+                            model: ImageMetadataStorage
+                            textRole: "ChoiceName"
+                        }
 
-                    Label {
-                        color: "#c2c2c2"
-                        text: qsTr("Medium:")
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        horizontalAlignment: Text.AlignRight
-                        font.pointSize: 11
-                    }
+                        Label {
+                            color: "#c2c2c2"
+                            text: ImageMetadataStorage.data(ImageMetadataStorage.index(comb.currentIndex, 0, 0), 0x100)
+                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                            horizontalAlignment: Text.AlignRight
+                            font.pointSize: 11
+                        }
 
-                    ComboBox {
-                        Layout.fillWidth: true
-                        model: ["Installation"]
-                        enabled: false
-                    }
+                        ComboBox {
+                            property var rootIndex: ImageMetadataStorage.index(comb.currentIndex, 0, 0)
+                            enabled: count > 0
+                            Layout.fillWidth: true
 
-                    Label {
-                        color: "#c2c2c2"
-                        text: qsTr("Type:")
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        horizontalAlignment: Text.AlignRight
-                        font.pointSize: 11
-                    }
+                            model: {
+                                var size = ImageMetadataStorage.rowCount(rootIndex);
+                                var ret = []
+                                for(var row = 0; row < size; ++row)
+                                    ret.push(ImageMetadataStorage.data(ImageMetadataStorage.index(row, 0, rootIndex), 0x101));
 
-                    ComboBox {
-                        Layout.fillWidth: true
-                        model: ["DVD", "Network"]
+                                return ret;
+                            }
+                        }
                     }
-
-                    Label {
-                        color: "#c2c2c2"
-                        text: qsTr("Architecture:")
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        horizontalAlignment: Text.AlignRight
-                        font.pointSize: 11
-                    }
-
-                    ComboBox {
-                        Layout.fillWidth: true
-                        model: ["64-bit", "32-bit"]
-                    }
-                }
                 }
 
                 Item {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                 }
-
             }
 
             ColumnLayout {

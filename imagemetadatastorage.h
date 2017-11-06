@@ -5,14 +5,16 @@
 #include <memory>
 #include <vector>
 
-#include <QObject>
+#include <QAbstractItemModel>
 #include <QString>
 #include <QUrl>
 
 class QXmlStreamReader;
 
-class ImageMetadataStorage : public QObject
+class ImageMetadataStorage : public QAbstractItemModel
 {
+    Q_OBJECT
+
 public:
     struct Image {
         QString name;
@@ -39,6 +41,15 @@ public:
         std::vector<Choice> choices;
     };
 
+    enum Roles {
+        DecisionNameRole = Qt::UserRole,
+        ChoiceNameRole,
+        ChoiceIconRole,
+        ImageNameRole
+    };
+
+    Q_ENUM(Roles)
+
     ImageMetadataStorage(QUrl rootUrl);
     virtual ~ImageMetadataStorage();
 
@@ -46,13 +57,21 @@ public:
 
     Decision const * getRoot();
 
+    QModelIndex index(int row, int column,
+                      const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QHash<int, QByteArray> roleNames() const override;
+
 private:
     bool parseDecision(Decision &decision, QXmlStreamReader &reader);
     bool parseChoice(Choice &choice, QXmlStreamReader &reader);
     bool parseImage(Image &image, QXmlStreamReader &reader);
 
     QUrl rootUrl;
-    Decision root;
+    Choice root;
 };
 
 Q_DECLARE_METATYPE(ImageMetadataStorage::Choice)
