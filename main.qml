@@ -84,7 +84,8 @@ ApplicationWindow {
         id: ims
 
         Component.onCompleted: {
-            readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1' preselected='true'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option><option name='Option 1.1' preselected='true'><image name='Image 1.1' url='url2' size='2'/></option></decision></option></decision></option></decision>");
+            readFromXMLFile("/tmp/images.xml");
+            //readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1' preselected='true'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option><option name='Option 1.1' preselected='true'><image name='Image 1.1' url='url2' size='2'/></option></decision></option></decision></option></decision>");
         }
     }
 
@@ -170,7 +171,8 @@ ApplicationWindow {
                                 visible: !parentCombobox || (parentCombobox.visible && ims.hasChildren(rootIndex))
 
                                 Layout.fillWidth: true
-                                enabled: count > 1
+
+                                enabled: model.length > 1
 
                                 Layout.row: index
                                 Layout.column: 1
@@ -233,9 +235,10 @@ ApplicationWindow {
                 }
 
                 ComboBox {
-                    property int driveType: model.data(model.index(currentIndex, 0, 0), 0x102) || 0
-                    property string driveSize: model.data(model.index(currentIndex, 0, 0), 0x101) || 0
-                    property var drivePath: model.data(model.index(currentIndex, 0, 0), 0x100)
+                    /* Add an artifical dependency on count to refresh these values when a single entry vanishes */
+                    property int driveType: { count; model.data(model.index(currentIndex, 0, 0), 0x102) || 0 }
+                    property string driveSize: { count; model.data(model.index(currentIndex, 0, 0), 0x101) || 0 }
+                    property var drivePath: { count; model.data(model.index(currentIndex, 0, 0), 0x100) }
 
                     id: targetSelection
 
