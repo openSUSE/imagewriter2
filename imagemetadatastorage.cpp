@@ -54,28 +54,28 @@ const ImageMetadataStorage::Decision *ImageMetadataStorage::getRoot()
 
 QModelIndex ImageMetadataStorage::index(int row, int column, const QModelIndex &parent) const
 {
-    Choice *choice = parent.isValid() ? reinterpret_cast<Choice*>(parent.internalPointer()) : const_cast<Choice*>(&root);
+    Option *option = parent.isValid() ? reinterpret_cast<Option*>(parent.internalPointer()) : const_cast<Option*>(&root);
 
-    if(!choice->decision || static_cast<size_t>(row) >= choice->decision->choices.size())
+    if(!option->decision || static_cast<size_t>(row) >= option->decision->options.size())
         return QModelIndex();
 
-    return createIndex(row, column, &choice->decision->choices[static_cast<size_t>(row)]);
+    return createIndex(row, column, &option->decision->options[static_cast<size_t>(row)]);
 }
 
 QVariant ImageMetadataStorage::data(const QModelIndex &index, int role) const
 {
-    Choice *choice = index.isValid() ? reinterpret_cast<Choice*>(index.internalPointer()) : const_cast<Choice*>(&root);
+    Option *option = index.isValid() ? reinterpret_cast<Option*>(index.internalPointer()) : const_cast<Option*>(&root);
 
     switch(role)
     {
     case DecisionNameRole:
-        return choice->decision ? choice->decision->name : QVariant{};
-    case ChoiceNameRole:
-        return choice->name;
-    case ChoiceIconRole:
-        return choice->icon_local_filename;
+        return option->decision ? option->decision->name : QVariant{};
+    case OptionNameRole:
+        return option->name;
+    case OptionIconRole:
+        return option->icon_local_filename;
     case ImageNameRole:
-        return choice->image ? choice->image->name : QVariant{};
+        return option->image ? option->image->name : QVariant{};
     default:
         return QVariant{};
     }
@@ -89,9 +89,9 @@ QModelIndex ImageMetadataStorage::parent(const QModelIndex &index) const
 
 int ImageMetadataStorage::rowCount(const QModelIndex &parent) const
 {
-    Choice *choice = parent.isValid() ? reinterpret_cast<Choice*>(parent.internalPointer()) : const_cast<Choice*>(&root);
+    Option *option = parent.isValid() ? reinterpret_cast<Option*>(parent.internalPointer()) : const_cast<Option*>(&root);
 
-    return choice->decision ? static_cast<int>(choice->decision->choices.size()) : 0;
+    return option->decision ? static_cast<int>(option->decision->options.size()) : 0;
 }
 
 int ImageMetadataStorage::columnCount(const QModelIndex &parent) const
@@ -104,8 +104,8 @@ QHash<int, QByteArray> ImageMetadataStorage::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[DecisionNameRole] = "DecisionName";
-    roles[ChoiceNameRole] = "ChoiceName";
-    roles[ChoiceIconRole] = "ChoiceIcon";
+    roles[OptionNameRole] = "OptionName";
+    roles[OptionIconRole] = "OptionIcon";
     roles[ImageNameRole] = "ImageName";
     return roles;
 }
@@ -125,13 +125,13 @@ bool ImageMetadataStorage::parseDecision(ImageMetadataStorage::Decision &decisio
         switch(reader.readNext())
         {
         case QXmlStreamReader::StartElement:
-            if(reader.name() == QStringLiteral("choice"))
+            if(reader.name() == QStringLiteral("option"))
             {
                 if(reader.attributes().value(QStringLiteral("preselected")) == QStringLiteral("true"))
-                    decision.preselected = decision.choices.size();
+                    decision.preselected = decision.options.size();
 
-                decision.choices.resize(decision.choices.size() + 1);
-                failed = !parseChoice(*decision.choices.rbegin(), reader);
+                decision.options.resize(decision.options.size() + 1);
+                failed = !parseOption(*decision.options.rbegin(), reader);
             }
             else
                 failed = true;
@@ -147,17 +147,17 @@ bool ImageMetadataStorage::parseDecision(ImageMetadataStorage::Decision &decisio
     return !failed;
 }
 
-bool ImageMetadataStorage::parseChoice(ImageMetadataStorage::Choice &choice, QXmlStreamReader &reader)
+bool ImageMetadataStorage::parseOption(ImageMetadataStorage::Option &option, QXmlStreamReader &reader)
 {
     auto attrs = reader.attributes();
 
     if(!attrs.hasAttribute(QStringLiteral("name")))
         return false;
 
-    choice.name = attrs.value(QStringLiteral("name")).toString();
+    option.name = attrs.value(QStringLiteral("name")).toString();
 
     if(attrs.hasAttribute(QStringLiteral("icon")))
-        choice.icon_url = attrs.value(QStringLiteral("icon")).toString();
+        option.icon_url = attrs.value(QStringLiteral("icon")).toString();
 
     bool failed = false;
     while(!failed && !reader.atEnd())
@@ -167,22 +167,22 @@ bool ImageMetadataStorage::parseChoice(ImageMetadataStorage::Choice &choice, QXm
         case QXmlStreamReader::StartElement:
             if(reader.name() == QStringLiteral("image"))
             {
-                if(choice.decision)
+                if(option.decision)
                     failed = true;
                 else
                 {
-                    choice.image = std::make_shared<ImageMetadataStorage::Image>();
-                    failed = !parseImage(*choice.image, reader);
+                    option.image = std::make_shared<ImageMetadataStorage::Image>();
+                    failed = !parseImage(*option.image, reader);
                 }
             }
             else if(reader.name() == QStringLiteral("decision"))
             {
-                if(choice.image)
+                if(option.image)
                     failed = true;
                 else
                 {
-                    choice.decision = std::make_shared<ImageMetadataStorage::Decision>();
-                    failed = !parseDecision(*choice.decision, reader);
+                    option.decision = std::make_shared<ImageMetadataStorage::Decision>();
+                    failed = !parseDecision(*option.decision, reader);
                 }
             }
             else

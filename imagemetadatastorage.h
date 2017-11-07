@@ -27,7 +27,7 @@ public:
 
     struct Decision;
 
-    struct Choice {
+    struct Option {
         QString name;
         QString icon_url;
         QString icon_local_filename;
@@ -38,13 +38,13 @@ public:
     struct Decision {
         QString name;
         size_t preselected = 0;
-        std::vector<Choice> choices;
+        std::vector<Option> options;
     };
 
     enum Roles {
         DecisionNameRole = Qt::UserRole,
-        ChoiceNameRole,
-        ChoiceIconRole,
+        OptionNameRole,
+        OptionIconRole,
         ImageNameRole
     };
 
@@ -67,13 +67,13 @@ public:
 
 private:
     bool parseDecision(Decision &decision, QXmlStreamReader &reader);
-    bool parseChoice(Choice &choice, QXmlStreamReader &reader);
+    bool parseOption(Option &option, QXmlStreamReader &reader);
     bool parseImage(Image &image, QXmlStreamReader &reader);
 
     QUrl rootUrl;
-    Choice root;
+    Option root;
 };
 
-Q_DECLARE_METATYPE(ImageMetadataStorage::Choice)
+Q_DECLARE_METATYPE(ImageMetadataStorage::Option)
 
 #endif // IMAGEMETADATASTORAGE_H
