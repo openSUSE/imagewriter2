@@ -117,8 +117,11 @@ void RemovableDevicesModelUDisks2::dbusInterfaceRemoved(const QDBusObjectPath &p
 
 void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
 {
-    QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
-                         QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
+    // If we already have this device, ignore it
+    if(std::find_if(deviceList.begin(), deviceList.end(),
+                    [&path] (const DeviceData &dev)
+                        { return dev.dbusPath == path; }) != deviceList.end())
+        return;
 
     // Ignore partitions
     {
@@ -127,6 +130,9 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
         if(partition.property("Type").isValid())
             return;
     }
+
+    QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
+                         QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
 
     auto drivePath = block.property("Drive").value<QDBusObjectPath>();
     QDBusInterface drive{QStringLiteral("org.freedesktop.UDisks2"), drivePath.path(),
@@ -140,14 +146,16 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
     if(block.property("HintSystem").toBool() || block.property("HintIgnore").toBool())
         return;
 
+    // Read various properties
     auto rotationRate = drive.property("RotationRate").toInt();
     auto optical = drive.property("Optical").toBool();
     auto name = drive.property("Id").toString();
     auto size = block.property("Size").toLongLong();
     auto devicePath = block.property("PreferredDevice").toString();
 
+    // Create container for the gathered information
     DeviceData device;
-    device.name = name;
+    device.name = name.isEmpty() ? devicePath : name;
     device.path = devicePath;
     device.size = size;
     device.type = optical ? DVD : (rotationRate > 0 ? HDD : USB);
