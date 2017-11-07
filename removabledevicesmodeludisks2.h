@@ -32,7 +32,7 @@ protected:
     std::vector<DeviceData> deviceList;
 
 protected slots:
-    void drivesIntrospected(const QString &xml);
+    void devicesIntrospected(const QString &xml);
 
     void dbusInterfaceAdded(const QDBusObjectPath &path, const QMap<QString, QVariant> &interfaces);
     void dbusInterfaceRemoved(const QDBusObjectPath &path, const QStringList &);

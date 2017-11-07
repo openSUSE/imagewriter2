@@ -3,6 +3,10 @@
 
 #include <QAbstractListModel>
 
+/* This abstract class represents a list of all removable
+ * devices available on this system which are suitable for
+ * writing images to. If possible, implementations of this
+ * should avoid to include devices which are currently used. */
 class RemovableDevicesModel : public QAbstractListModel
 {
 public:

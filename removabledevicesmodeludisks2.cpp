@@ -22,7 +22,7 @@ RemovableDevicesModelUDisks2::RemovableDevicesModelUDisks2()
     QDBusInterface drives("org.freedesktop.UDisks2", "/org/freedesktop/UDisks2/block_devices",
                        "org.freedesktop.DBus.Introspectable", systemBus);
 
-    drives.callWithCallback(QStringLiteral("Introspect"), {}, this, SLOT(drivesIntrospected(const QString &)));
+    drives.callWithCallback(QStringLiteral("Introspect"), {}, this, SLOT(devicesIntrospected(const QString &)));
 }
 
 QVariant RemovableDevicesModelUDisks2::data(const QModelIndex &index, int role) const
@@ -69,7 +69,7 @@ QHash<int, QByteArray> RemovableDevicesModelUDisks2::roleNames() const
     return roles;
 }
 
-void RemovableDevicesModelUDisks2::drivesIntrospected(const QString &xml)
+void RemovableDevicesModelUDisks2::devicesIntrospected(const QString &xml)
 {
     QXmlStreamReader reader;
     reader.addData(xml);
