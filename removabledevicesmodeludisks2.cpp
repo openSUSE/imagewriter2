@@ -28,7 +28,7 @@ RemovableDevicesModelUDisks2::RemovableDevicesModelUDisks2()
 QVariant RemovableDevicesModelUDisks2::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-qDebug() << index << role;
+
     // Check whether out of bounds
     if(static_cast<size_t>(row) >= deviceList.size())
         return {};
@@ -42,7 +42,7 @@ qDebug() << index << role;
     case PathRole:
         return device.path;
     case SizeRole:
-        return QVariant::fromValue(device.size);
+        return QStringLiteral("%1").arg(device.size);
     case TypeRole:
         return device.type;
     default:
@@ -135,7 +135,7 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
     // Ignore nonremovable and read-only devices
     if(drive.property("Removable").toBool() == false || block.property("ReadOnly").toBool())
         return;
-qDebug() << path.path() << drive.property("Removable") << block.property("ReadOnly");
+
     // Ignore System and Ignore devices
     if(block.property("HintSystem").toBool() || block.property("HintIgnore").toBool())
         return;
@@ -144,9 +144,11 @@ qDebug() << path.path() << drive.property("Removable") << block.property("ReadOn
     auto optical = drive.property("Optical").toBool();
     auto name = drive.property("Id").toString();
     auto size = block.property("Size").toLongLong();
+    auto devicePath = block.property("PreferredDevice").toString();
 
     DeviceData device;
     device.name = name;
+    device.path = devicePath;
     device.size = size;
     device.type = optical ? DVD : (rotationRate > 0 ? HDD : USB);
     device.dbusPath = path;
