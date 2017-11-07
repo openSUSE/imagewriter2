@@ -67,6 +67,8 @@ public:
     /* Call this once (and once only) to initialize the storage with the information
      * from the XML in xml_document. Returns false on failure. */
     Q_INVOKABLE bool readFromXML(QString xml_document);
+    /* Same as readFromXML, but pass a filename instead. */
+    Q_INVOKABLE bool readFromXMLFile(QString xml_filename);
 
     Decision const * getRoot();
     unsigned int getMaxDepth();

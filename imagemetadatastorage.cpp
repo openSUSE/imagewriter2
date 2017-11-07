@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QFile>
 #include <QXmlStreamReader>
 
 #include "imagemetadatastorage.h"
@@ -52,6 +53,16 @@ bool ImageMetadataStorage::readFromXML(QString xml_document)
     maxDepthChanged();
 
     return !failed;
+}
+
+bool ImageMetadataStorage::readFromXMLFile(QString xml_filename)
+{
+    QFile xml_file(xml_filename);
+    if(!xml_file.open(QFile::ReadOnly))
+        return false;
+
+    QString contents = xml_file.readAll();
+    return readFromXML(contents);
 }
 
 const ImageMetadataStorage::Decision *ImageMetadataStorage::getRoot()
