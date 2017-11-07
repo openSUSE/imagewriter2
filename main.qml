@@ -210,7 +210,11 @@ ApplicationWindow {
                     Layout.minimumWidth: 64
                     Layout.minimumHeight: 64
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    source: "media-optical-recordable"
+                    property var icons: ["media-optical-recordable",
+                                         "media-optical-recordable",
+                                         "drive-removable-media-usb-pendrive",
+                                         "drive-removable-media-usb-pendrive"]
+                    source: icons[targetSelection.driveType]
                 }
 
                 Label {
@@ -223,9 +227,20 @@ ApplicationWindow {
                 }
 
                 ComboBox {
-                    model: ["DVD in sr0"]
+                    id: targetSelection
+                    currentIndex: -1
 
-                    id: comboBox
+                    property int driveType: model.data(model.index(currentIndex, 0, 0), 0x102) || 0
+
+                    model: RemovableDevicesModel {}
+                    textRole: "Name"
+
+                    onCountChanged: {
+                        if(currentIndex < 0
+                                || currentIndex >= model.rowCount(0))
+                            currentIndex = 0;
+                    }
+
                     x: 434
                     y: 116
                     Layout.fillWidth: true
