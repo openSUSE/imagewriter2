@@ -7,17 +7,21 @@
 
 #include <QAbstractItemModel>
 #include <QString>
-#include <QUrl>
 
 class QXmlStreamReader;
 
+/* This class contains information about the available images.
+ * It is structured as a tree of decisions (which have options) and images as leaf nodes. */
 class ImageMetadataStorage : public QAbstractItemModel
 {
     Q_OBJECT
 
+    /* Maximum depth of the decision tree. Is 0 on startup, changed to >= 1 after
+     * an XML source was loaded. */
     Q_PROPERTY(unsigned int maxDepth READ getMaxDepth() NOTIFY maxDepthChanged())
 
 public:
+    /* Information about an Image. */
     struct Image {
         QString name;
         QString url;
@@ -29,6 +33,7 @@ public:
 
     struct Decision;
 
+    /* Information about an option. Contains either a decision or an image. */
     struct Option {
         QString name;
         QString icon_url;
@@ -37,12 +42,15 @@ public:
         std::shared_ptr<Image> image;
     };
 
+    /* Information about a decision. Contains name, the index of the preselected option
+     * and all available options. */
     struct Decision {
         QString name;
         size_t preselected = 0;
         std::vector<Option> options;
     };
 
+    /* Custom roles used in the Qt model */
     enum Roles {
         DecisionNameRole = Qt::UserRole,
         OptionNameRole,
@@ -55,6 +63,8 @@ public:
     ImageMetadataStorage();
     virtual ~ImageMetadataStorage();
 
+    /* Call this once (and once only) to initialize the storage with the information
+     * from the XML in xml_document. Returns false on failure. */
     Q_INVOKABLE bool readFromXML(QString xml_document);
 
     Decision const * getRoot();
@@ -80,7 +90,5 @@ private:
     int currentDepth = 0;
     Option root;
 };
-
-Q_DECLARE_METATYPE(ImageMetadataStorage::Option)
 
 #endif // IMAGEMETADATASTORAGE_H

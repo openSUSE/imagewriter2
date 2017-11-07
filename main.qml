@@ -157,7 +157,7 @@ ApplicationWindow {
                                 Layout.row: index
                                 Layout.column: 0
 
-                                text: ims.data(rootIndex, 0x100) + ":"
+                                text: ims.data(rootIndex, ImageMetadataStorage.DecisionNameRole) + ":"
                             }
                         }
 
@@ -179,7 +179,7 @@ ApplicationWindow {
                                     var size = ims.rowCount(rootIndex);
                                     var ret = []
                                     for(var row = 0; row < size; ++row)
-                                        ret.push(ims.data(ims.index(row, 0, rootIndex), 0x101));
+                                        ret.push(ims.data(ims.index(row, 0, rootIndex), ImageMetadataStorage.OptionNameRole));
 
                                     return ret;
                                 }
@@ -227,13 +227,16 @@ ApplicationWindow {
                 }
 
                 ComboBox {
-                    id: targetSelection
-                    currentIndex: -1
-
                     property int driveType: model.data(model.index(currentIndex, 0, 0), 0x102) || 0
+                    property string driveSize: model.data(model.index(currentIndex, 0, 0), 0x101) || 0
+                    property var drivePath: model.data(model.index(currentIndex, 0, 0), 0x100)
+
+                    id: targetSelection
 
                     model: RemovableDevicesModel {}
                     textRole: "Name"
+                    currentIndex: -1
+                    enabled: count > 0
 
                     onCountChanged: {
                         if(currentIndex < 0
@@ -241,12 +244,9 @@ ApplicationWindow {
                             currentIndex = 0;
                     }
 
-                    x: 434
-                    y: 116
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 }
-
 
                 Item {
                     Layout.fillHeight: true
