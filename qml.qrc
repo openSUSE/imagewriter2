@@ -3,4 +3,9 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file>icons/drive-removable-media-usb-pendrive.svg</file>
+        <file>icons/media-optical-recordable.svg</file>
+        <file>icons/start-here-branding.svg</file>
+    </qresource>
 </RCC>

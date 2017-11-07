@@ -4,7 +4,6 @@ import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
 
 import org.opensuse.imgwriter 1.0
-import org.kde.plasma.core 2.0 as PlasmaCore
 
 ApplicationWindow {
     id: window
@@ -14,6 +13,8 @@ ApplicationWindow {
     minimumWidth: 500
     minimumHeight: 400
     title: qsTr("openSUSE Image Writer")
+
+    property string fontColor: "#e0e0e0"
 
     // Background color
     color: "#302020"
@@ -108,7 +109,7 @@ ApplicationWindow {
                 anchors.left: parent.left
                 anchors.right: go.left
 
-                PlasmaCore.IconItem {
+                Image {
                     width: 64
                     height: 64
                     Layout.maximumHeight: 64
@@ -116,12 +117,11 @@ ApplicationWindow {
                     Layout.minimumHeight: 64
                     Layout.minimumWidth: 64
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    source: "start-here-branding"
+                    source: "qrc:/icons/icons/start-here-branding.svg"
                 }
 
                 Label {
-                    id: label1
-                    color: "#c2c2c2"
+                    color: window.fontColor
                     text: qsTr("Source Image")
                     horizontalAlignment: Text.AlignHCenter
                     font.pointSize: 11
@@ -149,8 +149,9 @@ ApplicationWindow {
                                 visible: !parentCombobox || (parentCombobox.visible && ims.hasChildren(rootIndex))
 
                                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                                color: "#c2c2c2"
                                 horizontalAlignment: Text.AlignRight
+
+                                color: window.fontColor
                                 font.pointSize: 11
 
                                 Layout.row: index
@@ -202,24 +203,23 @@ ApplicationWindow {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
 
-                PlasmaCore.IconItem {
-                    x: 462
-                    y: 23
+                Image {
                     Layout.maximumHeight: 64
                     Layout.maximumWidth: 64
                     Layout.minimumWidth: 64
                     Layout.minimumHeight: 64
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    property var icons: ["media-optical-recordable",
-                                         "media-optical-recordable",
-                                         "drive-removable-media-usb-pendrive",
-                                         "drive-removable-media-usb-pendrive"]
-                    source: icons[targetSelection.driveType]
+
+                    property var icons: ["media-optical-recordable.svg",
+                                         "media-optical-recordable.svg",
+                                         "drive-removable-media-usb-pendrive.svg",
+                                         "drive-removable-media-usb-pendrive.svg"]
+                    source: "qrc:/icons/icons/" + icons[targetSelection.driveType]
                 }
 
                 Label {
                     id: label
-                    color: "#c2c2c2"
+                    color: window.fontColor
                     text: qsTr("Target Disk")
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     font.bold: true
@@ -272,7 +272,7 @@ ApplicationWindow {
 
                     onPaint: {
                         var ctx = getContext("2d");
-                        ctx.fillStyle = "#f2f2f2";
+                        ctx.fillStyle = window.fontColor;
                         ctx.beginPath();
                         ctx.moveTo(0, height/2 - stemThickness/2);
                         ctx.lineTo(width - pointyEndThickness, height/2 - stemThickness/2);
@@ -316,7 +316,7 @@ ApplicationWindow {
 
             // Custom label component for the right text color
             label: Label {
-                color: "#c2c2c2"
+                color: window.fontColor
                 text: parent.title
             }
 
