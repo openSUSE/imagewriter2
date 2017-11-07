@@ -82,6 +82,8 @@ QVariant ImageMetadataStorage::data(const QModelIndex &index, int role) const
     {
     case DecisionNameRole:
         return option->decision ? option->decision->name : QVariant{};
+    case DecisionPreselectedOptionRole:
+        return option->decision ? QVariant::fromValue(option->decision->preselected) : QVariant{};
     case OptionNameRole:
         return option->name;
     case OptionIconRole:
@@ -116,6 +118,7 @@ QHash<int, QByteArray> ImageMetadataStorage::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[DecisionNameRole] = "DecisionName";
+    roles[DecisionPreselectedOptionRole] = "PreselectedOption";
     roles[OptionNameRole] = "OptionName";
     roles[OptionIconRole] = "OptionIcon";
     roles[ImageNameRole] = "ImageName";

@@ -53,6 +53,7 @@ public:
     /* Custom roles used in the Qt model */
     enum Roles {
         DecisionNameRole = Qt::UserRole,
+        DecisionPreselectedOptionRole,
         OptionNameRole,
         OptionIconRole,
         ImageNameRole

@@ -84,7 +84,7 @@ ApplicationWindow {
         id: ims
 
         Component.onCompleted: {
-            readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option></decision></option></decision>");
+            readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1' preselected='true'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option><option name='Option 1.1' preselected='true'><image name='Image 1.1' url='url2' size='2'/></option></decision></option></decision></option></decision>");
         }
     }
 
@@ -175,6 +175,7 @@ ApplicationWindow {
                                 Layout.row: index
                                 Layout.column: 1
 
+                                // Generate the list of possible options based on the rootIndex
                                 model: {
                                     var size = ims.rowCount(rootIndex);
                                     var ret = []
@@ -182,6 +183,11 @@ ApplicationWindow {
                                         ret.push(ims.data(ims.index(row, 0, rootIndex), ImageMetadataStorage.OptionNameRole));
 
                                     return ret;
+                                }
+
+                                // If the list changed, we need to preselect an option. Use the information from the model
+                                onModelChanged: {
+                                    currentIndex = ims.data(rootIndex, ImageMetadataStorage.DecisionPreselectedOptionRole) || -1
                                 }
                             }
                         }
