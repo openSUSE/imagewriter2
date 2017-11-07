@@ -129,41 +129,48 @@ ApplicationWindow {
                         width: parent.parent.width
                         columns: 2
 
-                        Label {
-                            color: "#c2c2c2"
-                            text: qsTr("Distribution:")
-                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                            horizontalAlignment: Text.AlignRight
-                            font.pointSize: 11
+                        Repeater {
+                            id: labelRepeater
+                            model: 5
+                            delegate: Label {
+                                property var parentCombobox: index === 0 ? null : comboboxRepeater.itemAt(index - 1)
+                                property var rootIndex: parentCombobox ? ImageMetadataStorage.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
+                                visible: !parentCombobox || (parentCombobox.visible && ImageMetadataStorage.hasChildren(rootIndex))
+
+                                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                                color: "#c2c2c2"
+                                horizontalAlignment: Text.AlignRight
+                                font.pointSize: 11
+
+                                Layout.row: index
+                                Layout.column: 0
+
+                                text: ImageMetadataStorage.data(rootIndex, 0x100) + ":"
+                            }
                         }
 
-                        ComboBox {
-                            id: comb
-                            Layout.fillWidth: true
-                            model: ImageMetadataStorage
-                            textRole: "ChoiceName"
-                        }
+                        Repeater {
+                            id: comboboxRepeater
+                            model: labelRepeater.model
+                            delegate: ComboBox {
+                                property var parentCombobox: index === 0 ? null : comboboxRepeater.itemAt(index - 1)
+                                property var rootIndex: parentCombobox ? ImageMetadataStorage.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
+                                visible: !parentCombobox || (parentCombobox.visible && ImageMetadataStorage.hasChildren(rootIndex))
 
-                        Label {
-                            color: "#c2c2c2"
-                            text: ImageMetadataStorage.data(ImageMetadataStorage.index(comb.currentIndex, 0, 0), 0x100)
-                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                            horizontalAlignment: Text.AlignRight
-                            font.pointSize: 11
-                        }
+                                Layout.fillWidth: true
+                                enabled: count > 1
 
-                        ComboBox {
-                            property var rootIndex: ImageMetadataStorage.index(comb.currentIndex, 0, 0)
-                            enabled: count > 0
-                            Layout.fillWidth: true
+                                Layout.row: index
+                                Layout.column: 1
 
-                            model: {
-                                var size = ImageMetadataStorage.rowCount(rootIndex);
-                                var ret = []
-                                for(var row = 0; row < size; ++row)
-                                    ret.push(ImageMetadataStorage.data(ImageMetadataStorage.index(row, 0, rootIndex), 0x101));
+                                model: {
+                                    var size = ImageMetadataStorage.rowCount(rootIndex);
+                                    var ret = []
+                                    for(var row = 0; row < size; ++row)
+                                        ret.push(ImageMetadataStorage.data(ImageMetadataStorage.index(row, 0, rootIndex), 0x101));
 
-                                return ret;
+                                    return ret;
+                                }
                             }
                         }
                     }
