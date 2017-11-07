@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
 
+import org.opensuse.imgwriter 1.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 ApplicationWindow {
@@ -78,6 +79,13 @@ ApplicationWindow {
         }
     }
 
+    ImageMetadataStorage {
+        id: ims
+
+        Component.onCompleted: {
+            readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option></decision></option></decision>");
+        }
+    }
 
     ColumnLayout {
         id: columnLayout
@@ -129,13 +137,16 @@ ApplicationWindow {
                         width: parent.parent.width
                         columns: 2
 
+                        /* This repeater creates the labels. They get their information on what to display from their
+                           "parent" ComboBox, so those have to be initialized first. To make sure that that happens,
+                           model: is bound to comboboxRepeater.model. */
                         Repeater {
                             id: labelRepeater
-                            model: 5
+                            model: comboboxRepeater.model
                             delegate: Label {
                                 property var parentCombobox: index === 0 ? null : comboboxRepeater.itemAt(index - 1)
-                                property var rootIndex: parentCombobox ? ImageMetadataStorage.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
-                                visible: !parentCombobox || (parentCombobox.visible && ImageMetadataStorage.hasChildren(rootIndex))
+                                property var rootIndex: parentCombobox ? ims.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
+                                visible: !parentCombobox || (parentCombobox.visible && ims.hasChildren(rootIndex))
 
                                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                                 color: "#c2c2c2"
@@ -145,17 +156,17 @@ ApplicationWindow {
                                 Layout.row: index
                                 Layout.column: 0
 
-                                text: ImageMetadataStorage.data(rootIndex, 0x100) + ":"
+                                text: ims.data(rootIndex, 0x100) + ":"
                             }
                         }
 
                         Repeater {
                             id: comboboxRepeater
-                            model: labelRepeater.model
+                            model: ims.maxDepth
                             delegate: ComboBox {
                                 property var parentCombobox: index === 0 ? null : comboboxRepeater.itemAt(index - 1)
-                                property var rootIndex: parentCombobox ? ImageMetadataStorage.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
-                                visible: !parentCombobox || (parentCombobox.visible && ImageMetadataStorage.hasChildren(rootIndex))
+                                property var rootIndex: parentCombobox ? ims.index(parentCombobox.currentIndex, 0, parentCombobox.rootIndex) : 0
+                                visible: !parentCombobox || (parentCombobox.visible && ims.hasChildren(rootIndex))
 
                                 Layout.fillWidth: true
                                 enabled: count > 1
@@ -164,10 +175,10 @@ ApplicationWindow {
                                 Layout.column: 1
 
                                 model: {
-                                    var size = ImageMetadataStorage.rowCount(rootIndex);
+                                    var size = ims.rowCount(rootIndex);
                                     var ret = []
                                     for(var row = 0; row < size; ++row)
-                                        ret.push(ImageMetadataStorage.data(ImageMetadataStorage.index(row, 0, rootIndex), 0x101));
+                                        ret.push(ims.data(ims.index(row, 0, rootIndex), 0x101));
 
                                     return ret;
                                 }

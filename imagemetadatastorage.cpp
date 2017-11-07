@@ -3,8 +3,7 @@
 
 #include "imagemetadatastorage.h"
 
-ImageMetadataStorage::ImageMetadataStorage(QUrl rootUrl)
-    : rootUrl(rootUrl)
+ImageMetadataStorage::ImageMetadataStorage()
 {}
 
 ImageMetadataStorage::~ImageMetadataStorage()
@@ -14,6 +13,12 @@ ImageMetadataStorage::~ImageMetadataStorage()
 
 bool ImageMetadataStorage::readFromXML(QString xml_document)
 {
+    if(root.decision)
+    {
+        qWarning() << "Tried to reinitialize ImageMetadataStorage";
+        return false;
+    }
+
     QXmlStreamReader reader;
     reader.addData(xml_document);
 
@@ -44,12 +49,19 @@ bool ImageMetadataStorage::readFromXML(QString xml_document)
         }
     }
 
+    maxDepthChanged();
+
     return !failed;
 }
 
 const ImageMetadataStorage::Decision *ImageMetadataStorage::getRoot()
 {
     return root.decision.get();
+}
+
+unsigned int ImageMetadataStorage::getMaxDepth()
+{
+    return maxDepth;
 }
 
 QModelIndex ImageMetadataStorage::index(int row, int column, const QModelIndex &parent) const
@@ -114,6 +126,10 @@ bool ImageMetadataStorage::parseDecision(ImageMetadataStorage::Decision &decisio
 {
     auto attrs = reader.attributes();
 
+    currentDepth += 1;
+    if(maxDepth < currentDepth)
+        maxDepth = currentDepth;
+
     if(!attrs.hasAttribute(QStringLiteral("name")))
         return false;
 
@@ -122,9 +138,10 @@ bool ImageMetadataStorage::parseDecision(ImageMetadataStorage::Decision &decisio
     bool failed = false;
     while(!failed && !reader.atEnd())
     {
-        switch(reader.readNext())
+        auto tokenType = reader.readNext();
+
+        if (tokenType == QXmlStreamReader::StartElement)
         {
-        case QXmlStreamReader::StartElement:
             if(reader.name() == QStringLiteral("option"))
             {
                 if(reader.attributes().value(QStringLiteral("preselected")) == QStringLiteral("true"))
@@ -135,14 +152,12 @@ bool ImageMetadataStorage::parseDecision(ImageMetadataStorage::Decision &decisio
             }
             else
                 failed = true;
-
-            break;
-        case QXmlStreamReader::EndElement:
-            return true;
-        default:
-            break;
         }
+        else if(tokenType == QXmlStreamReader::EndElement)
+            break;
     }
+
+    currentDepth -= 1;
 
     return !failed;
 }

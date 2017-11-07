@@ -15,6 +15,8 @@ class ImageMetadataStorage : public QAbstractItemModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(unsigned int maxDepth READ getMaxDepth() NOTIFY maxDepthChanged())
+
 public:
     struct Image {
         QString name;
@@ -50,12 +52,13 @@ public:
 
     Q_ENUM(Roles)
 
-    ImageMetadataStorage(QUrl rootUrl);
+    ImageMetadataStorage();
     virtual ~ImageMetadataStorage();
 
-    bool readFromXML(QString xml_document);
+    Q_INVOKABLE bool readFromXML(QString xml_document);
 
     Decision const * getRoot();
+    unsigned int getMaxDepth();
 
     QModelIndex index(int row, int column,
                       const QModelIndex &parent = QModelIndex()) const override;
@@ -65,12 +68,16 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+signals:
+    void maxDepthChanged();
+
 private:
     bool parseDecision(Decision &decision, QXmlStreamReader &reader);
     bool parseOption(Option &option, QXmlStreamReader &reader);
     bool parseImage(Image &image, QXmlStreamReader &reader);
 
-    QUrl rootUrl;
+    int maxDepth = 0;
+    int currentDepth = 0;
     Option root;
 };
 
