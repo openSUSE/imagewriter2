@@ -27,10 +27,10 @@ RemovableDevicesModelUDisks2::RemovableDevicesModelUDisks2()
 
 QVariant RemovableDevicesModelUDisks2::data(const QModelIndex &index, int role) const
 {
-    int row = index.row();
+    size_t row = index.row();
 
     // Check whether out of bounds
-    if(static_cast<size_t>(row) >= deviceList.size())
+    if(row >= deviceList.size())
         return {};
 
     auto &device = deviceList[row];
