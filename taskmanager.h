@@ -5,10 +5,12 @@
 #include <list>
 
 #include <QAbstractItemModel>
+#include <QUrl>
 
 #include "task.h"
 
 class MetadataDownloadTask;
+class ImageDownloadTask;
 
 /* This class contains a two-level tree-like structure of Tasks and Subtasks.
  * A Subtask can be shared between several Tasks, but to resemble an acyclical
@@ -39,6 +41,7 @@ public:
 
     /* Methods to create tasks. */
     Q_INVOKABLE MetadataDownloadTask *createMetadataDownloadTask(QString serviceName);
+    Q_INVOKABLE ImageDownloadTask *createImageDownloadTask(QString imageName, QUrl url);
 
 signals:
     void taskAdded(Task *task);

@@ -56,7 +56,8 @@ public:
         DecisionPreselectedOptionRole,
         OptionNameRole,
         OptionIconRole,
-        ImageNameRole
+        ImageNameRole,
+        ImageUrlRole
     };
 
     Q_ENUM(Roles)

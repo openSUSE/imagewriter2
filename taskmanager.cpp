@@ -1,6 +1,6 @@
 #include "taskmanager.h"
 
-#include "downloadtask.h"
+#include "imagedownloadtask.h"
 #include "metadatadownloadtask.h"
 
 QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) const
@@ -88,7 +88,16 @@ MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceNam
 
     std::shared_ptr<Task> mdt = std::make_shared<MetadataDownloadTask>(serviceName, metadataUrl);
     addTask(mdt);
+    //TODO: Object ownership gets transferred to Qt, that is not good!
     return static_cast<MetadataDownloadTask*>(mdt.get());
+}
+
+ImageDownloadTask *TaskManager::createImageDownloadTask(QString imageName, QUrl url)
+{
+    std::shared_ptr<Task> idt = std::make_shared<ImageDownloadTask>(imageName, url);
+    addTask(idt);
+    //TODO: Object ownership gets transferred to Qt, that is not good!
+    return static_cast<ImageDownloadTask*>(idt.get());
 }
 
 void TaskManager::startWatchingTask(Task *child)

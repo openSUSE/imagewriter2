@@ -325,7 +325,9 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     onClicked: {
-                        console.log(ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageNameRole));
+                        var name = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageNameRole);
+                        var url = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageUrlRole);
+                        console.log(taskManager.createImageDownloadTask(name, url));
 
                         selection.grabToImage(function (image) {
                             animImage.source = image.url;
@@ -369,9 +371,10 @@ ApplicationWindow {
 
                 spacing: 5
 
+                // Scroll to the bottom if a task got added
                 Connections {
                     target: taskManager
-                    onTaskAdded: taskList.positionViewAtEnd();
+                    onTaskAdded: taskList.currentIndex = taskList.count - 1
                 }
 
                 delegate: TaskDelegate {

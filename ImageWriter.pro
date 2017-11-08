@@ -4,7 +4,8 @@ CONFIG += c++11
 SOURCES += main.cpp \
     imagemetadatastorage.cpp \
     taskmanager.cpp \
-    metadatadownloadtask.cpp
+    metadatadownloadtask.cpp \
+    imagedownloadtask.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,7 +17,8 @@ HEADERS += \
     task.h \
     removabledevicesmodel.h \
     taskmanager.h \
-    metadatadownloadtask.h
+    metadatadownloadtask.h \
+    imagedownloadtask.h
 
 linux {
     QT += dbus

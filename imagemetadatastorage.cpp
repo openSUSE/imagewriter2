@@ -101,6 +101,8 @@ QVariant ImageMetadataStorage::data(const QModelIndex &index, int role) const
         return option->icon_local_filename;
     case ImageNameRole:
         return option->image ? option->image->name : QVariant{};
+    case ImageUrlRole:
+        return option->image ? option->image->url : QVariant{};
     default:
         return QVariant{};
     }
@@ -133,6 +135,7 @@ QHash<int, QByteArray> ImageMetadataStorage::roleNames() const
     roles[OptionNameRole] = "OptionName";
     roles[OptionIconRole] = "OptionIcon";
     roles[ImageNameRole] = "ImageName";
+    roles[ImageNameRole] = "ImageUrl";
     return roles;
 }
 
