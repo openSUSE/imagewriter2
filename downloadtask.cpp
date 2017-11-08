@@ -21,4 +21,7 @@ void DownloadTask::stop()
 void DownloadTask::timerEvent(QTimerEvent *ev)
 {
     setProgress(getProgress() + 1);
+    setMessage(QStringLiteral("Doing stuff: %1").arg(getProgress()));
+    if(getProgress() == 100)
+        setState(Task::Done);
 }

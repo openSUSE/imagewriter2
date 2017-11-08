@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>TaskDelegate.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/drive-removable-media-usb-pendrive.svg</file>

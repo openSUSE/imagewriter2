@@ -344,46 +344,7 @@ ApplicationWindow {
 
                 spacing: 5
 
-                delegate: Rectangle {
-                    implicitWidth: taskList.width
-                    implicitHeight: 60
-
-                    Label {
-                        color: "black"
-                        text: model.Name
-
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: percLabel.left
-                            margins: 10
-                        }
-                    }
-
-                    Label {
-                        id: percLabel
-                        color: "black"
-                        text: model.Progress + " %"
-
-                        anchors {
-                            top: parent.top
-                            right: parent.right
-                            margins: 10
-                        }
-                    }
-
-                    ProgressBar {
-                        from: 0
-                        to: 100
-                        value: model.Progress
-
-                        anchors {
-                            bottom: parent.bottom
-                            left: parent.left
-                            right: parent.right
-                            margins: 10
-                        }
-                    }
+                delegate: TaskDelegate {
                 }
             }
         }
