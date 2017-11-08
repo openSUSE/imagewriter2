@@ -134,8 +134,9 @@ void TaskManager::messageChanged()
 
 void TaskManager::addTask(std::shared_ptr<Task> &task)
 {
-    connect(task.get(), SIGNAL(childTaskAdded(Task*)), this, SLOT(startWatchingTask(Task*)));
     startWatchingTask(task.get());
+    for(auto r : task.get()->getChildren())
+        startWatchingTask(r.child.get());
 
     auto newIndex = tasks.size();
     beginInsertRows({}, newIndex, newIndex);

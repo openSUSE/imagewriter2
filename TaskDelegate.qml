@@ -6,8 +6,8 @@ import QtQml.Models 2.1
 Rectangle {
     id: delegate
 
-    implicitWidth: taskList.width
-    implicitHeight: column.implicitHeight + 10
+    implicitWidth: parent.width
+    implicitHeight: column.implicitHeight + column.anchors.margins
 
     // The background color shows the state
     property var backgroundColors: ["#ffffff", "#a0a0a0", "#90d090", "#d08080"]
@@ -17,9 +17,10 @@ Rectangle {
         id: column
         anchors {
             fill: parent
-            margins: 10
+            margins: 5
         }
-        
+
+        spacing: 5
         RowLayout {
             id: rowLayout
             Layout.fillWidth: true
@@ -32,7 +33,6 @@ Rectangle {
             }
             
             Label {
-                id: percLabel
                 color: "black"
                 text: model.Progress + " %"
             }
@@ -56,6 +56,7 @@ Rectangle {
             id: childTaskModel
             model: taskManager
             rootIndex: taskManager.index(index, 0, 0)
+
             delegate: Rectangle {
                 border.color: "darkgrey"
                 border.width: 2

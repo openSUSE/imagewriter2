@@ -52,7 +52,8 @@ protected slots:
     void messageChanged();
 
 private:
-    // Internal methods to add and remove toplevel tasks to the structure
+    /* Internal methods to add and remove toplevel tasks to the structure */
+    // task needs to have all child tasks added already
     void addTask(std::shared_ptr<Task> &task);
     void removeTask(Task *task);
     QModelIndex indexForRelation(Task::Relation *relation);
