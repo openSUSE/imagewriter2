@@ -1,8 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
+//import QtQuick.Controls 1.0
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
-import QtQml.Models 2.1
 
 import org.opensuse.imgwriter 1.0
 
@@ -320,25 +320,33 @@ ApplicationWindow {
             }
         }
 
-        GroupBox {
+        Rectangle {
             id: taskListBox
             width: 200
             height: 200
+            border.color: "white"
+            border.width: 1
             Layout.preferredHeight: 120
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.margins: 10
-            title: qsTr("Task List")
+            color: "transparent"
 
             // Custom label component for the right text color
-            label: Label {
+            Label {
+                x: 0
+                y: -12
                 color: window.fontColor
-                text: parent.title
+                text: qsTr("Task List")
+
+                anchors.bottom: parent.top
+                anchors.left: parent.left
             }
 
             ListView {
                 id: taskList
                 anchors.fill: parent
+                anchors.margins: 10
                 clip: true
 
                 model: taskManager
