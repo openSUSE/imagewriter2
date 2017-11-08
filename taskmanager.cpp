@@ -63,7 +63,7 @@ QModelIndex TaskManager::parent(const QModelIndex &index) const
     if(it == tasks.end())
         return {};
 
-    auto row = std::distance(it, tasks.begin());
+    auto row = std::distance(tasks.begin(), it);
     return createIndex(row, 0, const_cast<Task::Relation*>(&*it));
 }
 
