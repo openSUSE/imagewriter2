@@ -107,6 +107,20 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.topMargin: 10
 
+            /* Returns QModelIndex into ims to get the data about the chosen image. */
+            function getCurrentSelectedIndex()
+            {
+                /* Iterate all comboboxes, the last one indicates which image got picked. */
+                for(var i = comboboxRepeater.count; --i >= 0;)
+                {
+                    var combobox = comboboxRepeater.itemAt(i);
+                    if(!combobox.visible)
+                        continue;
+
+                    return ims.index(combobox.currentIndex, 0, combobox.rootIndex);
+                }
+            }
+
             ColumnLayout {
                 id: sourceLayout
                 anchors.leftMargin: 10
@@ -311,6 +325,8 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     onClicked: {
+                        console.log(ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageNameRole));
+
                         selection.grabToImage(function (image) {
                             animImage.source = image.url;
                             animation.start();
