@@ -1,17 +1,7 @@
 #include "taskmanager.h"
 
 #include "downloadtask.h"
-
-TaskManager::TaskManager()
-{
-    std::shared_ptr<Task> parent1 = std::make_shared<DownloadTask>(QUrl{}, QUrl{}, QStringLiteral("Parent 1"));
-    addTask(parent1);
-    std::shared_ptr<Task> parent2 = std::make_shared<DownloadTask>(QUrl{}, QUrl{}, QStringLiteral("Parent 2"));
-    addTask(parent2);
-    std::shared_ptr<Task> childtask = std::make_shared<DownloadTask>(QUrl{}, QUrl{}, QStringLiteral("Child1"));
-    parent1->addChild(childtask);
-    parent2->addChild(childtask);
-}
+#include "metadatadownloadtask.h"
 
 QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) const
 {
@@ -89,6 +79,18 @@ QHash<int, QByteArray> TaskManager::roleNames() const
     return roles;
 }
 
+MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceName)
+{
+    QUrl metadataUrl = QUrl(QStringLiteral("http://w3.suse.de/~fvogt/images.xml"));
+
+    if(serviceName != QStringLiteral("opensuse"))
+        return nullptr;
+
+    std::shared_ptr<Task> mdt = std::make_shared<MetadataDownloadTask>(serviceName, metadataUrl);
+    addTask(mdt);
+    return static_cast<MetadataDownloadTask*>(mdt.get());
+}
+
 void TaskManager::startWatchingTask(Task *child)
 {
     // Avoid connecting to a task over more than a single way
@@ -140,6 +142,8 @@ void TaskManager::addTask(std::shared_ptr<Task> &task)
     tasks.emplace_back(nullptr, task);
     task->addParentRelation(&*tasks.rbegin());
     endInsertRows();
+
+    emit taskAdded(task.get());
 }
 
 void TaskManager::removeTask(Task *task)

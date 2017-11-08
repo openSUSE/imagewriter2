@@ -65,8 +65,8 @@ public:
     }
 
 public slots:
-    virtual void start() = 0;
-    virtual void stop() = 0;
+    Q_INVOKABLE virtual void start() = 0;
+    Q_INVOKABLE virtual void stop() = 0;
 
 protected:
     void setState(State state) { this->state = state; emit stateChanged(); }
@@ -90,8 +90,8 @@ private:
     }
 
     QString name;
-    State state;
-    unsigned int progress;
+    State state = Idle;
+    unsigned int progress = 0;
     QString message;
     // Needs to be a std::list as we pass raw pointers around
     std::list<Relation> children;

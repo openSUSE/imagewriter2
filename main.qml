@@ -20,6 +20,12 @@ ApplicationWindow {
     // Background color
     color: "#302020"
 
+    Component.onCompleted: {
+        var mdt = taskManager.createMetadataDownloadTask("opensuse");
+        mdt.finished.connect(function (url) { ims.readFromXMLFile(url); });
+        mdt.start();
+    }
+
     Rectangle {
         id: animDeleg
         color: window.color
@@ -83,11 +89,6 @@ ApplicationWindow {
 
     ImageMetadataStorage {
         id: ims
-
-        Component.onCompleted: {
-            readFromXMLFile("/tmp/images.xml");
-            //readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1' preselected='true'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option><option name='Option 1.1' preselected='true'><image name='Image 1.1' url='url2' size='2'/></option></decision></option></decision></option></decision>");
-        }
     }
 
     TaskManager {
@@ -343,6 +344,11 @@ ApplicationWindow {
                 model: taskManager
 
                 spacing: 5
+
+                Connections {
+                    target: taskManager
+                    onTaskAdded: taskList.positionViewAtEnd();
+                }
 
                 delegate: TaskDelegate {
                 }
