@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
+import QtQml.Models 2.1
 
 import org.opensuse.imgwriter 1.0
 
@@ -87,6 +88,10 @@ ApplicationWindow {
             readFromXMLFile("/tmp/images.xml");
             //readFromXML("<decision name='Decision 0'><option name='Option 0.0'><image name='Image 0.0' url='url' size='0'/></option><option name='Option 0.1' preselected='true'><decision name='Decision 1'><option name='Option 1.0'><image name='Image 1.0' url='url1' size='1'/></option><option name='Option 1.1' preselected='true'><image name='Image 1.1' url='url2' size='2'/></option></decision></option></decision></option></decision>");
         }
+    }
+
+    TaskManager {
+        id: taskManager
     }
 
     ColumnLayout {
@@ -218,6 +223,7 @@ ApplicationWindow {
                     Layout.minimumHeight: 64
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
+                    // Follows order of RemovableDevicesModel.DeviceType enum
                     property var icons: ["media-optical-recordable.svg",
                                          "media-optical-recordable.svg",
                                          "drive-removable-media-usb-pendrive.svg",
@@ -334,22 +340,17 @@ ApplicationWindow {
                 anchors.fill: parent
                 clip: true
 
-                model: ListModel {
-                    ListElement { status: "Failed burning openSUSE Leap 42.3 DVD"; progress: 0; color: "#d08080" }
-                    ListElement { status: "Finished openSUSE Tumbleweed Kubic"; progress: 100; color: "#90d090" }
-                    ListElement { status: "Downloading openSUSE Tumbleweed KDE Live"; progress: 30; color: "#a0a0a0" }
-                }
+                model: taskManager
 
                 spacing: 5
 
                 delegate: Rectangle {
                     implicitWidth: taskList.width
                     implicitHeight: 60
-                    color: model.color
 
                     Label {
                         color: "black"
-                        text: status
+                        text: model.Name
 
                         anchors {
                             top: parent.top
@@ -362,7 +363,7 @@ ApplicationWindow {
                     Label {
                         id: percLabel
                         color: "black"
-                        text: progress + " %"
+                        text: model.Progress + " %"
 
                         anchors {
                             top: parent.top
@@ -374,7 +375,7 @@ ApplicationWindow {
                     ProgressBar {
                         from: 0
                         to: 100
-                        value: progress
+                        value: model.Progress
 
                         anchors {
                             bottom: parent.bottom

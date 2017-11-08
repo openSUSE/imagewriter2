@@ -2,7 +2,9 @@ QT += quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    imagemetadatastorage.cpp
+    imagemetadatastorage.cpp \
+    taskmanager.cpp \
+    downloadtask.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,7 +14,9 @@ unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     imagemetadatastorage.h \
     task.h \
-    removabledevicesmodel.h
+    removabledevicesmodel.h \
+    taskmanager.h \
+    downloadtask.h
 
 linux {
     QT += dbus

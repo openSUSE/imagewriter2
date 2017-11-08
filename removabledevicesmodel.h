@@ -17,6 +17,8 @@ public:
         HDD
     };
 
+    Q_ENUM(DeviceType)
+
     enum Roles {
         // NameRole = Qt::DisplayRole
         PathRole = Qt::UserRole,

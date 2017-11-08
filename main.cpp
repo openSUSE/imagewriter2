@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "imagemetadatastorage.h"
+#include "taskmanager.h"
 #include "removabledevicesmodeludisks2.h"
 
 int main(int argc, char *argv[])
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<ImageMetadataStorage>("org.opensuse.imgwriter", 1, 0, "ImageMetadataStorage");
+    qmlRegisterType<TaskManager>("org.opensuse.imgwriter", 1, 0, "TaskManager");
 
     #ifdef Q_OS_LINUX
         qmlRegisterType<RemovableDevicesModelUDisks2>("org.opensuse.imgwriter", 1, 0, "RemovableDevicesModel");
