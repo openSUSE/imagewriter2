@@ -5,6 +5,7 @@
 #include "imagedownloadtask.h"
 #include "usbimagewritertask.h"
 #include "metadatadownloadtask.h"
+#include "cdrecordburntask.h"
 
 QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) const
 {
@@ -109,6 +110,14 @@ USBImageWriterTask *TaskManager::createImageWriterTask(QVariant imageData, QStri
     addTask(iwt);
     QQmlEngine::setObjectOwnership(iwt.get(), QQmlEngine::CppOwnership);
     return static_cast<USBImageWriterTask*>(iwt.get());
+}
+
+CDRecordBurnTask *TaskManager::createCDRecordBurnTask(QVariant imageData, QString deviceName, QString imageFilePath, QString devicePath)
+{
+    std::shared_ptr<Task> cbt = std::make_shared<CDRecordBurnTask>(imageData.value<ImageMetadataStorage::Image>(), deviceName, imageFilePath, devicePath);
+    addTask(cbt);
+    QQmlEngine::setObjectOwnership(cbt.get(), QQmlEngine::CppOwnership);
+    return static_cast<CDRecordBurnTask*>(cbt.get());
 }
 
 void TaskManager::startWatchingTask(Task *child)

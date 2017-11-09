@@ -268,13 +268,25 @@ ApplicationWindow {
                     onClicked: {
                         var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
                         var driveName = targetSelection.driveName;
-                        var targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
-                        if(targetFD < 0)
-                            return;
+                        var driveType = targetSelection.driveType;
+                        var drivePath = targetSelection.drivePath;
+
+                        var targetFD = -1;
+                        if(driveType != 1) // If not DVD
+                        {
+                            targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
+                            if(targetFD < 0)
+                                return;
+                        }
 
                         var task = taskManager.createImageDownloadTask(data, ims.serviceName);
                         task.downloadFinished.connect(function (imageFilePath) {
-                            var writeTask = taskManager.createImageWriterTask(data, driveName, imageFilePath, targetFD);
+                            var writeTask;
+                            if(driveType == 1) // If DVD
+                                writeTask = taskManager.createCDRecordBurnTask(data, driveName, imageFilePath, drivePath);
+                            else
+                                writeTask = taskManager.createImageWriterTask(data, driveName, imageFilePath, targetFD);
+
                             writeTask.start();
                         });
                         task.start();

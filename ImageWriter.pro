@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     taskmanager.cpp \
     metadatadownloadtask.cpp \
     imagedownloadtask.cpp \
-    usbimagewritertask.cpp
+    usbimagewritertask.cpp \
+    cdrecordburntask.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,7 +21,8 @@ HEADERS += \
     taskmanager.h \
     metadatadownloadtask.h \
     imagedownloadtask.h \
-    usbimagewritertask.h
+    usbimagewritertask.h \
+    cdrecordburntask.h
 
 linux {
     QT += dbus

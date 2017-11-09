@@ -8,6 +8,7 @@
 #include "metadatadownloadtask.h"
 #include "imagedownloadtask.h"
 #include "usbimagewritertask.h"
+#include "cdrecordburntask.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     qmlRegisterInterface<MetadataDownloadTask>("MetadataDownloadTask");
     qmlRegisterInterface<ImageDownloadTask>("ImageDownloadTask");
     qmlRegisterInterface<USBImageWriterTask>("USBImageWriterTask");
+    qmlRegisterInterface<CDRecordBurnTask>("CDRecordBurnTask");
 
     #ifdef Q_OS_LINUX
         qmlRegisterType<RemovableDevicesModelUDisks2>("org.opensuse.imgwriter", 1, 0, "RemovableDevicesModel");
