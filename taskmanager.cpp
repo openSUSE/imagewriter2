@@ -1,5 +1,7 @@
 #include "taskmanager.h"
 
+#include <QQmlEngine>
+
 #include "imagedownloadtask.h"
 #include "metadatadownloadtask.h"
 
@@ -88,7 +90,7 @@ MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceNam
 
     std::shared_ptr<Task> mdt = std::make_shared<MetadataDownloadTask>(serviceName, metadataUrl);
     addTask(mdt);
-    //TODO: Object ownership gets transferred to Qt, that is not good!
+    QQmlEngine::setObjectOwnership(mdt.get(), QQmlEngine::CppOwnership);
     return static_cast<MetadataDownloadTask*>(mdt.get());
 }
 
@@ -96,7 +98,7 @@ ImageDownloadTask *TaskManager::createImageDownloadTask(QString imageName, QUrl 
 {
     std::shared_ptr<Task> idt = std::make_shared<ImageDownloadTask>(imageName, url);
     addTask(idt);
-    //TODO: Object ownership gets transferred to Qt, that is not good!
+    QQmlEngine::setObjectOwnership(idt.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloadTask*>(idt.get());
 }
 
