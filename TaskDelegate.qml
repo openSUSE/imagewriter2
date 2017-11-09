@@ -10,7 +10,7 @@ Rectangle {
     implicitHeight: column.implicitHeight + column.anchors.margins
 
     // The background color shows the state
-    property var backgroundColors: ["#ffffff", "#a0a0a0", "#90d090", "#d08080"]
+    property var backgroundColors: ["#ddd", "#aaa", "#9d9", "#d88"]
     color: backgroundColors[model.State]
     
     ColumnLayout {
