@@ -8,7 +8,7 @@ WriterThread::WriterThread(QString source, int destFD)
     : source(source),
       destFD(destFD)
 {
-    connect(this, &WriterThread::finished, [&] { close(destFD); destFD = -1; });
+    connect(this, &WriterThread::finished, [this] { close(this->destFD); this->destFD = -1; });
 }
 
 WriterThread::~WriterThread()
