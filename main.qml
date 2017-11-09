@@ -1,6 +1,6 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.0
-//import QtQuick.Controls 1.0
+import QtQuick 2.0
+//import QtQuick.Controls 2.0
+import QtQuick.Controls 1.0
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
 
@@ -24,67 +24,6 @@ ApplicationWindow {
         var mdt = taskManager.createMetadataDownloadTask("opensuse");
         mdt.finished.connect(function (url) { ims.readFromXMLFile(url); });
         mdt.start();
-    }
-
-    Rectangle {
-        id: animDeleg
-        color: window.color
-        visible: false //animation.running
-        z: 2
-
-        Image {
-            id: animImage
-            anchors.fill: parent
-        }
-
-        ParallelAnimation {
-            id: animation
-            running: false
-            property int duration: 500
-            property var targetPos: taskList.mapToGlobal(-window.x, -window.y)
-
-            OpacityAnimator {
-                target: animDeleg
-                from: 1
-                to: 0
-                duration: animation.duration*2
-                easing.type: Easing.OutSine
-            }
-
-            XAnimator {
-                target: animDeleg
-                from: 0
-                to: animation.targetPos.x
-                duration: animation.duration
-                easing.type: Easing.OutSine
-            }
-
-            YAnimator {
-                target: animDeleg
-                from: 0
-                to: animation.targetPos.y
-                duration: animation.duration
-                easing.type: Easing.OutSine
-            }
-
-            NumberAnimation {
-                target: animDeleg
-                property: "width"
-                from: selection.width
-                to: taskList.width
-                duration: animation.duration
-                easing.type: Easing.OutSine
-            }
-
-            NumberAnimation {
-                target: animDeleg
-                property: "height"
-                from: selection.height
-                to: taskList.height
-                duration: animation.duration
-                easing.type: Easing.OutSine
-            }
-        }
     }
 
     ImageMetadataStorage {
