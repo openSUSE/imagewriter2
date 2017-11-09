@@ -54,7 +54,10 @@ void WriterThread::run()
         emit bytesWritten(read);
     }
 
-    emit finished(0);
+    if(fsync(destFD) == 0)
+        emit finished(0);
+    else
+        emit finished(errno);
 }
 
 USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, int usbFD)
