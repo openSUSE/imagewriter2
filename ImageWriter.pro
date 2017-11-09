@@ -9,6 +9,9 @@ SOURCES += main.cpp \
     usbimagewritertask.cpp \
     cdrecordburntask.cpp
 
+# Localization
+TRANSLATIONS += i18n/de_DE.ts
+
 RESOURCES += qml.qrc
 
 unix:!android: target.path = /opt/$${TARGET}/bin

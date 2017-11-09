@@ -9,4 +9,7 @@
         <file>icons/media-optical-recordable.svg</file>
         <file>icons/start-here-branding.svg</file>
     </qresource>
+    <qresource prefix="/i18n">
+        <file>i18n/de_DE.qm</file>
+    </qresource>
 </RCC>

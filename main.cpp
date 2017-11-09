@@ -1,6 +1,7 @@
 #include <QtQml>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QTranslator>
 
 #include "imagemetadatastorage.h"
 #include "taskmanager.h"
@@ -14,6 +15,13 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+
+    QTranslator appTranslator;
+    appTranslator.load(QLocale::system().name(), QStringLiteral(":/i18n/i18n/"));
+    app.installTranslator(&appTranslator);
+
+    QCoreApplication::setOrganizationName(QStringLiteral("org.opensuse"));
+    QCoreApplication::setApplicationName(QStringLiteral("imgwriter"));
 
     QQmlApplicationEngine engine;
 
