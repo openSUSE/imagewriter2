@@ -26,7 +26,7 @@ public slots:
 protected slots:
     void readyRead();
     void finished();
-    void stateChanged();
+    void onStateChanged();
 
 signals:
     void downloadFinished(QString localPath);
@@ -46,7 +46,7 @@ private:
     QByteArray expectedChecksum;
 
     // To calculate the download speed
-    int speedTimerId;
+    int speedTimerId = -1;
     static const unsigned int pollDuration = 2000;
     uint64_t bytesRead = 0;
     uint64_t bytesLastTime = 0;

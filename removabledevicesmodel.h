@@ -10,6 +10,8 @@
 class RemovableDevicesModel : public QAbstractListModel
 {
 public:
+    virtual ~RemovableDevicesModel() {}
+
     enum DeviceType {
         Unknown,
         DVD,

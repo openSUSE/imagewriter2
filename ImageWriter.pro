@@ -5,7 +5,8 @@ SOURCES += main.cpp \
     imagemetadatastorage.cpp \
     taskmanager.cpp \
     metadatadownloadtask.cpp \
-    imagedownloadtask.cpp
+    imagedownloadtask.cpp \
+    usbimagewritertask.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,7 +19,8 @@ HEADERS += \
     removabledevicesmodel.h \
     taskmanager.h \
     metadatadownloadtask.h \
-    imagedownloadtask.h
+    imagedownloadtask.h \
+    usbimagewritertask.h
 
 linux {
     QT += dbus

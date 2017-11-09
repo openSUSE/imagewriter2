@@ -21,7 +21,7 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
 
     connect(&nam, SIGNAL(finished(QNetworkReply *)), this, SLOT(finished()));
 
-    connect(this, SIGNAL(stateChanged()), this, SLOT(stateChanged()));
+    connect(this, SIGNAL(stateChanged()), this, SLOT(onStateChanged()));
 }
 
 ImageDownloadTask::~ImageDownloadTask()
@@ -46,6 +46,7 @@ void ImageDownloadTask::start()
         setState(Task::Done);
         setProgress(100);
         setMessage(tr("Download skipped, found in cache"));
+        emit downloadFinished(destinationDir.absoluteFilePath(destinationFile.fileName()));
         return;
     }
 
@@ -159,11 +160,11 @@ void ImageDownloadTask::finished()
     reply = nullptr;
 }
 
-void ImageDownloadTask::stateChanged()
+void ImageDownloadTask::onStateChanged()
 {
     if(getState() == Task::Running)
         speedTimerId = startTimer(pollDuration);
-    else
+    else if(speedTimerId >= 0)
         killTimer(speedTimerId);
 }
 

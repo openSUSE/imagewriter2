@@ -4,6 +4,8 @@
 #include <QXmlStreamReader>
 #include <QDBusUnixFileDescriptor>
 
+#include <unistd.h>
+
 #include "removabledevicesmodeludisks2.h"
 
 RemovableDevicesModelUDisks2::RemovableDevicesModelUDisks2()
@@ -81,10 +83,10 @@ int RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
         auto reply = block.call(QStringLiteral("OpenForRestore"), QVariantMap{});
         QDBusUnixFileDescriptor fd(qvariant_cast<QDBusUnixFileDescriptor>(reply.arguments()[0]));
         if (fd.isValid())
-            return fd.fileDescriptor();
-
-        return -1;
+            return dup(fd.fileDescriptor());
     }
+
+    return -1;
 }
 
 void RemovableDevicesModelUDisks2::devicesIntrospected(const QString &xml)

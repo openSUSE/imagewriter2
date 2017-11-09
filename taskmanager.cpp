@@ -3,6 +3,7 @@
 #include <QQmlEngine>
 
 #include "imagedownloadtask.h"
+#include "usbimagewritertask.h"
 #include "metadatadownloadtask.h"
 
 QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) const
@@ -100,6 +101,14 @@ ImageDownloadTask *TaskManager::createImageDownloadTask(QVariant imageData, QStr
     addTask(idt);
     QQmlEngine::setObjectOwnership(idt.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloadTask*>(idt.get());
+}
+
+USBImageWriterTask *TaskManager::createImageWriterTask(QVariant imageData, QString deviceName, QString imageFilePath, int fd)
+{
+    std::shared_ptr<Task> iwt = std::make_shared<USBImageWriterTask>(imageData.value<ImageMetadataStorage::Image>(), deviceName, imageFilePath, fd);
+    addTask(iwt);
+    QQmlEngine::setObjectOwnership(iwt.get(), QQmlEngine::CppOwnership);
+    return static_cast<USBImageWriterTask*>(iwt.get());
 }
 
 void TaskManager::startWatchingTask(Task *child)

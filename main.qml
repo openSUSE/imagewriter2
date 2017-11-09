@@ -200,6 +200,7 @@ ApplicationWindow {
                     property int driveType: { count; model.data(model.index(currentIndex, 0, 0), 0x102) || 0 }
                     property string driveSize: { count; model.data(model.index(currentIndex, 0, 0), 0x101) || 0 }
                     property var drivePath: { count; model.data(model.index(currentIndex, 0, 0), 0x100) }
+                    property var driveName: { count; model.data(model.index(currentIndex, 0, 0), 0) }
 
                     id: targetSelection
 
@@ -266,9 +267,17 @@ ApplicationWindow {
 
                     onClicked: {
                         var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
+                        var driveName = targetSelection.driveName;
+                        var targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
+                        if(targetFD < 0)
+                            return;
+
                         var task = taskManager.createImageDownloadTask(data, ims.serviceName);
-                        //task.start();
-                        console.log(targetSelection.model.openDeviceHandle(targetSelection.currentIndex));
+                        task.downloadFinished.connect(function (imageFilePath) {
+                            var writeTask = taskManager.createImageWriterTask(data, driveName, imageFilePath, targetFD);
+                            writeTask.start();
+                        });
+                        task.start();
 
                         selection.grabToImage(function (image) {
                             animImage.source = image.url;
