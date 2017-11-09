@@ -101,7 +101,7 @@ void USBImageWriterTask::bytesWritten(quint64 count)
 {
     totalBytesWritten += count;
     auto progress = (totalBytesWritten * 100) / image.size;
-    setProgress(std::min(progress, 100ul));
+    setProgress(std::min(progress, static_cast<decltype(progress)>(100)));
 }
 
 void USBImageWriterTask::onStateChanged()

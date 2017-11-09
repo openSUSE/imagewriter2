@@ -107,7 +107,7 @@ void ImageDownloadTask::readyRead()
     }
 
     auto progress = bytesRead * 100 / image.size;
-    setProgress(std::min(progress, 99ul));
+    setProgress(std::min(progress, static_cast<decltype(progress)>(99ul)));
 }
 
 void ImageDownloadTask::finished()
