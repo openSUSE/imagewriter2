@@ -27,6 +27,8 @@ public:
     };
 
     Q_ENUM(Roles)
+
+    virtual Q_INVOKABLE int openDeviceHandle(unsigned int index) = 0;
 };
 
 #endif // REMOVABLEDEVICESMODEL_H

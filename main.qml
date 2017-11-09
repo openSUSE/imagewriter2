@@ -267,7 +267,8 @@ ApplicationWindow {
                     onClicked: {
                         var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
                         var task = taskManager.createImageDownloadTask(data, ims.serviceName);
-                        task.start();
+                        //task.start();
+                        console.log(targetSelection.model.openDeviceHandle(targetSelection.currentIndex));
 
                         selection.grabToImage(function (image) {
                             animImage.source = image.url;

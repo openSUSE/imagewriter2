@@ -19,6 +19,8 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
+    Q_INVOKABLE int openDeviceHandle(unsigned int index) override;
+
 protected:
     struct DeviceData {
         QString name;

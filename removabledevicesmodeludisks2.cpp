@@ -2,6 +2,7 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QXmlStreamReader>
+#include <QDBusUnixFileDescriptor>
 
 #include "removabledevicesmodeludisks2.h"
 
@@ -67,6 +68,23 @@ QHash<int, QByteArray> RemovableDevicesModelUDisks2::roleNames() const
     roles[SizeRole] = "Size";
     roles[TypeRole] = "Type";
     return roles;
+}
+
+int RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
+{
+    if(index < deviceList.size())
+    {
+        auto path = deviceList[index].dbusPath;
+        QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
+                             QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
+
+        auto reply = block.call(QStringLiteral("OpenForRestore"), QVariantMap{});
+        QDBusUnixFileDescriptor fd(qvariant_cast<QDBusUnixFileDescriptor>(reply.arguments()[0]));
+        if (fd.isValid())
+            return fd.fileDescriptor();
+
+        return -1;
+    }
 }
 
 void RemovableDevicesModelUDisks2::devicesIntrospected(const QString &xml)
