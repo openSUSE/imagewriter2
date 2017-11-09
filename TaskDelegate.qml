@@ -39,7 +39,7 @@ Rectangle {
         }
 
         ProgressBar {
-            value: model.Progress
+            value: model.Progress / 100
             Layout.fillWidth: true
         }
 
@@ -86,7 +86,7 @@ Rectangle {
                     }
 
                     ProgressBar {
-                        value: model.Progress
+                        value: model.Progress / 100
                         Layout.fillWidth: true
                     }
 
