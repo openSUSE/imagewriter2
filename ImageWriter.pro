@@ -14,8 +14,15 @@ TRANSLATIONS += i18n/de_DE.ts
 
 RESOURCES += qml.qrc
 
-unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+linux: !android {
+    # For make install support
+    target.path = /usr/bin
+    desktop.path = /usr/share/applications
+    desktop.files += org.opensuse.imgwriter.desktop
+    icon.path = /usr/share/icons/hicolor/128x128/apps
+    icon.files += icons/imgwriter.png
+    INSTALLS += target desktop icon
+}
 
 HEADERS += \
     imagemetadatastorage.h \
