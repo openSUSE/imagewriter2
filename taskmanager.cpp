@@ -94,9 +94,9 @@ MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceNam
     return static_cast<MetadataDownloadTask*>(mdt.get());
 }
 
-ImageDownloadTask *TaskManager::createImageDownloadTask(QString imageName, QUrl url)
+ImageDownloadTask *TaskManager::createImageDownloadTask(QVariant imageData, QString serviceName)
 {
-    std::shared_ptr<Task> idt = std::make_shared<ImageDownloadTask>(imageName, url);
+    std::shared_ptr<Task> idt = std::make_shared<ImageDownloadTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName);
     addTask(idt);
     QQmlEngine::setObjectOwnership(idt.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloadTask*>(idt.get());

@@ -20,6 +20,8 @@ class ImageMetadataStorage : public QAbstractItemModel
      * an XML source was loaded. */
     Q_PROPERTY(unsigned int maxDepth READ getMaxDepth() NOTIFY maxDepthChanged())
 
+    Q_PROPERTY(QString serviceName READ getServiceName() WRITE setServiceName(QString &))
+
 public:
     /* Information about an Image. */
     struct Image {
@@ -57,7 +59,8 @@ public:
         OptionNameRole,
         OptionIconRole,
         ImageNameRole,
-        ImageUrlRole
+        ImageUrlRole,
+        ImageDataRole
     };
 
     Q_ENUM(Roles)
@@ -82,6 +85,9 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    QString getServiceName() const;
+    void setServiceName(const QString &value);
+
 signals:
     void maxDepthChanged();
 
@@ -93,6 +99,9 @@ private:
     int maxDepth = 0;
     int currentDepth = 0;
     Option root;
+    QString serviceName;
 };
+
+Q_DECLARE_METATYPE(ImageMetadataStorage::Image)
 
 #endif // IMAGEMETADATASTORAGE_H

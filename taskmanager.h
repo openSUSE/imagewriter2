@@ -41,7 +41,7 @@ public:
 
     /* Methods to create tasks. */
     Q_INVOKABLE MetadataDownloadTask *createMetadataDownloadTask(QString serviceName);
-    Q_INVOKABLE ImageDownloadTask *createImageDownloadTask(QString imageName, QUrl url);
+    Q_INVOKABLE ImageDownloadTask *createImageDownloadTask(QVariant imageData, QString serviceName);
 
 signals:
     void taskAdded(Task *task);

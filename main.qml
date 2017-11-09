@@ -29,7 +29,7 @@ ApplicationWindow {
     Rectangle {
         id: animDeleg
         color: window.color
-        visible: animation.running
+        visible: false //animation.running
         z: 2
 
         Image {
@@ -89,6 +89,7 @@ ApplicationWindow {
 
     ImageMetadataStorage {
         id: ims
+        serviceName: "opensuse"
     }
 
     TaskManager {
@@ -325,9 +326,9 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     onClicked: {
-                        var name = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageNameRole);
-                        var url = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageUrlRole);
-                        console.log(taskManager.createImageDownloadTask(name, url));
+                        var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
+                        var task = taskManager.createImageDownloadTask(data, ims.serviceName);
+                        task.start();
 
                         selection.grabToImage(function (image) {
                             animImage.source = image.url;

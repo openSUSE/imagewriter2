@@ -103,6 +103,8 @@ QVariant ImageMetadataStorage::data(const QModelIndex &index, int role) const
         return option->image ? option->image->name : QVariant{};
     case ImageUrlRole:
         return option->image ? option->image->url : QVariant{};
+    case ImageDataRole:
+        return option->image ? QVariant::fromValue(*option->image) : QVariant{};
     default:
         return QVariant{};
     }
@@ -135,7 +137,8 @@ QHash<int, QByteArray> ImageMetadataStorage::roleNames() const
     roles[OptionNameRole] = "OptionName";
     roles[OptionIconRole] = "OptionIcon";
     roles[ImageNameRole] = "ImageName";
-    roles[ImageNameRole] = "ImageUrl";
+    roles[ImageUrlRole] = "ImageUrl";
+    roles[ImageDataRole] = "ImageData";
     return roles;
 }
 
@@ -277,4 +280,14 @@ bool ImageMetadataStorage::parseImage(ImageMetadataStorage::Image &image, QXmlSt
     }
 
     return !failed;
+}
+
+QString ImageMetadataStorage::getServiceName() const
+{
+    return serviceName;
+}
+
+void ImageMetadataStorage::setServiceName(const QString &value)
+{
+    serviceName = value;
 }
