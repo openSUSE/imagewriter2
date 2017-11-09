@@ -10,7 +10,6 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
       image(image)
 {
     auto cacheLocation = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
-    cacheLocation = "/tmp";
 
     expectedChecksum = QByteArray::fromHex(image.sha256sum.toLatin1());
     QString filename = expectedChecksum.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
@@ -65,7 +64,18 @@ void ImageDownloadTask::start()
 
 void ImageDownloadTask::stop()
 {
+    if(reply)
+    {
+        reply->abort();
+        if(reply)
+            reply->deleteLater();
 
+        reply = nullptr;
+    }
+    temporaryFile.remove();
+
+    setState(Task::Failed);
+    setMessage(tr("Aborted"));
 }
 
 void ImageDownloadTask::readyRead()
