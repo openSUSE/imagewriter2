@@ -20,7 +20,7 @@ linux: !android {
     desktop.path = /usr/share/applications
     desktop.files += org.opensuse.imgwriter.desktop
     icon.path = /usr/share/icons/hicolor/128x128/apps
-    icon.files += icons/imgwriter.png
+    icon.files += icons/org.opensuse.imgwriter.png
     INSTALLS += target desktop icon
 }
 

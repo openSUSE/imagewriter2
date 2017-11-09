@@ -2,7 +2,7 @@
 Type=Application
 Categories=System;Utility;Archiving;
 Exec=ImageWriter %f
-Icon=imgwriter
+Icon=org.opensuse.imgwriter
 Name=openSUSE Image Writer
 GenericName=Write openSUSE to media
 Keywords=iso;disk;usb;dvd;
