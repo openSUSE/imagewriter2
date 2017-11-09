@@ -172,7 +172,6 @@ void TaskManager::removeTask(Task *task)
 
 QModelIndex TaskManager::indexForRelation(Task::Relation *relation)
 {
-    auto *parent = relation->parent;
     auto &tasksList = relation->parent ? relation->parent->getChildren() : tasks;
 
     // We need to find the row

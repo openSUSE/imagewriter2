@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QTimerEvent>
 #include <QNetworkReply>
 
 ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName)
@@ -19,11 +20,23 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
     temporaryFile.setFileName(destinationDir.absoluteFilePath(filename) + QStringLiteral(".part"));
 
     connect(&nam, SIGNAL(finished(QNetworkReply *)), this, SLOT(finished()));
+
+    connect(this, SIGNAL(stateChanged()), this, SLOT(stateChanged()));
 }
 
 ImageDownloadTask::~ImageDownloadTask()
 {
 
+}
+
+void ImageDownloadTask::timerEvent(QTimerEvent *ev)
+{
+    if(ev->timerId() != speedTimerId)
+        return Task::timerEvent(ev);
+
+    bytesPerSec = ((bytesRead - bytesLastTime) * 1000) / pollDuration;
+    bytesLastTime = bytesRead;
+    setMessage(tr("%1 / %2 (%3/s)").arg(humanReadable(bytesRead)).arg(humanReadable(image.size)).arg(humanReadable(bytesPerSec)));
 }
 
 void ImageDownloadTask::start()
@@ -144,4 +157,28 @@ void ImageDownloadTask::finished()
 
     reply->deleteLater();
     reply = nullptr;
+}
+
+void ImageDownloadTask::stateChanged()
+{
+    if(getState() == Task::Running)
+        speedTimerId = startTimer(pollDuration);
+    else
+        killTimer(speedTimerId);
+}
+
+QString ImageDownloadTask::humanReadable(uint64_t bytes)
+{
+    auto kibibytes = bytes / 1024,
+         mebibytes = kibibytes / 1024,
+         gibibytes = mebibytes / 1024;
+
+    if (gibibytes >= 10)
+        return tr("%1 GiB").arg(gibibytes);
+    else if (mebibytes >= 10)
+        return tr("%1 MiB").arg(mebibytes);
+    else if(kibibytes >= 10)
+        return tr("%1 KiB").arg(kibibytes);
+    else
+        return tr("%1 B").arg(bytes);
 }

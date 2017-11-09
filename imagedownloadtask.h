@@ -16,6 +16,9 @@ public:
     ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName);
     ~ImageDownloadTask();
 
+protected:
+    void timerEvent(QTimerEvent *ev) override;
+
 public slots:
     void start() override;
     void stop() override;
@@ -23,11 +26,14 @@ public slots:
 protected slots:
     void readyRead();
     void finished();
+    void stateChanged();
 
 signals:
     void downloadFinished(QString localPath);
 
 private:
+    QString humanReadable(uint64_t bytes);
+
     ImageMetadataStorage::Image image;
     QNetworkAccessManager nam;
     QDir destinationDir;
@@ -40,7 +46,11 @@ private:
     QByteArray expectedChecksum;
 
     // To calculate the download speed
+    int speedTimerId;
+    static const unsigned int pollDuration = 2000;
     uint64_t bytesRead = 0;
+    uint64_t bytesLastTime = 0;
+    uint64_t bytesPerSec = 0;
 };
 
 #endif // IMAGEDOWNLOADTASK_H
