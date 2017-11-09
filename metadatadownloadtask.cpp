@@ -27,7 +27,7 @@ void MetadataDownloadTask::start()
     setMessage(tr("Downloading metadata"));
 
     // Only try to fetch metadata if connection available
-    if(0&&nam.networkAccessible() == QNetworkAccessManager::Accessible)
+    if(nam.networkAccessible() == QNetworkAccessManager::Accessible)
     {
         QNetworkRequest request{metadataUrl};
         request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
