@@ -28,7 +28,11 @@ void MetadataDownloadTask::start()
 
     // Only try to fetch metadata if connection available
     if(nam.networkAccessible() == QNetworkAccessManager::Accessible)
-        nam.get(QNetworkRequest{metadataUrl});
+    {
+        QNetworkRequest request{metadataUrl};
+        request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+        nam.get(request);
+    }
     else
         replyFinished(nullptr);
 }
@@ -40,15 +44,6 @@ void MetadataDownloadTask::stop()
 
 void MetadataDownloadTask::replyFinished(QNetworkReply *reply)
 {
-    // Might be a redirection
-    QUrl redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-    if(redirectionTarget.isValid())
-    {
-        nam.get(QNetworkRequest{redirectionTarget});
-        reply->deleteLater();
-        return;
-    }
-
     setProgress(100);
 
     QFileInfo fileInfo(destinationFilePath);
