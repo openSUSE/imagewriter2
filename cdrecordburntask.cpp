@@ -1,6 +1,7 @@
 #include "cdrecordburntask.h"
 
 #include <QDir>
+#include <QRegularExpression>
 
 CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, QString devicePath)
     : Task(tr("Writing to %1").arg(deviceName)),
@@ -12,7 +13,7 @@ CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QSt
     connect(&burnProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadOutput()));
     connect(&burnProcess, SIGNAL(readyReadStandardError()), this, SLOT(readyReadOutput()));
     connect(&burnProcess, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(burnProcessStateChanged()));
-    connect(&burnProcess, SIGNAL(errorOccured(QProcess::ProcessError)), this, SLOT(burnProcessError()));
+    connect(&burnProcess, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(burnProcessError()));
 }
 
 CDRecordBurnTask::~CDRecordBurnTask()
@@ -38,7 +39,7 @@ void CDRecordBurnTask::start()
     QStringList arguments;
     arguments << "cdrecord"
               << QStringLiteral("-dev=%1,%2,%3").arg(scsiLunParts[0]).arg(scsiLunParts[1]).arg(scsiLunParts[2])
-              << "driver=dvd_simul"
+              << "-dummy" << "-v"
               << imageFilePath;
 
     burnProcess.setArguments(arguments);
@@ -87,7 +88,16 @@ void CDRecordBurnTask::readyReadOutput()
             lastNonEmpty = line;
 
     if(!lastNonEmpty.isEmpty())
+    {
         setMessage(lastCdrecordOutput = lastNonEmpty);
+        QRegularExpression progressExp(QStringLiteral("(\\d+) of (\\d+) MB"));
+        auto match = progressExp.match(lastCdrecordOutput);
+        if(match.hasMatch())
+        {
+            auto progress = (match.captured(1).toInt() * 100) / match.captured(2).toInt();
+            setProgress(std::min(progress, 100));
+        }
+    }
 }
 
 void CDRecordBurnTask::burnProcessStateChanged()
