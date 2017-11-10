@@ -158,20 +158,22 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
     QDBusInterface drive{QStringLiteral("org.freedesktop.UDisks2"), drivePath.path(),
                          QStringLiteral("org.freedesktop.UDisks2.Drive"), QDBusConnection::systemBus()};
 
-    // Ignore nonremovable and read-only devices
-    if(drive.property("Removable").toBool() == false || block.property("ReadOnly").toBool())
-        return;
-
-    // Ignore System and Ignore devices
-    if(block.property("HintSystem").toBool() || block.property("HintIgnore").toBool())
-        return;
-
     // Read various properties
     auto rotationRate = drive.property("RotationRate").toInt();
     auto optical = drive.property("Optical").toBool();
     auto name = drive.property("Id").toString();
     auto size = block.property("Size").toLongLong();
     auto devicePath = block.property("PreferredDevice").toString();
+    auto readOnly = optical ? !drive.property("OpticalBlank").toBool()
+                            : block.property("ReadOnly").toBool();
+
+    // Ignore nonremovable and read-only devices
+    if(drive.property("Removable").toBool() == false || readOnly)
+        return;
+
+    // Ignore System and Ignore devices
+    if(block.property("HintSystem").toBool() || block.property("HintIgnore").toBool())
+        return;
 
     // Create container for the gathered information
     DeviceData device;
