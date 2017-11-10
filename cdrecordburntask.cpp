@@ -58,6 +58,7 @@ void CDRecordBurnTask::finished(int exitCode)
     if(exitCode == 0)
     {
         setMessage(tr("Writing successful"));
+        setProgress(100);
         setState(Task::Done);
     }
     else
