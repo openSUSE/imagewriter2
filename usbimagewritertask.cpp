@@ -91,6 +91,7 @@ void USBImageWriterTask::timerEvent(QTimerEvent *ev)
 void USBImageWriterTask::start()
 {
     setState(Task::Running);
+    setMessage(tr("Starting write"));
     writerThread.start();
 }
 

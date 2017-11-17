@@ -230,6 +230,7 @@ ApplicationWindow {
 
                 ListView {
                     id: validationList
+                    clip: true
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     model: ["Error 1", "Error 2", "Error 3"]
