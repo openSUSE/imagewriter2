@@ -69,6 +69,10 @@ private:
     void removeTask(Task *task);
     QModelIndex indexForRelation(Task::Relation *relation);
 
+    /* A cache for ImageDownloadTasks.
+     * If you write an image to two drives simultaneously, it must not
+     * be downloaded twice (they would interfere as the filename is always the same)
+     * and so the download task is shared between all ImageDownloadWriterTasks. */
     struct ImageTaskCacheEntry {
         ImageMetadataStorage::Image image;
         std::weak_ptr<ImageDownloadTask> task;

@@ -15,10 +15,14 @@ public:
     WriterThread(int destFD);
     ~WriterThread();
 
+    /* Set the filepath to the source file.
+     * This needs to be called before starting this thread. */
     void setSource(QString source);
 
 signals:
+    /* How many bytes got written in total. */
     void bytesWritten(quint64 bytes);
+    /* error is either a standard error code or 0 on success. */
     void finished(int error);
 
 protected:
@@ -62,6 +66,7 @@ private:
 
     // To calculate the write speed
     int speedTimerId = -1;
+    // Every pollDuration ms the speed gets calculated and displayed
     static const unsigned int pollDuration = 2000;
     uint64_t totalBytesWritten = 0;
     uint64_t lastBytesWritten = 0;
