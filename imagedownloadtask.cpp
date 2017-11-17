@@ -28,7 +28,7 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
 
 ImageDownloadTask::~ImageDownloadTask()
 {
-
+    stop();
 }
 
 QString ImageDownloadTask::getLocalPath()
@@ -84,6 +84,9 @@ void ImageDownloadTask::start()
 
 void ImageDownloadTask::stop()
 {
+    if(getState() != Task::Running)
+        return;
+
     if(reply)
     {
         reply->abort();

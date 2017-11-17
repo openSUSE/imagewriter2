@@ -18,7 +18,7 @@ MetadataDownloadTask::MetadataDownloadTask(QString serviceName, QUrl metadataUrl
 
 MetadataDownloadTask::~MetadataDownloadTask()
 {
-
+    stop();
 }
 
 void MetadataDownloadTask::start()
@@ -39,11 +39,19 @@ void MetadataDownloadTask::start()
 
 void MetadataDownloadTask::stop()
 {
-    setState(Task::Failed);
+    if(getState() == Task::Running)
+    {
+        setState(Task::Failed);
+        setMessage(tr("Aborted"));
+    }
 }
 
 void MetadataDownloadTask::replyFinished(QNetworkReply *reply)
 {
+    // Ignore replies we weren't expecting anymore (i.e. after being aborted.
+    if(getState() != Task::Running)
+        return;
+
     setProgress(100);
 
     QFileInfo fileInfo(destinationFilePath);

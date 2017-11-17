@@ -21,40 +21,46 @@ ImageDownloaderWriterTask::ImageDownloaderWriterTask(TaskManager &taskManager, c
 {
     writerTask = std::make_shared<CDRecordBurnTask>(image, deviceName, devicePath);
     addChild(static_cast<std::shared_ptr<Task>>(writerTask));
+
+    connect(writerTask.get(), SIGNAL(progressChanged()), this, SLOT(writeProgressChanged()));
+    connect(writerTask.get(), SIGNAL(stateChanged()), this, SLOT(writeStateChanged()));
 }
 
 ImageDownloaderWriterTask::~ImageDownloaderWriterTask()
 {
-
+    stop();
 }
 
 void ImageDownloaderWriterTask::start()
 {
     if(downloadTask->getState() == Task::Idle)
     {
+        setState(Task::Running);
         setMessage(tr("Downloading image"));
         downloadTask->start();
-        setState(Task::Running);
     }
     else if(downloadTask->getState() == Task::Done)
     {
-        downloadFinished(downloadTask->getLocalPath());
         setState(Task::Running);
+        downloadFinished(downloadTask->getLocalPath());
     }
 }
 
 void ImageDownloaderWriterTask::stop()
 {
-    writerTask->stop();
-    downloadTask->stop();
+    if(getState() == Task::Running)
+    {
+        writerTask->stop();
+        downloadTask->stop();
+    }
 }
 
 void ImageDownloaderWriterTask::downloadFinished(QString imageFilePath)
 {
+    setMessage(tr("Writing image"));
+
     writerTask->setImageFilePath(imageFilePath);
     writerTask->start();
-
-    setMessage(tr("Writing image"));
 }
 
 void ImageDownloaderWriterTask::downloadStateChanged()

@@ -27,22 +27,22 @@ void WriterThread::run()
 {
     if(!source.open(QFile::ReadOnly))
     {
-        emit finished(1);
+        emit finished(EACCES);
         return;
     }
 
-    while(!source.atEnd())
+    while(!isInterruptionRequested() && !source.atEnd())
     {
         auto read = source.read(buffer, sizeof(buffer));
         if(read < 0)
         {
-            emit finished(1);
+            emit finished(EIO);
             return;
         }
 
         auto leftToWrite = read;
         auto bufferLeft = buffer;
-        while(leftToWrite)
+        while(!isInterruptionRequested() && leftToWrite)
         {
             auto written = write(destFD, bufferLeft, leftToWrite);
             if(written < 0)
@@ -59,6 +59,9 @@ void WriterThread::run()
 
         emit bytesWritten(read);
     }
+
+    if(isInterruptionRequested())
+        emit finished(EINTR);
 
     if(fsync(destFD) == 0)
         emit finished(0);
@@ -78,7 +81,7 @@ USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image,
 
 USBImageWriterTask::~USBImageWriterTask()
 {
-    if(writerThread.isRunning())
+    if(getState() == Task::Running)
         stop();
 }
 
@@ -107,7 +110,12 @@ void USBImageWriterTask::start()
 
 void USBImageWriterTask::stop()
 {
-    writerThread.quit();
+    if(writerThread.isRunning())
+    {
+        writerThread.requestInterruption();
+        writerThread.wait();
+    }
+
     setState(Task::Failed);
     setMessage(tr("Aborted"));
 }
