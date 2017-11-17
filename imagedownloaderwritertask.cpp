@@ -63,7 +63,7 @@ void ImageDownloaderWriterTask::downloadStateChanged()
     if(state == Task::Failed)
     {
         setState(Task::Failed);
-        setMessage(tr("Writing failed"));
+        setMessage(tr("Downloading failed"));
     }
     else if(state == Task::Done)
     {
