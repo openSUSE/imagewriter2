@@ -5,6 +5,7 @@
 
 #include "imagemetadatastorage.h"
 #include "taskmanager.h"
+#include "qml64sizetype.h"
 #include "removabledevicesmodeludisks2.h"
 #include "metadatadownloadtask.h"
 #include "imagedownloadtask.h"
@@ -32,6 +33,11 @@ int main(int argc, char *argv[])
     qmlRegisterInterface<ImageDownloadTask>("ImageDownloadTask");
     qmlRegisterInterface<USBImageWriterTask>("USBImageWriterTask");
     qmlRegisterInterface<CDRecordBurnTask>("CDRecordBurnTask");
+
+    qmlRegisterInterface<QML64SizeType>("QML64SizeType");
+    qmlRegisterSingletonType<QML64SizeComparator>("org.opensuse.imgwriter", 1, 0, "Size64Comparator",
+                                                  [] (QQmlEngine *, QJSEngine *) -> QObject*
+                                                    { return new QML64SizeComparator; });
 
     #ifdef Q_OS_LINUX
         qmlRegisterType<RemovableDevicesModelUDisks2>("org.opensuse.imgwriter", 1, 0, "RemovableDevicesModel");

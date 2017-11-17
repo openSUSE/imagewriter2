@@ -32,7 +32,8 @@ HEADERS += \
     metadatadownloadtask.h \
     imagedownloadtask.h \
     usbimagewritertask.h \
-    cdrecordburntask.h
+    cdrecordburntask.h \
+    qml64sizetype.h
 
 linux {
     QT += dbus

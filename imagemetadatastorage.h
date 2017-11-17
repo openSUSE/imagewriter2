@@ -60,6 +60,7 @@ public:
         OptionIconRole,
         ImageNameRole,
         ImageUrlRole,
+        ImageSizeRole,
         ImageDataRole
     };
 

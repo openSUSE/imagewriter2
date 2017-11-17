@@ -9,7 +9,7 @@ import org.opensuse.imgwriter 1.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
+    width: 730
     height: 480
     minimumWidth: 500
     minimumHeight: 400
@@ -47,6 +47,8 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.topMargin: 10
 
+            signal selectedIndexChanged()
+
             /* Returns QModelIndex into ims to get the data about the chosen image. */
             function getCurrentSelectedIndex()
             {
@@ -54,7 +56,7 @@ ApplicationWindow {
                 for(var i = comboboxRepeater.count; --i >= 0;)
                 {
                     var combobox = comboboxRepeater.itemAt(i);
-                    if(!combobox.visible)
+                    if(!combobox || !combobox.visible)
                         continue;
 
                     return ims.index(combobox.currentIndex, 0, combobox.rootIndex);
@@ -137,6 +139,10 @@ ApplicationWindow {
                                 Layout.row: index
                                 Layout.column: 1
 
+                                // Trigger recalculation of the selected image
+                                onCurrentIndexChanged: selection.selectedIndexChanged();
+                                onRootIndexChanged: selection.selectedIndexChanged();
+
                                 // Generate the list of possible options based on the rootIndex
                                 model: {
                                     var size = ims.rowCount(rootIndex);
@@ -187,7 +193,6 @@ ApplicationWindow {
                 }
 
                 Label {
-                    id: label
                     color: window.fontColor
                     text: qsTr("Target Disk")
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -198,7 +203,7 @@ ApplicationWindow {
                 ComboBox {
                     /* Add an artifical dependency on count to refresh these values when a single entry vanishes */
                     property int driveType: { count; model.data(model.index(currentIndex, 0, 0), 0x102) || 0 }
-                    property string driveSize: { count; model.data(model.index(currentIndex, 0, 0), 0x101) || 0 }
+                    property var driveSize: { count; model.data(model.index(currentIndex, 0, 0), 0x101) || 0 }
                     property var drivePath: { count; model.data(model.index(currentIndex, 0, 0), 0x100) }
                     property var driveName: { count; model.data(model.index(currentIndex, 0, 0), 0) }
 
@@ -220,7 +225,22 @@ ApplicationWindow {
                 }
 
                 Item {
+                    Layout.fillHeight: false
+                }
+
+                ListView {
+                    id: validationList
                     Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    model: ["Error 1", "Error 2", "Error 3"]
+                    delegate: Label {
+                        width: validationList.width
+                        text: modelData
+                        font.bold: true
+                        font.pointSize: 12
+                        color: startButton.enabled ? "#9d9" : "#d88"
+                        wrapMode: Text.WordWrap
+                    }
                 }
             }
 
@@ -230,6 +250,56 @@ ApplicationWindow {
                 anchors.bottom: parent.bottom
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                // This function checks that there's nothing wrong with the options
+                // the user selected.
+                function refreshValidationState()
+                {
+                    var valid = true;
+                    var errormsgs = [];
+
+                    // Verify that a valid image is selected
+                    var index = selection.getCurrentSelectedIndex();
+                    var imageSize = index ? ims.data(index, ImageMetadataStorage.ImageSizeRole) : undefined;
+                    if(!imageSize)
+                    {
+                        valid = false;
+                        errormsgs.push(qsTr("No valid image selected"));
+                    }
+
+                    // Verify that a valid drive is selected
+                    var driveSize = targetSelection.driveSize
+                    if(!driveSize)
+                    {
+                        valid = false;
+                        errormsgs.push(qsTr("No valid drive selected"));
+                    }
+
+                    // If valid image and drive are selected, verify the size
+                    if(valid && Size64Comparator.compare(imageSize, driveSize) < 0)
+                    {
+                        valid = false;
+                        errormsgs.push(qsTr("The selected drive is too small for the image"));
+                    }
+
+                    if(valid)
+                    {
+                        errormsgs.push(qsTr("Ready to write!"));
+                    }
+
+                    startButton.enabled = valid;
+                    validationList.model = errormsgs;
+                }
+
+                Connections {
+                    target: selection
+                    onSelectedIndexChanged: go.refreshValidationState();
+                }
+
+                Connections {
+                    target: targetSelection
+                    onDriveSizeChanged: go.refreshValidationState();
+                }
 
                 // Paint an arrow pointing to the right
                 Canvas {
@@ -259,6 +329,8 @@ ApplicationWindow {
                 }
 
                 Button {
+                    id: startButton
+                    enabled: false
                     text: qsTr("Start!")
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right

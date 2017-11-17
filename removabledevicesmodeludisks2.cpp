@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "removabledevicesmodeludisks2.h"
+#include "qml64sizetype.h"
 
 RemovableDevicesModelUDisks2::RemovableDevicesModelUDisks2()
 {
@@ -45,7 +46,7 @@ QVariant RemovableDevicesModelUDisks2::data(const QModelIndex &index, int role) 
     case PathRole:
         return device.path;
     case SizeRole:
-        return QStringLiteral("%1").arg(device.size);
+        return QVariant::fromValue(QML64SizeType(device.size));
     case TypeRole:
         return device.type;
     default:

@@ -3,6 +3,7 @@
 #include <QXmlStreamReader>
 
 #include "imagemetadatastorage.h"
+#include "qml64sizetype.h"
 
 ImageMetadataStorage::ImageMetadataStorage()
 {}
@@ -105,6 +106,8 @@ QVariant ImageMetadataStorage::data(const QModelIndex &index, int role) const
         return option->image ? option->image->url : QVariant{};
     case ImageDataRole:
         return option->image ? QVariant::fromValue(*option->image) : QVariant{};
+    case ImageSizeRole:
+        return option->image ? QVariant::fromValue(QML64SizeType(option->image->size)) : QVariant{};
     default:
         return QVariant{};
     }
@@ -138,6 +141,7 @@ QHash<int, QByteArray> ImageMetadataStorage::roleNames() const
     roles[OptionIconRole] = "OptionIcon";
     roles[ImageNameRole] = "ImageName";
     roles[ImageUrlRole] = "ImageUrl";
+    roles[ImageDataRole] = "ImageSize";
     roles[ImageDataRole] = "ImageData";
     return roles;
 }
