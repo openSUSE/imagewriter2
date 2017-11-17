@@ -52,8 +52,6 @@ protected slots:
     void onStateChanged();
 
 private:
-    QString humanReadable(uint64_t bytes);
-
     WriterThread writerThread;
 
     ImageMetadataStorage::Image image;

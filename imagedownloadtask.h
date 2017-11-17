@@ -32,8 +32,6 @@ signals:
     void downloadFinished(QString localPath);
 
 private:
-    QString humanReadable(uint64_t bytes);
-
     ImageMetadataStorage::Image image;
     QNetworkAccessManager nam;
     QDir destinationDir;

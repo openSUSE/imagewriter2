@@ -4,6 +4,8 @@
 
 #include <QTimerEvent>
 
+#include "qml64sizetype.h"
+
 WriterThread::WriterThread(QString source, int destFD)
     : source(source),
       destFD(destFD)
@@ -80,8 +82,10 @@ void USBImageWriterTask::timerEvent(QTimerEvent *ev)
     if(ev->timerId() != speedTimerId)
         return Task::timerEvent(ev);
 
-    auto speed = (lastBytesWritten * 1000) / pollDuration;
-    setMessage(tr("%1 / %2 (%3/s").arg(humanReadable(totalBytesWritten)).arg(humanReadable(image.size)).arg(humanReadable(speed)));
+    auto speed = ((totalBytesWritten - lastBytesWritten) * 1000) / pollDuration;
+    lastBytesWritten = totalBytesWritten;
+
+    setMessage(tr("%1 / %2 (%3/s)").arg(QML64SizeType(totalBytesWritten).humanReadable()).arg(QML64SizeType(image.size).humanReadable()).arg(QML64SizeType(speed).humanReadable()));
 }
 
 void USBImageWriterTask::start()
@@ -126,20 +130,3 @@ void USBImageWriterTask::finished(int error)
         setState(Task::Failed);
     }
 }
-
-QString USBImageWriterTask::humanReadable(uint64_t bytes)
-{
-    auto kibibytes = bytes / 1024,
-         mebibytes = kibibytes / 1024,
-         gibibytes = mebibytes / 1024;
-
-    if (gibibytes >= 10)
-        return tr("%1 GiB").arg(gibibytes);
-    else if (mebibytes >= 10)
-        return tr("%1 MiB").arg(mebibytes);
-    else if(kibibytes >= 10)
-        return tr("%1 KiB").arg(kibibytes);
-    else
-        return tr("%1 B").arg(bytes);
-}
-

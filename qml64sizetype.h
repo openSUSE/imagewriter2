@@ -4,13 +4,11 @@
 #include <cstdint>
 
 #include <QObject>
+#include <QString>
 
 /* QML is based on JS types, which means we can't use 64bit integers (or even integers at all).
  * To meaningful compare sizes of drives and images, we need to implement that ourselves. */
-
 class QML64SizeType {
-    friend class QML64SizeComparator;
-
 public:
     QML64SizeType() {}
     QML64SizeType(uint64_t value) : value(value) {}
@@ -31,12 +29,31 @@ public:
             return 0;
     }
 
+    /* Formats the size as human readable.
+     * Example: 10240 -> 10 KiB */
+    QString humanReadable() const
+    {
+        auto kibibytes = float(value) / 1024,
+             mebibytes = kibibytes / 1024,
+             gibibytes = mebibytes / 1024;
+
+        if (gibibytes >= 3)
+            return QObject::tr("%L1 GiB").arg(gibibytes, 0, 'g', 3);
+        else if (mebibytes >= 3)
+            return QObject::tr("%L1 MiB").arg(mebibytes, 0, 'g', 3);
+        else if(kibibytes >= 3)
+            return QObject::tr("%L1 KiB").arg(kibibytes, 0, 'g', 3);
+        else
+            return QObject::tr("%L1 B").arg(value);
+    }
+
 protected:
     uint64_t value;
 };
 
 Q_DECLARE_METATYPE(QML64SizeType)
 
+/* This is exported as a singleton to QML to be able to work with Size64Type. */
 class QML64SizeComparator : public QObject {
     Q_OBJECT
 

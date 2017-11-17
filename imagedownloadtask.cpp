@@ -6,6 +6,8 @@
 #include <QTimerEvent>
 #include <QNetworkReply>
 
+#include "qml64sizetype.h"
+
 ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName)
     : Task(tr("Downloading %1").arg(image.name)),
       image(image)
@@ -36,7 +38,7 @@ void ImageDownloadTask::timerEvent(QTimerEvent *ev)
 
     bytesPerSec = ((bytesRead - bytesLastTime) * 1000) / pollDuration;
     bytesLastTime = bytesRead;
-    setMessage(tr("%1 / %2 (%3/s)").arg(humanReadable(bytesRead)).arg(humanReadable(image.size)).arg(humanReadable(bytesPerSec)));
+    setMessage(tr("%1 / %2 (%3/s)").arg(QML64SizeType(bytesRead).humanReadable()).arg(QML64SizeType(image.size).humanReadable()).arg(QML64SizeType(bytesPerSec).humanReadable()));
 }
 
 void ImageDownloadTask::start()
@@ -166,20 +168,4 @@ void ImageDownloadTask::onStateChanged()
         speedTimerId = startTimer(pollDuration);
     else if(speedTimerId >= 0)
         killTimer(speedTimerId);
-}
-
-QString ImageDownloadTask::humanReadable(uint64_t bytes)
-{
-    auto kibibytes = bytes / 1024,
-         mebibytes = kibibytes / 1024,
-         gibibytes = mebibytes / 1024;
-
-    if (gibibytes >= 10)
-        return tr("%1 GiB").arg(gibibytes);
-    else if (mebibytes >= 10)
-        return tr("%1 MiB").arg(mebibytes);
-    else if(kibibytes >= 10)
-        return tr("%1 KiB").arg(kibibytes);
-    else
-        return tr("%1 B").arg(bytes);
 }

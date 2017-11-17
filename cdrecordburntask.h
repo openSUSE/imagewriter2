@@ -25,8 +25,6 @@ protected slots:
     void burnProcessError();
 
 private:
-    QString humanReadable(uint64_t bytes);
-
     QProcess burnProcess;
 
     ImageMetadataStorage::Image image;
