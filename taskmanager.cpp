@@ -4,6 +4,7 @@
 
 #include "imagedownloadtask.h"
 #include "usbimagewritertask.h"
+#include "imagedownloaderwritertask.h"
 #include "metadatadownloadtask.h"
 #include "cdrecordburntask.h"
 
@@ -104,20 +105,20 @@ ImageDownloadTask *TaskManager::createImageDownloadTask(QVariant imageData, QStr
     return static_cast<ImageDownloadTask*>(idt.get());
 }
 
-USBImageWriterTask *TaskManager::createImageWriterTask(QVariant imageData, QString deviceName, QString imageFilePath, int fd)
+ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd)
 {
-    std::shared_ptr<Task> iwt = std::make_shared<USBImageWriterTask>(imageData.value<ImageMetadataStorage::Image>(), deviceName, imageFilePath, fd);
-    addTask(iwt);
-    QQmlEngine::setObjectOwnership(iwt.get(), QQmlEngine::CppOwnership);
-    return static_cast<USBImageWriterTask*>(iwt.get());
+    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, fd);
+    addTask(idw);
+    QQmlEngine::setObjectOwnership(idw.get(), QQmlEngine::CppOwnership);
+    return static_cast<ImageDownloaderWriterTask*>(idw.get());
 }
 
-CDRecordBurnTask *TaskManager::createCDRecordBurnTask(QVariant imageData, QString deviceName, QString imageFilePath, QString devicePath)
+ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath)
 {
-    std::shared_ptr<Task> cbt = std::make_shared<CDRecordBurnTask>(imageData.value<ImageMetadataStorage::Image>(), deviceName, imageFilePath, devicePath);
-    addTask(cbt);
-    QQmlEngine::setObjectOwnership(cbt.get(), QQmlEngine::CppOwnership);
-    return static_cast<CDRecordBurnTask*>(cbt.get());
+    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, devicePath);
+    addTask(idw);
+    QQmlEngine::setObjectOwnership(idw.get(), QQmlEngine::CppOwnership);
+    return static_cast<ImageDownloaderWriterTask*>(idw.get());
 }
 
 void TaskManager::startWatchingTask(Task *child)

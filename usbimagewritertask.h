@@ -12,8 +12,10 @@ class WriterThread : public QThread
     Q_OBJECT
 
 public:
-    WriterThread(QString source, int destFD);
+    WriterThread(int destFD);
     ~WriterThread();
+
+    void setSource(QString source);
 
 signals:
     void bytesWritten(quint64 bytes);
@@ -31,13 +33,15 @@ private:
 
 /* This task writes the image specified by image and imageFilePath to the device.
  * It starts a separate thread which calls write to the fd in a loop with a specific block size. */
-class USBImageWriterTask : public Task
+class USBImageWriterTask : public WriterTask
 {
     Q_OBJECT
 
 public:
-    USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, int usbFD);
+    USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, int usbFD);
     ~USBImageWriterTask();
+
+    void setImageFilePath(QString path) override;
 
 protected:
     void timerEvent(QTimerEvent *ev) override;

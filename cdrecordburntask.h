@@ -6,13 +6,15 @@
 #include "task.h"
 #include "imagemetadatastorage.h"
 
-class CDRecordBurnTask : public Task
+class CDRecordBurnTask : public WriterTask
 {
     Q_OBJECT
 
 public:
-    CDRecordBurnTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, QString devicePath);
+    CDRecordBurnTask(const ImageMetadataStorage::Image &image, QString deviceName, QString devicePath);
     ~CDRecordBurnTask();
+
+    void setImageFilePath(QString filepath) override;
 
 public slots:
     void start() override;

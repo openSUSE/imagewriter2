@@ -59,6 +59,13 @@ public:
         emit childTaskAdded(child.get());
     }
 
+    virtual void addChild(std::shared_ptr<Task> &&child)
+    {
+        children.emplace_back(this, child);
+        child->addParentRelation(&*children.rbegin());
+        emit childTaskAdded(child.get());
+    }
+
     void addParentRelation(Relation *relation)
     {
         parents.push_back(relation);
@@ -96,6 +103,17 @@ private:
     // Needs to be a std::list as we pass raw pointers around
     std::list<Relation> children;
     std::list<Relation*> parents;
+};
+
+class WriterTask : public Task
+{
+    Q_OBJECT
+
+public:
+    WriterTask(QString name) : Task(name) {}
+    ~WriterTask() {}
+
+    virtual void setImageFilePath(QString imageFilePath) = 0;
 };
 
 #endif // TASK_H

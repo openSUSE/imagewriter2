@@ -3,11 +3,10 @@
 #include <QDir>
 #include <QRegularExpression>
 
-CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, QString devicePath)
-    : Task(tr("Writing to %1").arg(deviceName)),
+CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QString deviceName, QString devicePath)
+    : WriterTask(tr("Writing to %1").arg(deviceName)),
       image(image),
-      devicePath(devicePath),
-      imageFilePath(imageFilePath)
+      devicePath(devicePath)
 {
     connect(&burnProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(finished(int)));
     connect(&burnProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(readyReadOutput()));
@@ -19,6 +18,11 @@ CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QSt
 CDRecordBurnTask::~CDRecordBurnTask()
 {
 
+}
+
+void CDRecordBurnTask::setImageFilePath(QString filepath)
+{
+    imageFilePath = filepath;
 }
 
 void CDRecordBurnTask::start()

@@ -11,6 +11,7 @@
 #include "imagedownloadtask.h"
 #include "usbimagewritertask.h"
 #include "cdrecordburntask.h"
+#include "imagedownloaderwritertask.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     qmlRegisterInterface<Task>("Task");
     qmlRegisterInterface<MetadataDownloadTask>("MetadataDownloadTask");
     qmlRegisterInterface<ImageDownloadTask>("ImageDownloadTask");
+    qmlRegisterInterface<ImageDownloaderWriterTask>("ImageDownloaderWriterTask");
     qmlRegisterInterface<USBImageWriterTask>("USBImageWriterTask");
     qmlRegisterInterface<CDRecordBurnTask>("CDRecordBurnTask");
 

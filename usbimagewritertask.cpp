@@ -6,9 +6,8 @@
 
 #include "qml64sizetype.h"
 
-WriterThread::WriterThread(QString source, int destFD)
-    : source(source),
-      destFD(destFD)
+WriterThread::WriterThread(int destFD)
+    : destFD(destFD)
 {
     connect(this, &WriterThread::finished, [this] { close(this->destFD); this->destFD = -1; });
 }
@@ -17,6 +16,11 @@ WriterThread::~WriterThread()
 {
     if(destFD >= 0)
         close(destFD);
+}
+
+void WriterThread::setSource(QString source)
+{
+    this->source.setFileName(source);
 }
 
 void WriterThread::run()
@@ -62,9 +66,9 @@ void WriterThread::run()
         emit finished(errno);
 }
 
-USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, QString imageFilePath, int usbFD)
-    : Task(tr("Writing %1 to %2").arg(image.name).arg(deviceName)),
-      writerThread(imageFilePath, usbFD),
+USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, int usbFD)
+    : WriterTask(tr("Writing %1 to %2").arg(image.name).arg(deviceName)),
+      writerThread(usbFD),
       image(image)
 {
     connect(this, SIGNAL(stateChanged()), this, SLOT(onStateChanged()));
@@ -75,6 +79,11 @@ USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image,
 USBImageWriterTask::~USBImageWriterTask()
 {
 
+}
+
+void USBImageWriterTask::setImageFilePath(QString path)
+{
+    writerThread.setSource(path);
 }
 
 void USBImageWriterTask::timerEvent(QTimerEvent *ev)

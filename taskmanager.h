@@ -11,8 +11,7 @@
 
 class MetadataDownloadTask;
 class ImageDownloadTask;
-class USBImageWriterTask;
-class CDRecordBurnTask;
+class ImageDownloaderWriterTask;
 
 /* This class contains a two-level tree-like structure of Tasks and Subtasks.
  * A Subtask can be shared between several Tasks, but to resemble an acyclical
@@ -44,8 +43,8 @@ public:
     /* Methods to create tasks. */
     Q_INVOKABLE MetadataDownloadTask *createMetadataDownloadTask(QString serviceName);
     Q_INVOKABLE ImageDownloadTask *createImageDownloadTask(QVariant imageData, QString serviceName);
-    Q_INVOKABLE USBImageWriterTask *createImageWriterTask(QVariant imageData, QString deviceName, QString imageFilePath, int fd);
-    Q_INVOKABLE CDRecordBurnTask *createCDRecordBurnTask(QVariant imageData, QString deviceName, QString imageFilePath, QString devicePath);
+    Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd);
+    Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath);
 
 signals:
     void taskAdded(Task *task);

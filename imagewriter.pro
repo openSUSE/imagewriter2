@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     metadatadownloadtask.cpp \
     imagedownloadtask.cpp \
     usbimagewritertask.cpp \
-    cdrecordburntask.cpp
+    cdrecordburntask.cpp \
+    imagedownloaderwritertask.cpp
 
 # Localization
 TRANSLATIONS += i18n/de_DE.ts
@@ -33,7 +34,8 @@ HEADERS += \
     imagedownloadtask.h \
     usbimagewritertask.h \
     cdrecordburntask.h \
-    qml64sizetype.h
+    qml64sizetype.h \
+    imagedownloaderwritertask.h
 
 linux {
     QT += dbus

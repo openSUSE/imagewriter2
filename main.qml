@@ -345,29 +345,21 @@ ApplicationWindow {
                         var drivePath = targetSelection.drivePath;
 
                         var targetFD = -1;
+                        var task;
                         if(driveType != 1) // If not DVD
                         {
                             targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
                             if(targetFD < 0)
                                 return;
+
+                            task = taskManager.createImageDownloadWriterTaskUSB(data, ims.serviceName, driveName, targetFD);
+                        }
+                        else
+                        {
+                            task = taskManager.createImageDownloadWriterTaskDVD(data, ims.serviceName, driveName, drivePath);
                         }
 
-                        var task = taskManager.createImageDownloadTask(data, ims.serviceName);
-                        task.downloadFinished.connect(function (imageFilePath) {
-                            var writeTask;
-                            if(driveType == 1) // If DVD
-                                writeTask = taskManager.createCDRecordBurnTask(data, driveName, imageFilePath, drivePath);
-                            else
-                                writeTask = taskManager.createImageWriterTask(data, driveName, imageFilePath, targetFD);
-
-                            writeTask.start();
-                        });
                         task.start();
-
-                        selection.grabToImage(function (image) {
-                            animImage.source = image.url;
-                            animation.start();
-                        });
                     }
                 }
             }
