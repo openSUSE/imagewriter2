@@ -23,6 +23,8 @@ class TaskManager : public QAbstractItemModel
     Q_OBJECT
 
 public:
+    ~TaskManager();
+
     enum Roles {
         NameRole = Qt::DisplayRole,
         ProgressRole = Qt::UserRole,

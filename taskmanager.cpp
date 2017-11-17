@@ -8,9 +8,18 @@
 #include "metadatadownloadtask.h"
 #include "cdrecordburntask.h"
 
+TaskManager::~TaskManager()
+{
+    /* We need to destroy all tasks first as the tasks' destructor
+     * can cause calls to index(...) or parent(...) which would then
+     * iterate through the currently being destroyed list. */
+    for(auto &relation : tasks)
+        relation.child = nullptr;
+}
+
 QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) const
 {
-    auto &tasksList = parent.isValid() ? reinterpret_cast<Task::Relation*>(parent.internalPointer())->child->getChildren() : tasks;
+    auto &tasksList = parent.isValid() ? reinterpret_cast<const Task::Relation*>(parent.internalPointer())->child->getChildren() : tasks;
     size_t index = static_cast<size_t>(row);
 
     for(auto it = tasksList.begin(); it != tasksList.end(); ++it)
@@ -26,7 +35,7 @@ QModelIndex TaskManager::index(int row, int column, const QModelIndex &parent) c
 
 QVariant TaskManager::data(const QModelIndex &index, int role) const
 {
-    auto task = reinterpret_cast<Task::Relation*>(index.internalPointer())->child;
+    auto task = reinterpret_cast<const Task::Relation*>(index.internalPointer())->child;
     switch(role)
     {
     case NameRole:
@@ -44,7 +53,7 @@ QVariant TaskManager::data(const QModelIndex &index, int role) const
 
 QModelIndex TaskManager::parent(const QModelIndex &index) const
 {
-    auto *relation = reinterpret_cast<Task::Relation*>(index.internalPointer());
+    auto *relation = reinterpret_cast<const Task::Relation*>(index.internalPointer());
     auto *parent = relation->parent;
 
     if(parent == nullptr)
