@@ -31,6 +31,11 @@ ImageDownloadTask::~ImageDownloadTask()
 
 }
 
+QString ImageDownloadTask::getLocalPath()
+{
+    return destinationDir.absoluteFilePath(destinationFile.fileName());
+}
+
 void ImageDownloadTask::timerEvent(QTimerEvent *ev)
 {
     if(ev->timerId() != speedTimerId)
@@ -48,7 +53,6 @@ void ImageDownloadTask::start()
         setState(Task::Done);
         setProgress(100);
         setMessage(tr("Download skipped, found in cache"));
-        emit downloadFinished(destinationDir.absoluteFilePath(destinationFile.fileName()));
         return;
     }
 
@@ -149,8 +153,6 @@ void ImageDownloadTask::finished()
             setState(Task::Done);
             setProgress(100);
             setMessage(tr("Download done"));
-
-            emit downloadFinished(destinationDir.absoluteFilePath(destinationFile.fileName()));
         }
     }
 

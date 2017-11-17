@@ -107,7 +107,7 @@ ImageDownloadTask *TaskManager::createImageDownloadTask(QVariant imageData, QStr
 
 ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd)
 {
-    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, fd);
+    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(*this, imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, fd);
     addTask(idw);
     QQmlEngine::setObjectOwnership(idw.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloaderWriterTask*>(idw.get());
@@ -115,10 +115,35 @@ ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskUSB(QVarian
 
 ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath)
 {
-    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, devicePath);
+    std::shared_ptr<Task> idw = std::make_shared<ImageDownloaderWriterTask>(*this, imageData.value<ImageMetadataStorage::Image>(), serviceName, deviceName, devicePath);
     addTask(idw);
     QQmlEngine::setObjectOwnership(idw.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloaderWriterTask*>(idw.get());
+}
+
+std::shared_ptr<ImageDownloadTask> TaskManager::downloadTaskForImage(const ImageMetadataStorage::Image &image, QString serviceName)
+{
+    for(auto it = imageTaskCache.begin(); it != imageTaskCache.end(); ++it)
+    {
+        if(it->image.url != image.url)
+            continue;
+
+        auto ret = it->task.lock();
+        if(ret)
+            return ret;
+
+        imageTaskCache.erase(it);
+        break;
+    }
+
+    auto ret = std::make_shared<ImageDownloadTask>(image, serviceName);
+
+    ImageTaskCacheEntry entry;
+    entry.image = image;
+    entry.task = ret;
+    imageTaskCache.push_back(entry);
+
+    return ret;
 }
 
 void TaskManager::startWatchingTask(Task *child)

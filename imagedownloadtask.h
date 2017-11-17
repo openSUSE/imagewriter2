@@ -16,6 +16,8 @@ public:
     ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName);
     ~ImageDownloadTask();
 
+    QString getLocalPath();
+
 protected:
     void timerEvent(QTimerEvent *ev) override;
 
@@ -27,9 +29,6 @@ protected slots:
     void readyRead();
     void finished();
     void onStateChanged();
-
-signals:
-    void downloadFinished(QString localPath);
 
 private:
     ImageMetadataStorage::Image image;

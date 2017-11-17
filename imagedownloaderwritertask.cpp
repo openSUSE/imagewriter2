@@ -1,11 +1,13 @@
 #include "imagedownloaderwritertask.h"
 
+#include "taskmanager.h"
+
 #include "imagedownloadtask.h"
 #include "usbimagewritertask.h"
 #include "cdrecordburntask.h"
 
-ImageDownloaderWriterTask::ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, int usbFD)
-    : ImageDownloaderWriterTask(image, serviceName, deviceName)
+ImageDownloaderWriterTask::ImageDownloaderWriterTask(TaskManager &taskManager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, int usbFD)
+    : ImageDownloaderWriterTask(taskManager, image, serviceName, deviceName)
 {
     writerTask = std::make_shared<USBImageWriterTask>(image, deviceName, usbFD);
     addChild(static_cast<std::shared_ptr<Task>>(writerTask));
@@ -14,8 +16,8 @@ ImageDownloaderWriterTask::ImageDownloaderWriterTask(const ImageMetadataStorage:
     connect(writerTask.get(), SIGNAL(stateChanged()), this, SLOT(writeStateChanged()));
 }
 
-ImageDownloaderWriterTask::ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, QString devicePath)
-    : ImageDownloaderWriterTask(image, serviceName, deviceName)
+ImageDownloaderWriterTask::ImageDownloaderWriterTask(TaskManager &taskManager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, QString devicePath)
+    : ImageDownloaderWriterTask(taskManager, image, serviceName, deviceName)
 {
     writerTask = std::make_shared<CDRecordBurnTask>(image, deviceName, devicePath);
     addChild(static_cast<std::shared_ptr<Task>>(writerTask));
@@ -28,9 +30,17 @@ ImageDownloaderWriterTask::~ImageDownloaderWriterTask()
 
 void ImageDownloaderWriterTask::start()
 {
-    setMessage(tr("Downloading image"));
-    setState(Task::Running);
-    downloadTask->start();
+    if(downloadTask->getState() == Task::Idle)
+    {
+        setMessage(tr("Downloading image"));
+        downloadTask->start();
+        setState(Task::Running);
+    }
+    else if(downloadTask->getState() == Task::Done)
+    {
+        downloadFinished(downloadTask->getLocalPath());
+        setState(Task::Running);
+    }
 }
 
 void ImageDownloaderWriterTask::stop()
@@ -49,11 +59,15 @@ void ImageDownloaderWriterTask::downloadFinished(QString imageFilePath)
 
 void ImageDownloaderWriterTask::downloadStateChanged()
 {
-    auto state = writerTask->getState();
+    auto state = downloadTask->getState();
     if(state == Task::Failed)
     {
         setState(Task::Failed);
         setMessage(tr("Writing failed"));
+    }
+    else if(state == Task::Done)
+    {
+        downloadFinished(downloadTask->getLocalPath());
     }
 }
 
@@ -83,14 +97,13 @@ void ImageDownloaderWriterTask::writeStateChanged()
     }
 }
 
-ImageDownloaderWriterTask::ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName)
+ImageDownloaderWriterTask::ImageDownloaderWriterTask(TaskManager &taskManager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName)
     : Task(tr("Deploying %1 to %2").arg(image.name).arg(deviceName)),
       image(image),
-      downloadTask(std::make_shared<ImageDownloadTask>(image, serviceName))
+      downloadTask(taskManager.downloadTaskForImage(image, serviceName))
 {
     addChild(static_cast<std::shared_ptr<Task>>(downloadTask));
 
     connect(downloadTask.get(), SIGNAL(progressChanged()), this, SLOT(downloadProgressChanged()));
     connect(downloadTask.get(), SIGNAL(stateChanged()), this, SLOT(downloadStateChanged()));
-    connect(downloadTask.get(), SIGNAL(downloadFinished(QString)), this, SLOT(downloadFinished(QString)));
 }

@@ -8,6 +8,7 @@
 #include <QUrl>
 
 #include "task.h"
+#include "imagemetadatastorage.h"
 
 class MetadataDownloadTask;
 class ImageDownloadTask;
@@ -46,6 +47,10 @@ public:
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd);
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath);
 
+    /* Get the download task for a specific image.
+       If there is no task for that particular image, a new task gets created. */
+    std::shared_ptr<ImageDownloadTask> downloadTaskForImage(const ImageMetadataStorage::Image &image, QString serviceName);
+
 signals:
     void taskAdded(Task *task);
 
@@ -63,6 +68,13 @@ private:
     void addTask(std::shared_ptr<Task> &task);
     void removeTask(Task *task);
     QModelIndex indexForRelation(Task::Relation *relation);
+
+    struct ImageTaskCacheEntry {
+        ImageMetadataStorage::Image image;
+        std::weak_ptr<ImageDownloadTask> task;
+    };
+
+    std::list<ImageTaskCacheEntry> imageTaskCache;
 
     // Needs to be a std::list as we pass raw pointers around inside QModelIndex
     std::list<Task::Relation> tasks;

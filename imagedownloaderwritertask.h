@@ -6,6 +6,7 @@
 #include "task.h"
 #include "imagemetadatastorage.h"
 
+class TaskManager;
 class ImageDownloadTask;
 class USBImageWriterTask;
 class CDRecordBurnTask;
@@ -16,10 +17,10 @@ class ImageDownloaderWriterTask : public Task
 
 public:
     /* Constructor for USB */
-    ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, int usbFD);
+    ImageDownloaderWriterTask(TaskManager &taskmanager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, int usbFD);
 
     /* Constructor for DVD */
-    ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, QString devicePath);
+    ImageDownloaderWriterTask(TaskManager &taskmanager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName, QString devicePath);
 
     ~ImageDownloaderWriterTask();
 
@@ -36,7 +37,7 @@ protected slots:
 
 private:
     /* Common constructor */
-    ImageDownloaderWriterTask(const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName);
+    ImageDownloaderWriterTask(TaskManager &taskmanager, const ImageMetadataStorage::Image &image, QString serviceName, QString deviceName);
 
     ImageMetadataStorage::Image image;
 

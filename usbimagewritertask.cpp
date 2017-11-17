@@ -78,7 +78,8 @@ USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image,
 
 USBImageWriterTask::~USBImageWriterTask()
 {
-
+    if(writerThread.isRunning())
+        stop();
 }
 
 void USBImageWriterTask::setImageFilePath(QString path)
