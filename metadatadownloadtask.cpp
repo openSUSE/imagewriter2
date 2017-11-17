@@ -50,7 +50,12 @@ void MetadataDownloadTask::replyFinished(QNetworkReply *reply)
 {
     // Ignore replies we weren't expecting anymore (i.e. after being aborted.
     if(getState() != Task::Running)
+    {
+        if(reply)
+            reply->deleteLater();
+
         return;
+    }
 
     setProgress(100);
 
@@ -90,5 +95,6 @@ void MetadataDownloadTask::replyFinished(QNetworkReply *reply)
         }
     }
 
-    reply->deleteLater();
+    if(reply)
+        reply->deleteLater();
 }

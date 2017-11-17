@@ -17,7 +17,7 @@ CDRecordBurnTask::CDRecordBurnTask(const ImageMetadataStorage::Image &image, QSt
 
 CDRecordBurnTask::~CDRecordBurnTask()
 {
-
+    stop();
 }
 
 void CDRecordBurnTask::setImageFilePath(QString filepath)
@@ -52,9 +52,13 @@ void CDRecordBurnTask::start()
 
 void CDRecordBurnTask::stop()
 {
-    burnProcess.kill();
-    setState(Task::Failed);
-    setMessage(tr("Aborted"));
+    if(burnProcess.state() == QProcess::Running)
+    {
+        burnProcess.kill();
+        burnProcess.waitForFinished();
+        setState(Task::Failed);
+        setMessage(tr("Aborted"));
+    }
 }
 
 void CDRecordBurnTask::finished(int exitCode)
