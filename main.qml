@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 //import QtQuick.Controls 1.0
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.1
 
 import org.opensuse.imgwriter 1.0
 
@@ -252,16 +253,14 @@ ApplicationWindow {
                         }
                     }
 
-                    Button {
-                        id: startButton
-                        enabled: false
-                        text: qsTr("Start!")
-                        anchors.bottom: parent.bottom
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        Layout.maximumWidth: 100
+                    MessageDialog {
+                        id: writeConfirmationDialog
+                        title: qsTr("Overwrite data?")
+                        text: qsTr("By continuing here, you will LOSE ALL DATA on the Device\n%1!\nAre you sure?").arg(targetSelection.driveName)
+                        icon: StandardIcon.Warning
+                        standardButtons: StandardButton.Yes | StandardButton.Abort
 
-                        onClicked: {
+                        onYes: {
                             var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
                             var driveName = targetSelection.driveName;
                             var driveType = targetSelection.driveType;
@@ -284,6 +283,18 @@ ApplicationWindow {
 
                             task.start();
                         }
+                    }
+
+                    Button {
+                        id: startButton
+                        enabled: false
+                        text: qsTr("Start!")
+                        anchors.bottom: parent.bottom
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.maximumWidth: 100
+
+                        onClicked: writeConfirmationDialog.visible = true;
                     }
                 }
 
