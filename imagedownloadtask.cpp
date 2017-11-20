@@ -172,5 +172,8 @@ void ImageDownloadTask::onStateChanged()
     if(getState() == Task::Running)
         speedTimerId = startTimer(pollDuration);
     else if(speedTimerId >= 0)
+    {
         killTimer(speedTimerId);
+        speedTimerId = 0;
+    }
 }
