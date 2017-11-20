@@ -1,6 +1,7 @@
 #ifndef QML64SIZETYPE_H
 #define QML64SIZETYPE_H
 
+#include <cmath>
 #include <cstdint>
 
 #include <QObject>
@@ -33,16 +34,16 @@ public:
      * Example: 10240 -> 10 KiB */
     QString humanReadable() const
     {
-        auto kibibytes = float(value) / 1024,
+        auto kibibytes = double(value) / 1024,
              mebibytes = kibibytes / 1024,
              gibibytes = mebibytes / 1024;
 
         if (gibibytes >= 3)
-            return QObject::tr("%L1 GiB").arg(gibibytes, 0, 'f', 3);
+            return QObject::tr("%L1 GiB").arg(gibibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(gibibytes))));
         else if (mebibytes >= 3)
-            return QObject::tr("%L1 MiB").arg(mebibytes, 0, 'f', 3);
+            return QObject::tr("%L1 MiB").arg(mebibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(mebibytes))));
         else if(kibibytes >= 3)
-            return QObject::tr("%L1 KiB").arg(kibibytes, 0, 'f', 3);
+            return QObject::tr("%L1 KiB").arg(kibibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(kibibytes))));
         else
             return QObject::tr("%L1 B").arg(value);
     }
