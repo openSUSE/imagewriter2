@@ -152,7 +152,7 @@ ApplicationWindow {
 
                                     // If the list changed, we need to preselect an option. Use the information from the model
                                     onModelChanged: {
-                                        currentIndex = ims.data(rootIndex, ImageMetadataStorage.DecisionPreselectedOptionRole) || -1
+                                        currentIndex = ims.data(rootIndex, ImageMetadataStorage.DecisionPreselectedOptionRole) || 0
                                     }
                                 }
                             }
