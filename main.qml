@@ -22,8 +22,8 @@ ApplicationWindow {
     color: "#302020"
 
     Component.onCompleted: {
-        var mdt = taskManager.createMetadataDownloadTask("opensuse");
-        mdt.finished.connect(function (url) { ims.readFromXMLFile(url); });
+        var mdt = taskManager.createMetadataDownloadTask(ims.serviceName);
+        mdt.finished.connect(function (path) { ims.readFromXMLFile(path); });
         mdt.start();
     }
 
