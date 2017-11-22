@@ -15,11 +15,7 @@ ImageMetadataStorage::~ImageMetadataStorage()
 
 bool ImageMetadataStorage::readFromXML(QString xml_document)
 {
-    if(root.decision)
-    {
-        qWarning() << "Tried to reinitialize ImageMetadataStorage";
-        return false;
-    }
+    beginResetModel();
 
     QXmlStreamReader reader;
     reader.addData(xml_document);
@@ -50,6 +46,8 @@ bool ImageMetadataStorage::readFromXML(QString xml_document)
             break;
         }
     }
+
+    endResetModel();
 
     maxDepthChanged();
 
