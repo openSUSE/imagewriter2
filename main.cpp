@@ -12,9 +12,14 @@
 #include "usbimagewritertask.h"
 #include "cdrecordburntask.h"
 #include "imagedownloaderwritertask.h"
+#include "tests.h"
 
 int main(int argc, char *argv[])
 {
+    #ifndef NDEBUG
+        runAllTests();
+    #endif
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
