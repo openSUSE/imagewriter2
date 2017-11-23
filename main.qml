@@ -362,6 +362,7 @@ ApplicationWindow {
                         clip: true
                         Layout.fillHeight: true
                         Layout.fillWidth: true
+                        Layout.minimumHeight: 50
                         model: ["Error 1", "Error 2", "Error 3"]
                         delegate: Label {
                             width: validationList.width
