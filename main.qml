@@ -45,6 +45,7 @@ ApplicationWindow {
 
             GridLayout {
                 id: selection
+                columnSpacing: 10
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.topMargin: 10
@@ -168,7 +169,7 @@ ApplicationWindow {
 
                 Item {
                     id: go
-                    Layout.minimumWidth: startButton.width
+                    Layout.minimumWidth: Math.max(startButton.width, 80)
                     Layout.minimumHeight: startButton.height
                     Layout.preferredHeight: startButton.height
                     Layout.fillWidth: false
@@ -227,14 +228,14 @@ ApplicationWindow {
                     // Paint an arrow pointing to the right
                     Canvas {
                         id: arrow
-                        width: 80
+                        width: parent.width
                         height: 50
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        y: 79
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         property int stemThickness: 15
                         property int pointyEndThickness: 25
-                        x: 10
-                        y: 89
+                        Layout.minimumWidth: 80
+                        Layout.fillWidth: true
 
                         onPaint: {
                             var ctx = getContext("2d");
