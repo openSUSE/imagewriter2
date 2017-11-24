@@ -43,7 +43,8 @@ void CDRecordBurnTask::start()
     QStringList arguments;
     arguments << "cdrecord"
               << QStringLiteral("-dev=%1,%2,%3").arg(scsiLunParts[0]).arg(scsiLunParts[1]).arg(scsiLunParts[2])
-              << "-dummy" << "-v"
+              //<< "-dummy"
+              << "-v"
               << imageFilePath;
 
     burnProcess.setArguments(arguments);
