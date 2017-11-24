@@ -28,10 +28,18 @@ protected:
         uint64_t size;
         DeviceType type;
 
+        QDBusObjectPath drivePath;
         QDBusObjectPath dbusPath;
     };
 
     std::vector<DeviceData> deviceList;
+
+    struct FilesystemData {
+        QDBusObjectPath drivePath;
+        QDBusObjectPath dbusPath;
+    };
+
+    std::vector<FilesystemData> filesystemList;
 
 protected slots:
     void devicesIntrospected(const QString &xml);

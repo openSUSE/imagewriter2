@@ -75,21 +75,40 @@ QHash<int, QByteArray> RemovableDevicesModelUDisks2::roleNames() const
 
 QVariant RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
 {
-    if(index < deviceList.size())
+    if(index >= deviceList.size())
+        return -1;
+
+    auto &device = deviceList[index];
+
+    // Try to umount filesystems
     {
-        auto path = deviceList[index].dbusPath;
-        QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
-                             QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
+        for(auto &filesystem : filesystemList)
+        {
+            if(filesystem.drivePath != device.drivePath)
+                continue;
 
-        auto reply = block.call(QStringLiteral("OpenForRestore"), QVariantMap{});
-        QDBusUnixFileDescriptor fd(qvariant_cast<QDBusUnixFileDescriptor>(reply.arguments()[0]));
-        if (fd.isValid())
-            return dup(fd.fileDescriptor());
+            QDBusInterface fsIntf{QStringLiteral("org.freedesktop.UDisks2"), filesystem.dbusPath.path(),
+                                      QStringLiteral("org.freedesktop.UDisks2.Filesystem"), QDBusConnection::systemBus()};
 
-        return reply.errorMessage();
+            auto unmountCall = fsIntf.call(QStringLiteral("Unmount"), QVariantMap{});
+            auto error = fsIntf.lastError();
+            if(error.type() != QDBusError::NoError
+                    && error.name() != QStringLiteral("org.freedesktop.UDisks2.Error.NotMounted"))
+            {
+                return error.message();
+            }
+        }
     }
 
-    return -1;
+    QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), device.dbusPath.path(),
+                         QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
+
+    auto reply = block.call(QStringLiteral("OpenForRestore"), QVariantMap{});
+    QDBusUnixFileDescriptor fd(qvariant_cast<QDBusUnixFileDescriptor>(reply.arguments()[0]));
+    if (fd.isValid())
+        return dup(fd.fileDescriptor());
+
+    return reply.errorMessage();
 }
 
 void RemovableDevicesModelUDisks2::devicesIntrospected(const QString &xml)
@@ -122,6 +141,16 @@ void RemovableDevicesModelUDisks2::dbusInterfaceAdded(const QDBusObjectPath &pat
 
 void RemovableDevicesModelUDisks2::dbusInterfaceRemoved(const QDBusObjectPath &path, const QStringList &interfaces)
 {
+    if(interfaces.contains(QStringLiteral("org.freedesktop.UDisks2.Filesystem")))
+    {
+        auto it = std::find_if(filesystemList.begin(), filesystemList.end(),
+                        [&path] (const FilesystemData &fs)
+                            { return fs.dbusPath == path; });
+
+        if(it != filesystemList.end())
+            filesystemList.erase(it);
+    }
+
     if (!interfaces.contains(QStringLiteral("org.freedesktop.UDisks2.Block")))
         return;
 
@@ -146,6 +175,33 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
                         { return dev.dbusPath == path; }) != deviceList.end())
         return;
 
+    QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
+                         QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
+    auto drivePath = block.property("Drive").value<QDBusObjectPath>();
+
+    // Track filesystems
+    {
+        QDBusInterface properties{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
+                                  QStringLiteral("org.freedesktop.DBus.Properties"), QDBusConnection::systemBus()};
+        // We can't just call .property(...) here as Qt is unable to unmarshall the result and it aborts.
+        auto mountpointscall = properties.call(QStringLiteral("Get"), QString("org.freedesktop.UDisks2.Filesystem"), QString("MountPoints"));
+        if(properties.lastError().type() == QDBusError::NoError)
+        {
+            // We found a filesystem - remember it
+
+            // ... unless we already know about it
+            if(std::find_if(filesystemList.begin(), filesystemList.end(),
+                            [&path] (const FilesystemData &fs)
+                                { return fs.dbusPath == path; }) != filesystemList.end())
+                return;
+
+            FilesystemData filesystem;
+            filesystem.dbusPath = path;
+            filesystem.drivePath = drivePath;
+            filesystemList.push_back(filesystem);
+        }
+    }
+
     // Ignore partitions
     {
         QDBusInterface partition{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
@@ -154,10 +210,6 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
             return;
     }
 
-    QDBusInterface block{QStringLiteral("org.freedesktop.UDisks2"), path.path(),
-                         QStringLiteral("org.freedesktop.UDisks2.Block"), QDBusConnection::systemBus()};
-
-    auto drivePath = block.property("Drive").value<QDBusObjectPath>();
     QDBusInterface drive{QStringLiteral("org.freedesktop.UDisks2"), drivePath.path(),
                          QStringLiteral("org.freedesktop.UDisks2.Drive"), QDBusConnection::systemBus()};
 
@@ -182,6 +234,7 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
     DeviceData device;
     device.name = name.isEmpty() ? devicePath : name;
     device.path = devicePath;
+    device.drivePath = drivePath;
     device.size = size;
     device.type = optical ? DVD : (rotationRate > 0 ? HDD : USB);
     device.dbusPath = path;
