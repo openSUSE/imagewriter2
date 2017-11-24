@@ -73,7 +73,7 @@ QHash<int, QByteArray> RemovableDevicesModelUDisks2::roleNames() const
     return roles;
 }
 
-int RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
+QVariant RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
 {
     if(index < deviceList.size())
     {
@@ -85,6 +85,8 @@ int RemovableDevicesModelUDisks2::openDeviceHandle(unsigned int index)
         QDBusUnixFileDescriptor fd(qvariant_cast<QDBusUnixFileDescriptor>(reply.arguments()[0]));
         if (fd.isValid())
             return dup(fd.fileDescriptor());
+
+        return reply.errorMessage();
     }
 
     return -1;

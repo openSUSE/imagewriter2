@@ -30,7 +30,7 @@ public:
 
     Q_ENUM(Roles)
 
-    virtual Q_INVOKABLE int openDeviceHandle(unsigned int index) = 0;
+    virtual Q_INVOKABLE QVariant openDeviceHandle(unsigned int index) = 0;
 };
 
 #endif // REMOVABLEDEVICESMODEL_H

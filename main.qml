@@ -255,6 +255,12 @@ ApplicationWindow {
                     }
 
                     MessageDialog {
+                        id: errorDialog
+                        title: qsTr("Could not start task")
+                        icon: StandardIcon.Critical
+                    }
+
+                    MessageDialog {
                         id: writeConfirmationDialog
                         title: qsTr("Overwrite data?")
                         text: qsTr("By continuing here, you will LOSE ALL DATA on the Device\n%1!\nAre you sure?").arg(targetSelection.driveName)
@@ -272,6 +278,13 @@ ApplicationWindow {
                             if(driveType != 1) // If not DVD
                             {
                                 targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
+                                if(typeof(targetFD) == "string")
+                                {
+                                    errorDialog.text = qsTr("Opening of %1 for writing failed:\n%2").arg(driveName).arg(targetFD);
+                                    errorDialog.visible = true;
+                                    return;
+                                }
+
                                 if(targetFD < 0)
                                     return;
 
