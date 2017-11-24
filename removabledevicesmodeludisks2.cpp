@@ -232,12 +232,32 @@ void RemovableDevicesModelUDisks2::addDeviceAtPath(const QDBusObjectPath &path)
 
     // Create container for the gathered information
     DeviceData device;
-    device.name = name.isEmpty() ? devicePath : name;
+    device.name = name;
     device.path = devicePath;
     device.drivePath = drivePath;
     device.size = size;
     device.type = optical ? DVD : (rotationRate > 0 ? HDD : USB);
     device.dbusPath = path;
+
+    if(device.name.isEmpty())
+    {
+        // Set a fallback name
+        switch(device.type)
+        {
+        case DVD:
+            device.name = tr("%1 DVD at %2").arg(QML64SizeType(size).humanReadable()).arg(devicePath);
+            break;
+        case HDD:
+            device.name = tr("%1 Harddisk at %2").arg(QML64SizeType(size).humanReadable()).arg(devicePath);
+            break;
+        case USB:
+            device.name = tr("%1 USB Drive at %2").arg(QML64SizeType(size).humanReadable()).arg(devicePath);
+            break;
+        case Unknown:
+            device.name = tr("Unknown %1 device at %2").arg(QML64SizeType(size).humanReadable()).arg(devicePath);
+            break;
+        }
+    }
 
     beginInsertRows({}, deviceList.size(), deviceList.size());
     deviceList.push_back(device);

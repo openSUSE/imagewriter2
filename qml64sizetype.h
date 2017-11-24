@@ -38,11 +38,11 @@ public:
              mebibytes = kibibytes / 1024,
              gibibytes = mebibytes / 1024;
 
-        if (gibibytes >= 3)
+        if (gibibytes >= 1)
             return QObject::tr("%L1 GiB").arg(gibibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(gibibytes))));
-        else if (mebibytes >= 3)
+        else if (mebibytes >= 1)
             return QObject::tr("%L1 MiB").arg(mebibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(mebibytes))));
-        else if(kibibytes >= 3)
+        else if(kibibytes >= 1)
             return QObject::tr("%L1 KiB").arg(kibibytes, 0, 'f', static_cast<int>(std::max(0.0, 3-log10(kibibytes))));
         else
             return QObject::tr("%L1 B").arg(value);
