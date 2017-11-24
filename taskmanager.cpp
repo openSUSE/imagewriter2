@@ -130,6 +130,30 @@ ImageDownloaderWriterTask *TaskManager::createImageDownloadWriterTaskDVD(QVarian
     return static_cast<ImageDownloaderWriterTask*>(idw.get());
 }
 
+QModelIndex TaskManager::indexForTask(Task *task) const
+{
+    int row = 0;
+    for(auto &relation : tasks)
+    {
+        if(relation.child.get() == task)
+            return createIndex(row, 0, const_cast<Task::Relation*>(&relation));
+
+        ++row;
+    }
+
+    return {};
+}
+
+void TaskManager::removeTask(const QModelIndex &index)
+{
+    // Has to be first level
+    if(index.parent().isValid())
+        return;
+
+    auto task = reinterpret_cast<const Task::Relation*>(index.internalPointer())->child;
+    removeTask(task);
+}
+
 std::shared_ptr<ImageDownloadTask> TaskManager::downloadTaskForImage(const ImageMetadataStorage::Image &image, QString serviceName)
 {
     for(auto it = imageTaskCache.begin(); it != imageTaskCache.end(); ++it)
@@ -211,9 +235,9 @@ void TaskManager::addTask(std::shared_ptr<Task> &task)
     emit taskAdded(task.get());
 }
 
-void TaskManager::removeTask(Task *task)
+void TaskManager::removeTask(const std::shared_ptr<Task> &task)
 {
-    auto it = std::find_if(tasks.begin(), tasks.end(), [task] (const Task::Relation &r) { return r.child.get() == task; });
+    auto it = std::find_if(tasks.begin(), tasks.end(), [task] (const Task::Relation &r) { return r.child == task; });
     if(it == tasks.end())
         return;
 

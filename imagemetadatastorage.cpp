@@ -51,7 +51,10 @@ bool ImageMetadataStorage::readFromXML(QString xml_document)
 
     maxDepthChanged();
 
-    return !failed;
+    if(failed)
+        return false;
+
+    return !!root.decision;
 }
 
 bool ImageMetadataStorage::readFromXMLFile(QString xml_filename)

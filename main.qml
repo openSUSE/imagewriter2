@@ -21,10 +21,45 @@ ApplicationWindow {
     // Background color
     color: "#302020"
 
+    /* Timer to automatically hide successfully
+      finished Tasks. Only used for non-persistent tasks. */
+    Timer {
+        property var mdt: null;
+        id: metadataTaskHideTimer
+        interval: 5000
+        onTriggered: {
+            var index = taskManager.indexForTask(mdt);
+
+            if(!index.valid)
+                return;
+
+            mdt = null; // Invalidate the pointer, the Task gets destroyed
+            taskManager.removeTask(index);
+        }
+    }
+
     Component.onCompleted: {
         var mdt = taskManager.createMetadataDownloadTask(ims.serviceName);
-        mdt.finished.connect(function (path) { ims.readFromXMLFile(path); });
+        mdt.finished.connect(function (path) {
+                                if(!ims.readFromXMLFile(path))
+                                {
+                                    errorDialog.title = qsTr("Could not load metadata");
+                                    errorDialog.text = qsTr("The downloaded Metadata was invalid.")
+                                    errorDialog.visible = true;
+                                }
+                                else
+                                {
+                                    // Hide the task
+                                    metadataTaskHideTimer.mdt = mdt;
+                                    metadataTaskHideTimer.start();
+                                }
+                            });
         mdt.start();
+    }
+
+    MessageDialog {
+        id: errorDialog
+        icon: StandardIcon.Critical
     }
 
     Item {
@@ -255,12 +290,6 @@ ApplicationWindow {
                     }
 
                     MessageDialog {
-                        id: errorDialog
-                        title: qsTr("Could not start task")
-                        icon: StandardIcon.Critical
-                    }
-
-                    MessageDialog {
                         id: writeConfirmationDialog
                         title: qsTr("Overwrite data?")
                         text: qsTr("By continuing here, you will LOSE ALL DATA on the Device\n%1!\nAre you sure?").arg(targetSelection.driveName)
@@ -280,6 +309,7 @@ ApplicationWindow {
                                 targetFD = targetSelection.model.openDeviceHandle(targetSelection.currentIndex);
                                 if(typeof(targetFD) == "string")
                                 {
+                                    errorDialog.title = qsTr("Could not start task");
                                     errorDialog.text = qsTr("Opening of %1 for writing failed:\n%2").arg(driveName).arg(targetFD);
                                     errorDialog.visible = true;
                                     return;
@@ -429,6 +459,31 @@ ApplicationWindow {
                     }
 
                     delegate: TaskDelegate {
+                    }
+
+                    // Animate removal of tasks by fading them out
+                    remove: Transition {
+                        NumberAnimation {
+                            id: removalAnimation
+                            property: "opacity"
+                            to: 0
+                            duration: 250
+                            easing.type: Easing.InOutSine
+                        }
+                    }
+
+                    // If tasks got removed, slide the remaining ones
+                    removeDisplaced: Transition {
+                        SequentialAnimation {
+                            NumberAnimation {
+                                duration: removalAnimation.duration
+                            }
+                            NumberAnimation {
+                                property: "y"
+                                duration: 150
+                                easing.type: Easing.InOutSine
+                            }
+                        }
                     }
                 }
             }

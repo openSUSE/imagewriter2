@@ -49,6 +49,12 @@ public:
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd);
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath);
 
+    // First level only
+    Q_INVOKABLE QModelIndex indexForTask(Task *task) const;
+
+    /* Methods to remove tasks. */
+    Q_INVOKABLE void removeTask(const QModelIndex &index);
+
     /* Get the download task for a specific image.
        If there is no task for that particular image, a new task gets created. */
     std::shared_ptr<ImageDownloadTask> downloadTaskForImage(const ImageMetadataStorage::Image &image, QString serviceName);
@@ -68,7 +74,7 @@ private:
     /* Internal methods to add and remove toplevel tasks to the structure */
     // task needs to have all child tasks added already
     void addTask(std::shared_ptr<Task> &task);
-    void removeTask(Task *task);
+    void removeTask(const std::shared_ptr<Task> &task);
     QModelIndex indexForRelation(Task::Relation *relation);
 
     /* A cache for ImageDownloadTasks.
