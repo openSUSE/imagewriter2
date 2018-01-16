@@ -12,4 +12,7 @@
     <qresource prefix="/i18n">
         <file>i18n/de_DE.qm</file>
     </qresource>
+    <qresource prefix="/keyrings">
+        <file>keyrings/opensuse</file>
+    </qresource>
 </RCC>
