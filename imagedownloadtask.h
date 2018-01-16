@@ -7,6 +7,7 @@
 
 #include "task.h"
 #include "imagemetadatastorage.h"
+#include "gpgchecksumtask.h"
 
 class ImageDownloadTask : public Task
 {
@@ -14,11 +15,12 @@ class ImageDownloadTask : public Task
 
 public:
     ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName);
-    ~ImageDownloadTask();
+    ~ImageDownloadTask() override;
 
     QString getLocalPath();
 
 protected:
+    void setExpectedChecksum(QByteArray expectedChecksum);
     void timerEvent(QTimerEvent *ev) override;
 
 public slots:
@@ -30,6 +32,10 @@ protected slots:
     void finished();
     void onStateChanged();
 
+    void startDownload();
+
+    void gpgChecksumTaskStateChanged();
+
 private:
     ImageMetadataStorage::Image image;
     QNetworkAccessManager nam;
@@ -37,6 +43,9 @@ private:
     QFile destinationFile;
     QFile temporaryFile;
     QNetworkReply *reply = nullptr;
+
+    // For checksums from URLs
+    std::unique_ptr<GPGChecksumTask> gpgChecksumTask;
 
     // To verify the checksum
     QCryptographicHash hash{QCryptographicHash::Sha256};

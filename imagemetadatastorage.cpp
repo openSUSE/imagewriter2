@@ -270,8 +270,16 @@ bool ImageMetadataStorage::parseImage(ImageMetadataStorage::Image &image, QXmlSt
         case QXmlStreamReader::StartElement:
             if(reader.name() == QStringLiteral("checksum"))
             {
-                if(reader.attributes().value(QStringLiteral("type")) == QStringLiteral("sha256"))
-                    image.sha256sum = reader.readElementText(QXmlStreamReader::IncludeChildElements);
+                auto cksumattrs = reader.attributes();
+                auto cksumcontent = reader.readElementText(QXmlStreamReader::IncludeChildElements);
+
+                if(cksumattrs.value(QStringLiteral("type")) == QStringLiteral("sha256"))
+                {
+                    if(cksumattrs.hasAttribute(QStringLiteral("disposition")))
+                        image.sha256sumUrl = cksumattrs.value(QStringLiteral("disposition")).toString();
+                    else
+                        image.sha256sum = cksumcontent;
+                }
             }
             else
                 failed = true;

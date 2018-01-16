@@ -13,13 +13,15 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
       image(image)
 {
     auto cacheLocation = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
-
-    expectedChecksum = QByteArray::fromHex(image.sha256sum.toLatin1());
-    QString filename = expectedChecksum.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
-
     destinationDir.setPath(QStringLiteral("%1/org.opensuse.imgwriter/%2").arg(cacheLocation).arg(serviceName));
-    destinationFile.setFileName(destinationDir.absoluteFilePath(filename));
-    temporaryFile.setFileName(destinationDir.absoluteFilePath(filename) + QStringLiteral(".part"));
+
+    if(!image.sha256sumUrl.isEmpty())
+    {
+        gpgChecksumTask = std::unique_ptr<GPGChecksumTask>{new GPGChecksumTask(serviceName, image.sha256sumUrl)};
+        connect(gpgChecksumTask.get(), SIGNAL(stateChanged()), this, SLOT(gpgChecksumTaskStateChanged()));
+    }
+    else
+        setExpectedChecksum(QByteArray::fromHex(image.sha256sum.toLatin1()));
 
     connect(&nam, SIGNAL(finished(QNetworkReply *)), this, SLOT(finished()));
 
@@ -36,6 +38,16 @@ QString ImageDownloadTask::getLocalPath()
     return destinationDir.absoluteFilePath(destinationFile.fileName());
 }
 
+void ImageDownloadTask::setExpectedChecksum(QByteArray expectedChecksum)
+{
+    this->expectedChecksum = expectedChecksum;
+
+    QString filename = expectedChecksum.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
+
+    destinationFile.setFileName(destinationDir.absoluteFilePath(filename));
+    temporaryFile.setFileName(destinationDir.absoluteFilePath(filename) + QStringLiteral(".part"));
+}
+
 void ImageDownloadTask::timerEvent(QTimerEvent *ev)
 {
     if(ev->timerId() != speedTimerId)
@@ -48,38 +60,10 @@ void ImageDownloadTask::timerEvent(QTimerEvent *ev)
 
 void ImageDownloadTask::start()
 {
-    if(destinationFile.exists())
-    {
-        setState(Task::Done);
-        setProgress(100);
-        setMessage(tr("Download skipped, found in cache"));
-        return;
-    }
-
-    // Without connection, any attempt is futile
-    if(nam.networkAccessible() != QNetworkAccessManager::Accessible)
-    {
-        setState(Task::Failed);
-        setMessage(tr("No network connectivity"));
-        return;
-    }
-
-    // If resuming of downloads were to be implemented, this is the right place
-    if(!destinationDir.mkpath(QStringLiteral("."))
-            || !temporaryFile.open(QFile::WriteOnly))
-    {
-        setState(Task::Failed);
-        setMessage(tr("Could not create target file"));
-        return;
-    }
-
-    QNetworkRequest request{image.url};
-    reply = nam.get(request);
-
-    connect(reply, SIGNAL(readyRead()), this, SLOT(readyRead()));
-
-    setState(Task::Running);
-    setMessage(tr("Starting download"));
+    if(gpgChecksumTask)
+        gpgChecksumTask->start();
+    else
+        startDownload();
 }
 
 void ImageDownloadTask::stop()
@@ -96,6 +80,9 @@ void ImageDownloadTask::stop()
         reply = nullptr;
     }
     temporaryFile.remove();
+
+    if(gpgChecksumTask)
+        gpgChecksumTask->stop();
 
     setState(Task::Failed);
     setMessage(tr("Aborted"));
@@ -167,6 +154,49 @@ void ImageDownloadTask::finished()
     reply = nullptr;
 }
 
+void ImageDownloadTask::startDownload()
+{
+    if(expectedChecksum.isEmpty())
+    {
+        setState(Task::Failed);
+        setMessage(tr("No checksum available for this image"));
+        return;
+    }
+
+    if(destinationFile.exists())
+    {
+        setState(Task::Done);
+        setProgress(100);
+        setMessage(tr("Download skipped, found in cache"));
+        return;
+    }
+
+    // Without connection, any attempt is futile
+    if(nam.networkAccessible() != QNetworkAccessManager::Accessible)
+    {
+        setState(Task::Failed);
+        setMessage(tr("No network connectivity"));
+        return;
+    }
+
+    // If resuming of downloads were to be implemented, this is the right place
+    if(!destinationDir.mkpath(QStringLiteral("."))
+            || !temporaryFile.open(QFile::WriteOnly))
+    {
+        setState(Task::Failed);
+        setMessage(tr("Could not create target file"));
+        return;
+    }
+
+    QNetworkRequest request{image.url};
+    reply = nam.get(request);
+
+    connect(reply, SIGNAL(readyRead()), this, SLOT(readyRead()));
+
+    setState(Task::Running);
+    setMessage(tr("Starting download"));
+}
+
 void ImageDownloadTask::onStateChanged()
 {
     if(getState() == Task::Running)
@@ -175,5 +205,27 @@ void ImageDownloadTask::onStateChanged()
     {
         killTimer(speedTimerId);
         speedTimerId = 0;
+    }
+}
+
+void ImageDownloadTask::gpgChecksumTaskStateChanged()
+{
+    switch(gpgChecksumTask->getState())
+    {
+    case Task::Running:
+        setState(Task::Running);
+        setMessage(gpgChecksumTask->getMessage());
+        break;
+    case Task::Done:
+        setMessage(gpgChecksumTask->getMessage());
+        setExpectedChecksum(gpgChecksumTask->getChecksum());
+        startDownload();
+        break;
+    case Task::Failed:
+        setState(Task::Failed);
+        setMessage(gpgChecksumTask->getMessage());
+        break;
+    case Task::Idle:
+        break;
     }
 }

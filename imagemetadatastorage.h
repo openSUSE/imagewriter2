@@ -31,6 +31,7 @@ public:
         QString icon_url;
         QString icon_local_filename;
         QString sha256sum;
+        QString sha256sumUrl;
     };
 
     struct Decision;

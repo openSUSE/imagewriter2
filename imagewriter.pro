@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     usbimagewritertask.cpp \
     cdrecordburntask.cpp \
     imagedownloaderwritertask.cpp \
-    tests.cpp
+    tests.cpp \
+    gpgchecksumtask.cpp
 
 # Localization
 TRANSLATIONS += i18n/de_DE.ts
@@ -37,7 +38,8 @@ HEADERS += \
     cdrecordburntask.h \
     qml64sizetype.h \
     imagedownloaderwritertask.h \
-    tests.h
+    tests.h \
+    gpgchecksumtask.h
 
 linux {
     QT += dbus
