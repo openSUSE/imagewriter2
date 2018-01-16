@@ -70,6 +70,8 @@ void ImageDownloaderWriterTask::downloadStateChanged()
     {
         setState(Task::Failed);
         setMessage(tr("Downloading failed"));
+        // There might be a file descriptor to close
+        writerTask->stop();
     }
     else if(state == Task::Done)
     {
@@ -112,4 +114,6 @@ ImageDownloaderWriterTask::ImageDownloaderWriterTask(TaskManager &taskManager, c
 
     connect(downloadTask.get(), SIGNAL(progressChanged()), this, SLOT(downloadProgressChanged()));
     connect(downloadTask.get(), SIGNAL(stateChanged()), this, SLOT(downloadStateChanged()));
+
+    downloadProgressChanged();
 }

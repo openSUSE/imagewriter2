@@ -64,6 +64,8 @@ private:
 
     ImageMetadataStorage::Image image;
 
+    // To be able to close it
+    int usbFD;
     // To calculate the write speed
     int speedTimerId = -1;
     // Every pollDuration ms the speed gets calculated and displayed

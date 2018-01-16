@@ -72,7 +72,8 @@ void WriterThread::run()
 USBImageWriterTask::USBImageWriterTask(const ImageMetadataStorage::Image &image, QString deviceName, int usbFD)
     : WriterTask(tr("Writing %1 to %2").arg(image.name).arg(deviceName)),
       writerThread(usbFD),
-      image(image)
+      image(image),
+      usbFD(usbFD)
 {
     connect(this, SIGNAL(stateChanged()), this, SLOT(onStateChanged()));
     connect(&writerThread, SIGNAL(bytesWritten(quint64)), this, SLOT(bytesWritten(quint64)));
@@ -114,6 +115,12 @@ void USBImageWriterTask::stop()
     {
         writerThread.requestInterruption();
         writerThread.wait();
+    }
+
+    if(usbFD != -1)
+    {
+        close(usbFD);
+        usbFD = -1;
     }
 
     setState(Task::Failed);

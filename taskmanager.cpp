@@ -162,7 +162,7 @@ std::shared_ptr<ImageDownloadTask> TaskManager::downloadTaskForImage(const Image
             continue;
 
         auto ret = it->task.lock();
-        if(ret)
+        if(ret && ret->getState() != Task::Failed)
             return ret;
 
         imageTaskCache.erase(it);
