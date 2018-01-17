@@ -15,7 +15,7 @@ ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, Q
     auto cacheLocation = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
     destinationDir.setPath(QStringLiteral("%1/org.opensuse.imgwriter/%2").arg(cacheLocation).arg(serviceName));
 
-    if(!image.sha256sumUrl.isEmpty())
+    if(serviceName == "opensuse" || !image.sha256sumUrl.isEmpty())
     {
         gpgChecksumTask = std::unique_ptr<GPGChecksumTask>{new GPGChecksumTask(serviceName, image.sha256sumUrl)};
         connect(gpgChecksumTask.get(), SIGNAL(stateChanged()), this, SLOT(gpgChecksumTaskStateChanged()));
