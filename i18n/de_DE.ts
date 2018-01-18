@@ -14,24 +14,82 @@
         <translation>Kann SCSI Gerät nicht finden</translation>
     </message>
     <message>
-        <location filename="../cdrecordburntask.cpp" line="60"/>
+        <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
         <translation>Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../cdrecordburntask.cpp" line="68"/>
+        <location filename="../cdrecordburntask.cpp" line="69"/>
         <source>Writing successful</source>
         <translation>Schreibvorgang erfolgreich</translation>
     </message>
     <message>
-        <location filename="../cdrecordburntask.cpp" line="75"/>
+        <location filename="../cdrecordburntask.cpp" line="76"/>
         <source>Writing failed</source>
         <translation>Schreibvorgang fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../cdrecordburntask.cpp" line="77"/>
+        <location filename="../cdrecordburntask.cpp" line="78"/>
         <source>Writing failed: %1</source>
         <translation>Schreibvorgang fehlgeschlagen: %1</translation>
+    </message>
+</context>
+<context>
+    <name>GPGChecksumTask</name>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="10"/>
+        <source>Downloading checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="46"/>
+        <source>Failed to open GPG keyring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="58"/>
+        <source>Download skipped, checksum verified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="72"/>
+        <source>No network connectivity</source>
+        <translation type="unfinished">Keine Netzwerkverbindung</translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="81"/>
+        <source>Could not create target file</source>
+        <translation type="unfinished">Konnte Zieldatei nicht erstellen</translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="91"/>
+        <source>Starting checksum download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="109"/>
+        <source>Aborted</source>
+        <translation type="unfinished">Abgebrochen</translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="127"/>
+        <source>Download failed: %1</source>
+        <translation type="unfinished">Download fehlgeschlagen: %1</translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="148"/>
+        <source>Failed to verify signature of checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="153"/>
+        <source>Download finished, could not rename</source>
+        <translation type="unfinished">Download erfolgreich, konnte nicht umbenennen</translation>
+    </message>
+    <message>
+        <location filename="../gpgchecksumtask.cpp" line="159"/>
+        <source>Checksum downloaded and verified</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -42,52 +100,57 @@
         <translation>Lade %1 herunter</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="46"/>
+        <location filename="../imagedownloadtask.cpp" line="58"/>
         <source>%1 / %2 (%3/s)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="55"/>
+        <location filename="../imagedownloadtask.cpp" line="162"/>
+        <source>No checksum available for this image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../imagedownloadtask.cpp" line="170"/>
         <source>Download skipped, found in cache</source>
         <translation>Herunterladen übersprungen, bereits im Cache</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="63"/>
+        <location filename="../imagedownloadtask.cpp" line="178"/>
         <source>No network connectivity</source>
         <translation>Keine Netzwerkverbindung</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="72"/>
+        <location filename="../imagedownloadtask.cpp" line="187"/>
         <source>Could not create target file</source>
         <translation>Konnte Zieldatei nicht erstellen</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="82"/>
+        <location filename="../imagedownloadtask.cpp" line="197"/>
         <source>Starting download</source>
         <translation>Starte Download</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="101"/>
+        <location filename="../imagedownloadtask.cpp" line="88"/>
         <source>Aborted</source>
         <translation>Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="127"/>
+        <location filename="../imagedownloadtask.cpp" line="114"/>
         <source>Download failed: %1</source>
         <translation>Download fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="147"/>
+        <location filename="../imagedownloadtask.cpp" line="134"/>
         <source>Download finished, but checksum failed</source>
         <translation>Download beendet, aber Prüfsumme stimmt nicht überein</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="152"/>
+        <location filename="../imagedownloadtask.cpp" line="139"/>
         <source>Download finished, could not rename</source>
         <translation>Download erfolgreich, konnte nicht umbenennen</translation>
     </message>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="158"/>
+        <location filename="../imagedownloadtask.cpp" line="145"/>
         <source>Download done</source>
         <translation>Download beendet</translation>
     </message>
@@ -110,17 +173,17 @@
         <translation>Herunterladen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../imagedownloaderwritertask.cpp" line="97"/>
+        <location filename="../imagedownloaderwritertask.cpp" line="99"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../imagedownloaderwritertask.cpp" line="102"/>
+        <location filename="../imagedownloaderwritertask.cpp" line="104"/>
         <source>Writing failed</source>
         <translation>Schreibvorgang fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../imagedownloaderwritertask.cpp" line="107"/>
+        <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
         <translation>Schreibe %1 auf %2</translation>
     </message>
@@ -187,6 +250,29 @@
     </message>
 </context>
 <context>
+    <name>RemovableDevicesModelUDisks2</name>
+    <message>
+        <location filename="../removabledevicesmodeludisks2.cpp" line="248"/>
+        <source>%1 DVD at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../removabledevicesmodeludisks2.cpp" line="251"/>
+        <source>%1 Harddisk at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../removabledevicesmodeludisks2.cpp" line="254"/>
+        <source>%1 USB Drive at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../removabledevicesmodeludisks2.cpp" line="257"/>
+        <source>Unknown %1 device at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>USBImageWriterTask</name>
     <message>
         <location filename="../usbimagewritertask.cpp" line="73"/>
@@ -194,27 +280,27 @@
         <translation>Schreibe %1 auf %2</translation>
     </message>
     <message>
-        <location filename="../usbimagewritertask.cpp" line="101"/>
+        <location filename="../usbimagewritertask.cpp" line="102"/>
         <source>%1 / %2 (%3/s)</source>
         <translation>%1 / %2 (%3/s)</translation>
     </message>
     <message>
-        <location filename="../usbimagewritertask.cpp" line="107"/>
+        <location filename="../usbimagewritertask.cpp" line="108"/>
         <source>Starting write</source>
         <translation>Schreibvorgang wird gestartet</translation>
     </message>
     <message>
-        <location filename="../usbimagewritertask.cpp" line="120"/>
+        <location filename="../usbimagewritertask.cpp" line="127"/>
         <source>Aborted</source>
         <translation>Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../usbimagewritertask.cpp" line="143"/>
+        <location filename="../usbimagewritertask.cpp" line="150"/>
         <source>Writing successful</source>
         <translation>Schreibvorgang erfolgreich</translation>
     </message>
     <message>
-        <location filename="../usbimagewritertask.cpp" line="148"/>
+        <location filename="../usbimagewritertask.cpp" line="155"/>
         <source>Writing failed: %1</source>
         <translation>Schreibvorgang fehlgeschlagen</translation>
     </message>
@@ -227,42 +313,52 @@
         <translation>openSUSE Image Writer</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="86"/>
+        <location filename="../main.qml" line="122"/>
         <source>Source Image</source>
         <translation>Abbild</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="325"/>
+        <location filename="../main.qml" line="369"/>
         <source>Target Disk</source>
         <translation>Ziel-Datenträger</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="190"/>
+        <location filename="../main.qml" line="226"/>
         <source>No valid image selected</source>
         <translation>Kein gültiges Abbild ausgewählt</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="198"/>
+        <location filename="../main.qml" line="46"/>
+        <source>Could not load metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="47"/>
+        <source>The downloaded Metadata was invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="234"/>
         <source>No valid drive selected</source>
         <translation>Kein gültiger Datenträger ausgewählt</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="205"/>
+        <location filename="../main.qml" line="241"/>
         <source>The selected drive is too small for the image</source>
         <translation>Der ausgewählte Datenträger ist zu klein</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="210"/>
+        <location filename="../main.qml" line="246"/>
         <source>Ready to write!</source>
         <translation>Bereit!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="258"/>
+        <location filename="../main.qml" line="294"/>
         <source>Overwrite data?</source>
         <translation>Daten überschreiben?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="259"/>
+        <location filename="../main.qml" line="295"/>
         <source>By continuing here, you will LOSE ALL DATA on the Device
 %1!
 Are you sure?</source>
@@ -271,12 +367,23 @@ Are you sure?</source>
 Sind Sie sich sicher?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="291"/>
+        <location filename="../main.qml" line="312"/>
+        <source>Could not start task</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="313"/>
+        <source>Opening of %1 for writing failed:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="335"/>
         <source>Start!</source>
         <translation>Los!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="394"/>
+        <location filename="../main.qml" line="439"/>
         <source>Task List</source>
         <translation>Aufgaben</translation>
     </message>
