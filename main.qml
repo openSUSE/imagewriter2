@@ -406,7 +406,7 @@ ApplicationWindow {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Layout.minimumHeight: 50
-                        model: ["Error 1", "Error 2", "Error 3"]
+                        model: []
                         delegate: Label {
                             width: validationList.width
                             text: modelData
@@ -433,13 +433,38 @@ ApplicationWindow {
 
                 // Custom label component for the right text color
                 Label {
-                    x: 0
-                    y: -12
                     color: window.fontColor
                     text: qsTr("Task List")
 
                     anchors.bottom: parent.top
                     anchors.left: parent.left
+
+                    font.bold: true
+                }
+
+                Label {
+                    color: aboutLinkArea.containsMouse ? Qt.darker(window.fontColor, 1.5) : window.fontColor
+                    text: qsTr("About openSUSE ImageWriter")
+
+                    anchors.bottom: parent.top
+                    anchors.right: parent.right
+                    horizontalAlignment: Text.AlignRight
+
+                    font.bold: true
+
+                    MouseArea {
+                        id: aboutLinkArea
+                        hoverEnabled: true
+
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+
+                        AboutDialog {
+                            id: aboutDialog
+                        }
+
+                        onClicked: aboutDialog.visible = true
+                    }
                 }
 
                 ListView {
