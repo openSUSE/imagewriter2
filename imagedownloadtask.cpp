@@ -8,12 +8,17 @@
 
 #include "qml64sizetype.h"
 
+#include "cachehelper.h"
+
 ImageDownloadTask::ImageDownloadTask(const ImageMetadataStorage::Image &image, QString serviceName)
     : Task(tr("Downloading %1").arg(image.name)),
       image(image)
 {
     auto cacheLocation = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
     destinationDir.setPath(QStringLiteral("%1/org.opensuse.imgwriter/%2").arg(cacheLocation).arg(serviceName));
+    auto filename = CacheHelper::cachedFilename(image.url);
+    destinationFile.setFileName(destinationDir.absoluteFilePath(filename));
+    temporaryFile.setFileName(destinationDir.absoluteFilePath(filename) + QStringLiteral(".part"));
 
     if(serviceName == "opensuse" || !image.sha256sumUrl.isEmpty())
     {
@@ -41,11 +46,6 @@ QString ImageDownloadTask::getLocalPath()
 void ImageDownloadTask::setExpectedChecksum(QByteArray expectedChecksum)
 {
     this->expectedChecksum = expectedChecksum;
-
-    QString filename = expectedChecksum.toBase64(QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
-
-    destinationFile.setFileName(destinationDir.absoluteFilePath(filename));
-    temporaryFile.setFileName(destinationDir.absoluteFilePath(filename) + QStringLiteral(".part"));
 }
 
 void ImageDownloadTask::timerEvent(QTimerEvent *ev)

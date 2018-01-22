@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     cdrecordburntask.cpp \
     imagedownloaderwritertask.cpp \
     tests.cpp \
-    gpgchecksumtask.cpp
+    gpgchecksumtask.cpp \
+    cachehelper.cpp
 
 # Localization
 TRANSLATIONS += i18n/de_DE.ts
@@ -39,7 +40,8 @@ HEADERS += \
     qml64sizetype.h \
     imagedownloaderwritertask.h \
     tests.h \
-    gpgchecksumtask.h
+    gpgchecksumtask.h \
+    cachehelper.h
 
 linux {
     QT += dbus

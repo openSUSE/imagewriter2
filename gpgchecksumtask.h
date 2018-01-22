@@ -9,7 +9,6 @@
 
 #include "task.h"
 
-
 /* This task downloads a gpg-signed checksum file (if not cached) and
  * verifies its authenticity using a built-in keyring. */
 class GPGChecksumTask : public Task
@@ -32,7 +31,6 @@ protected slots:
     void finished();
 
 private:
-    // Returns an empty array
     QByteArray tryReadChecksum(QString filePath);
 
     QUrl url;

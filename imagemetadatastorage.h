@@ -68,7 +68,7 @@ public:
     Q_ENUM(Roles)
 
     ImageMetadataStorage();
-    virtual ~ImageMetadataStorage();
+    virtual ~ImageMetadataStorage() override;
 
     /* Call this once (and once only) to initialize the storage with the information
      * from the XML in xml_document. Returns false on failure. */
@@ -90,6 +90,8 @@ public:
     QString getServiceName() const;
     void setServiceName(const QString &value);
 
+    const std::vector<std::shared_ptr<Image>>& getAllImages();
+
 signals:
     void maxDepthChanged();
 
@@ -102,6 +104,8 @@ private:
     int currentDepth = 0;
     Option root;
     QString serviceName;
+
+    std::vector<std::shared_ptr<Image>> allImages;
 };
 
 Q_DECLARE_METATYPE(ImageMetadataStorage::Image)

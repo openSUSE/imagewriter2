@@ -6,6 +6,8 @@
 #include <QNetworkReply>
 #include <QProcess>
 
+#include "cachehelper.h"
+
 GPGChecksumTask::GPGChecksumTask(QString serviceName, QUrl url)
     : Task(tr("Downloading checksum")),
       url(url),
@@ -13,10 +15,7 @@ GPGChecksumTask::GPGChecksumTask(QString serviceName, QUrl url)
 {
     auto cacheLocation = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
 
-    QCryptographicHash filenameHash{QCryptographicHash::Sha256};
-    filenameHash.addData(url.toEncoded());
-
-    QString filename = filenameHash.result().toBase64(QByteArray::Base64UrlEncoding);
+    QString filename = CacheHelper::cachedFilename(url);
 
     destinationDir.setPath(QStringLiteral("%1/org.opensuse.imgwriter/%2/checksums").arg(cacheLocation).arg(serviceName));
     destinationFile.setFileName(destinationDir.absoluteFilePath(filename));

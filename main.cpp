@@ -13,6 +13,7 @@
 #include "cdrecordburntask.h"
 #include "imagedownloaderwritertask.h"
 #include "tests.h"
+#include "cachehelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -45,6 +46,10 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<QML64SizeComparator>("org.opensuse.imgwriter", 1, 0, "Size64Comparator",
                                                   [] (QQmlEngine *, QJSEngine *) -> QObject*
                                                     { return new QML64SizeComparator; });
+
+    qmlRegisterSingletonType<CacheHelper>("org.opensuse.imgwriter", 1, 0, "CacheHelper",
+                                          [] (QQmlEngine *, QJSEngine *) -> QObject*
+                                            { return new CacheHelper; });
 
     #ifdef Q_OS_LINUX
         qmlRegisterType<RemovableDevicesModelUDisks2>("org.opensuse.imgwriter", 1, 0, "RemovableDevicesModel");

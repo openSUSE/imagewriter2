@@ -17,6 +17,8 @@ bool ImageMetadataStorage::readFromXML(QString xml_document)
 {
     beginResetModel();
 
+    allImages.clear();
+
     QXmlStreamReader reader;
     reader.addData(xml_document);
 
@@ -214,6 +216,9 @@ bool ImageMetadataStorage::parseOption(ImageMetadataStorage::Option &option, QXm
                     option.image = std::make_shared<ImageMetadataStorage::Image>();
                     failed = !parseImage(*option.image, reader);
                 }
+
+                if(!failed)
+                    allImages.push_back(option.image);
             }
             else if(reader.name() == QStringLiteral("decision"))
             {
@@ -303,4 +308,9 @@ QString ImageMetadataStorage::getServiceName() const
 void ImageMetadataStorage::setServiceName(const QString &value)
 {
     serviceName = value;
+}
+
+const std::vector<std::shared_ptr<ImageMetadataStorage::Image> > &ImageMetadataStorage::getAllImages()
+{
+    return allImages;
 }
