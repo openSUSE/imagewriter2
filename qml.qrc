@@ -4,6 +4,8 @@
         <file>qtquickcontrols2.conf</file>
         <file>TaskDelegate.qml</file>
         <file>AboutDialog.qml</file>
+        <file>AboutView.qml</file>
+        <file>SettingsView.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file>icons/drive-removable-media-usb-pendrive.svg</file>
