@@ -49,6 +49,9 @@ ApplicationWindow {
                                 }
                                 else
                                 {
+                                    // Clean the Cache
+                                    CacheHelper.cleanCache(ims.serviceName);
+
                                     // Hide the task
                                     metadataTaskHideTimer.mdt = mdt;
                                     metadataTaskHideTimer.start();
