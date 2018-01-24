@@ -21,6 +21,9 @@ ApplicationWindow {
     // Background color
     color: "#302020"
 
+    // Exposed to SettingsView
+    property bool downloadOnly: false
+
     /* Timer to automatically hide successfully
       finished Tasks. Only used for non-persistent tasks. */
     Timer {
@@ -229,19 +232,22 @@ ApplicationWindow {
                             errormsgs.push(qsTr("No valid image selected"));
                         }
 
-                        // Verify that a valid drive is selected
-                        var driveSize = targetSelection.driveSize
-                        if(!driveSize)
+                        if(!window.downloadOnly)
                         {
-                            valid = false;
-                            errormsgs.push(qsTr("No valid drive selected"));
-                        }
+                            // Verify that a valid drive is selected
+                            var driveSize = targetSelection.driveSize
+                            if(!driveSize)
+                            {
+                                valid = false;
+                                errormsgs.push(qsTr("No valid drive selected"));
+                            }
 
-                        // If valid image and drive are selected, verify the size
-                        if(valid && Size64Comparator.compare(imageSize, driveSize) < 0)
-                        {
-                            valid = false;
-                            errormsgs.push(qsTr("The selected drive is too small for the image"));
+                            // If valid image and drive are selected, verify the size
+                            if(valid && Size64Comparator.compare(imageSize, driveSize) < 0)
+                            {
+                                valid = false;
+                                errormsgs.push(qsTr("The selected drive is too small for the image"));
+                            }
                         }
 
                         if(valid)
@@ -261,6 +267,11 @@ ApplicationWindow {
                     Connections {
                         target: targetSelection
                         onDriveSizeChanged: go.refreshValidationState();
+                    }
+
+                    Connections {
+                        target: window
+                        onDownloadOnlyChanged: go.refreshValidationState();
                     }
 
                     // Paint an arrow pointing to the right
@@ -341,7 +352,18 @@ ApplicationWindow {
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         Layout.maximumWidth: 100
 
-                        onClicked: writeConfirmationDialog.visible = true;
+                        onClicked: {
+                            if(window.downloadOnly)
+                            {
+                                var data = ims.data(selection.getCurrentSelectedIndex(), ImageMetadataStorage.ImageDataRole);
+                                var task = taskManager.createImageDownloadTask(data, ims.serviceName);
+                                task.start();
+                            }
+                            else
+                            {
+                                writeConfirmationDialog.visible = true;
+                            }
+                        }
                     }
                 }
 

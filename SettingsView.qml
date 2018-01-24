@@ -21,6 +21,11 @@ GridLayout {
     CheckBox {
         id: downloadOnlyCheckbox
         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+        checked: window.downloadOnly
+        onCheckedChanged: {
+            window.downloadOnly = checked
+            checked = Qt.binding(function() { return window.downloadOnly; })
+        }
     }
 
     Label {
