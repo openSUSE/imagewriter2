@@ -10,7 +10,8 @@ class CacheHelper : public QObject
 public:
     CacheHelper();
 
-    // Deleted files in the cache which are not referenced by the XML file
+    // Deletes files in the cache which are not referenced by the XML file.
+    // This includes partial downloads (*.part files)
     Q_INVOKABLE void cleanCache(QString serviceName);
 
     // Deletes the entire cache, including the XML file
