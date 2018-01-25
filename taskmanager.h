@@ -45,6 +45,7 @@ public:
 
     /* Methods to create tasks. */
     Q_INVOKABLE MetadataDownloadTask *createMetadataDownloadTask(QString serviceName);
+    // Note: ImageDownloadTasks are shared
     Q_INVOKABLE ImageDownloadTask *createImageDownloadTask(QVariant imageData, QString serviceName);
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskUSB(QVariant imageData, QString serviceName, QString deviceName, int fd);
     Q_INVOKABLE ImageDownloaderWriterTask *createImageDownloadWriterTaskDVD(QVariant imageData, QString serviceName, QString deviceName, QString devicePath);

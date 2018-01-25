@@ -108,7 +108,7 @@ MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceNam
 
 ImageDownloadTask *TaskManager::createImageDownloadTask(QVariant imageData, QString serviceName)
 {
-    std::shared_ptr<Task> idt = std::make_shared<ImageDownloadTask>(imageData.value<ImageMetadataStorage::Image>(), serviceName);
+    std::shared_ptr<Task> idt = downloadTaskForImage(imageData.value<ImageMetadataStorage::Image>(), serviceName);
     addTask(idt);
     QQmlEngine::setObjectOwnership(idt.get(), QQmlEngine::CppOwnership);
     return static_cast<ImageDownloadTask*>(idt.get());
@@ -162,7 +162,9 @@ std::shared_ptr<ImageDownloadTask> TaskManager::downloadTaskForImage(const Image
             continue;
 
         auto ret = it->task.lock();
-        if(ret && ret->getState() != Task::Failed)
+        if(ret
+           && ret->getState() != Task::Failed // Try again instead
+           && ret->getState() != Task::Done)  // Either already cached or cache might be gone
             return ret;
 
         imageTaskCache.erase(it);
