@@ -2,6 +2,42 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../AboutDialog.qml" line="18"/>
+        <source>About openSUSE Image Writer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AboutDialog.qml" line="54"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AboutDialog.qml" line="63"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AboutView</name>
+    <message>
+        <location filename="../AboutView.qml" line="23"/>
+        <source>openSUSE ImageWriter 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AboutView.qml" line="34"/>
+        <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AboutView.qml" line="58"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CDRecordBurnTask</name>
     <message>
         <location filename="../cdrecordburntask.cpp" line="7"/>
@@ -37,57 +73,57 @@
 <context>
     <name>GPGChecksumTask</name>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="10"/>
+        <location filename="../gpgchecksumtask.cpp" line="12"/>
         <source>Downloading checksum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="46"/>
+        <location filename="../gpgchecksumtask.cpp" line="45"/>
         <source>Failed to open GPG keyring</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="58"/>
+        <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="72"/>
+        <location filename="../gpgchecksumtask.cpp" line="71"/>
         <source>No network connectivity</source>
         <translation type="unfinished">Keine Netzwerkverbindung</translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="81"/>
+        <location filename="../gpgchecksumtask.cpp" line="80"/>
         <source>Could not create target file</source>
         <translation type="unfinished">Konnte Zieldatei nicht erstellen</translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="91"/>
+        <location filename="../gpgchecksumtask.cpp" line="90"/>
         <source>Starting checksum download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="109"/>
+        <location filename="../gpgchecksumtask.cpp" line="108"/>
         <source>Aborted</source>
         <translation type="unfinished">Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="127"/>
+        <location filename="../gpgchecksumtask.cpp" line="126"/>
         <source>Download failed: %1</source>
         <translation type="unfinished">Download fehlgeschlagen: %1</translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="148"/>
+        <location filename="../gpgchecksumtask.cpp" line="147"/>
         <source>Failed to verify signature of checksum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="153"/>
+        <location filename="../gpgchecksumtask.cpp" line="152"/>
         <source>Download finished, could not rename</source>
         <translation type="unfinished">Download erfolgreich, konnte nicht umbenennen</translation>
     </message>
     <message>
-        <location filename="../gpgchecksumtask.cpp" line="159"/>
+        <location filename="../gpgchecksumtask.cpp" line="158"/>
         <source>Checksum downloaded and verified</source>
         <translation type="unfinished"></translation>
     </message>
@@ -95,7 +131,7 @@
 <context>
     <name>ImageDownloadTask</name>
     <message>
-        <location filename="../imagedownloadtask.cpp" line="12"/>
+        <location filename="../imagedownloadtask.cpp" line="14"/>
         <source>Downloading %1</source>
         <translation>Lade %1 herunter</translation>
     </message>
@@ -273,6 +309,24 @@
     </message>
 </context>
 <context>
+    <name>SettingsView</name>
+    <message>
+        <location filename="../SettingsView.qml" line="32"/>
+        <source>Only download images (this session only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SettingsView.qml" line="44"/>
+        <source>Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SettingsView.qml" line="61"/>
+        <source>Clear cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>USBImageWriterTask</name>
     <message>
         <location filename="../usbimagewritertask.cpp" line="73"/>
@@ -313,52 +367,52 @@
         <translation>openSUSE Image Writer</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="122"/>
+        <location filename="../main.qml" line="128"/>
         <source>Source Image</source>
         <translation>Abbild</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="369"/>
+        <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
         <translation>Ziel-Datenträger</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="226"/>
+        <location filename="../main.qml" line="232"/>
         <source>No valid image selected</source>
         <translation>Kein gültiges Abbild ausgewählt</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="46"/>
+        <location filename="../main.qml" line="49"/>
         <source>Could not load metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="47"/>
+        <location filename="../main.qml" line="50"/>
         <source>The downloaded Metadata was invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="234"/>
+        <location filename="../main.qml" line="242"/>
         <source>No valid drive selected</source>
         <translation>Kein gültiger Datenträger ausgewählt</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="241"/>
+        <location filename="../main.qml" line="249"/>
         <source>The selected drive is too small for the image</source>
         <translation>Der ausgewählte Datenträger ist zu klein</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="246"/>
+        <location filename="../main.qml" line="255"/>
         <source>Ready to write!</source>
         <translation>Bereit!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="294"/>
+        <location filename="../main.qml" line="308"/>
         <source>Overwrite data?</source>
         <translation>Daten überschreiben?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="295"/>
+        <location filename="../main.qml" line="309"/>
         <source>By continuing here, you will LOSE ALL DATA on the Device
 %1!
 Are you sure?</source>
@@ -367,25 +421,30 @@ Are you sure?</source>
 Sind Sie sich sicher?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="312"/>
+        <location filename="../main.qml" line="326"/>
         <source>Could not start task</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="313"/>
+        <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="335"/>
+        <location filename="../main.qml" line="349"/>
         <source>Start!</source>
         <translation>Los!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="439"/>
+        <location filename="../main.qml" line="462"/>
         <source>Task List</source>
         <translation>Aufgaben</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="472"/>
+        <source>About openSUSE ImageWriter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
