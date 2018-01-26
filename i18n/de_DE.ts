@@ -6,7 +6,7 @@
     <message>
         <location filename="../AboutDialog.qml" line="18"/>
         <source>About openSUSE Image Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Über openSUSE Image Writer</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
@@ -16,7 +16,7 @@
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -24,17 +24,17 @@
     <message>
         <location filename="../AboutView.qml" line="23"/>
         <source>openSUSE ImageWriter 2</source>
-        <translation type="unfinished"></translation>
+        <translation>openSUSE ImageWriter 2</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation type="unfinished"></translation>
+        <translation>Webseite: &lt;a href=&quot;%1&quot;&gt;Auf GitHub&lt;/a&gt;&lt;br/&gt;Ein &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; Projekt&lt;br/&gt;Geschrieben von Fabian Vogt</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -75,22 +75,22 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="12"/>
         <source>Downloading checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Prüfsumme herunter</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="45"/>
         <source>Failed to open GPG keyring</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte GPG Schlüsselbund nicht öffnen</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Herunterladen übersprungen, Prüfsumme verifiziert</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="71"/>
         <source>No network connectivity</source>
-        <translation type="unfinished">Keine Netzwerkverbindung</translation>
+        <translation>Keine Netzwerkverbindung</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="80"/>
@@ -100,7 +100,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="90"/>
         <source>Starting checksum download</source>
-        <translation type="unfinished"></translation>
+        <translation>Beginne, die Prüfsumme herunterzuladen</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="108"/>
@@ -115,7 +115,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="147"/>
         <source>Failed to verify signature of checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Signatur der Prüfsumme nicht verifizieren</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="152"/>
@@ -125,7 +125,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="158"/>
         <source>Checksum downloaded and verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfsumme heruntergeladen und verifiziert</translation>
     </message>
 </context>
 <context>
@@ -143,7 +143,7 @@
     <message>
         <location filename="../imagedownloadtask.cpp" line="162"/>
         <source>No checksum available for this image</source>
-        <translation type="unfinished"></translation>
+        <translation>Für dieses Abbild ist keine Prüfsumme vorhanden</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="170"/>
@@ -290,22 +290,22 @@
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="248"/>
         <source>%1 DVD at %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 DVD (%2)</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="251"/>
         <source>%1 Harddisk at %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Festplatte (%2)</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="254"/>
         <source>%1 USB Drive at %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 USB Laufwerk (%2)</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="257"/>
         <source>Unknown %1 device at %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekanntes %1 Gerät (%2)</translation>
     </message>
 </context>
 <context>
@@ -313,17 +313,17 @@
     <message>
         <location filename="../SettingsView.qml" line="32"/>
         <source>Only download images (this session only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbilder nur herunterladen (nur für diese Sitzung)</translation>
     </message>
     <message>
         <location filename="../SettingsView.qml" line="44"/>
         <source>Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwischenspeicher:</translation>
     </message>
     <message>
         <location filename="../SettingsView.qml" line="61"/>
         <source>Clear cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwischenspeicher leeren</translation>
     </message>
 </context>
 <context>
@@ -384,12 +384,12 @@
     <message>
         <location filename="../main.qml" line="49"/>
         <source>Could not load metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Metadaten nicht laden</translation>
     </message>
     <message>
         <location filename="../main.qml" line="50"/>
         <source>The downloaded Metadata was invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die heruntergeladenen Metadaten sind ungültig.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="242"/>
@@ -423,13 +423,14 @@ Sind Sie sich sicher?</translation>
     <message>
         <location filename="../main.qml" line="326"/>
         <source>Could not start task</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte Vorgang nicht starten</translation>
     </message>
     <message>
         <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte %1 nicht zum schreiben öffnen:
+%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="349"/>
@@ -444,7 +445,7 @@ Sind Sie sich sicher?</translation>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Über openSUSE ImageWriter</translation>
     </message>
 </context>
 </TS>
