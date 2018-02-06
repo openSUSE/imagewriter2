@@ -11,7 +11,7 @@
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
@@ -95,7 +95,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="80"/>
         <source>Could not create target file</source>
-        <translation type="unfinished">Konnte Zieldatei nicht erstellen</translation>
+        <translation>Konnte Zieldatei nicht erstellen</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="90"/>
@@ -105,12 +105,12 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="108"/>
         <source>Aborted</source>
-        <translation type="unfinished">Abgebrochen</translation>
+        <translation>Abgebrochen</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="126"/>
         <source>Download failed: %1</source>
-        <translation type="unfinished">Download fehlgeschlagen: %1</translation>
+        <translation>Download fehlgeschlagen: %1</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="147"/>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="152"/>
         <source>Download finished, could not rename</source>
-        <translation type="unfinished">Download erfolgreich, konnte nicht umbenennen</translation>
+        <translation>Download fertig, konnte nicht umbenennen</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="158"/>
