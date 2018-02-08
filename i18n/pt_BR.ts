@@ -57,7 +57,7 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
         <source>Writing successful</source>
-        <translation>Gravado com sucesso</translation>
+        <translation>Gravação bem sucedida</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="76"/>
@@ -206,22 +206,22 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="72"/>
         <source>Downloading failed</source>
-        <translation></translation>
+        <translation>Falha no download</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="99"/>
         <source>Done</source>
-        <translation></translation>
+        <translation>Concluído</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="104"/>
         <source>Writing failed</source>
-        <translation></translation>
+        <translation>Falha na gravação</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
-        <translation></translation>
+        <translation>Implantando %1 em %2</translation>
     </message>
 </context>
 <context>
@@ -229,37 +229,37 @@
     <message>
         <location filename="../metadatadownloadtask.cpp" line="9"/>
         <source>Getting information about %1 images</source>
-        <translation></translation>
+        <translation>Obtendo informação sobre a imagem %1</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="27"/>
         <source>Downloading metadata</source>
-        <translation></translation>
+        <translation>Baixando metadados</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="45"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="69"/>
         <source>Metadata download failed, using cache</source>
-        <translation></translation>
+        <translation>Falha ao baixar metadados, usando cache</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="75"/>
         <source>Metadata download failed, cache not available</source>
-        <translation></translation>
+        <translation>Falha ao baixar metadados, cache não disponível</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="87"/>
         <source>Metadata downloaded</source>
-        <translation></translation>
+        <translation>Metadados baixados</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="94"/>
         <source>Failed to save metadata</source>
-        <translation></translation>
+        <translation>Falha ao salvar metadados</translation>
     </message>
 </context>
 <context>
@@ -290,22 +290,22 @@
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="248"/>
         <source>%1 DVD at %2</source>
-        <translation></translation>
+        <translation>DVD %1 em %2</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="251"/>
         <source>%1 Harddisk at %2</source>
-        <translation></translation>
+        <translation>Disco rígido %1 em %2</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="254"/>
         <source>%1 USB Drive at %2</source>
-        <translation></translation>
+        <translation>Unidade USB %1 em %2</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="257"/>
         <source>Unknown %1 device at %2</source>
-        <translation></translation>
+        <translation>Dispositivo desconhecido %1 em %2</translation>
     </message>
 </context>
 <context>
@@ -313,7 +313,7 @@
     <message>
         <location filename="../SettingsView.qml" line="32"/>
         <source>Only download images (this session only)</source>
-        <translation></translation>
+        <translation>Apenas baixar imagens (esta sessão somente)</translation>
     </message>
     <message>
         <location filename="../SettingsView.qml" line="44"/>
@@ -323,7 +323,7 @@
     <message>
         <location filename="../SettingsView.qml" line="61"/>
         <source>Clear cache</source>
-        <translation></translation>
+        <translation>Limpar cache</translation>
     </message>
 </context>
 <context>
@@ -331,7 +331,7 @@
     <message>
         <location filename="../usbimagewritertask.cpp" line="73"/>
         <source>Writing %1 to %2</source>
-        <translation></translation>
+        <translation>Gravando %1 em %2</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="102"/>
@@ -341,22 +341,22 @@
     <message>
         <location filename="../usbimagewritertask.cpp" line="108"/>
         <source>Starting write</source>
-        <translation></translation>
+        <translation>Iniciando gravação</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="127"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="150"/>
         <source>Writing successful</source>
-        <translation></translation>
+        <translation>Gravação bem sucedida</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="155"/>
         <source>Writing failed: %1</source>
-        <translation></translation>
+        <translation>Falha na gravação: %1</translation>
     </message>
 </context>
 <context>
@@ -369,80 +369,83 @@
     <message>
         <location filename="../main.qml" line="49"/>
         <source>Could not load metadata</source>
-        <translation></translation>
+        <translation>Não foi possível carregar metadados</translation>
     </message>
     <message>
         <location filename="../main.qml" line="50"/>
         <source>The downloaded Metadata was invalid.</source>
-        <translation></translation>
+        <translation>Os metadados baixados são inválidos.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="128"/>
         <source>Source Image</source>
-        <translation></translation>
+        <translation>Imagem fonte</translation>
     </message>
     <message>
         <location filename="../main.qml" line="232"/>
         <source>No valid image selected</source>
-        <translation></translation>
+        <translation>Nenhuma imagem válida foi selecionada</translation>
     </message>
     <message>
         <location filename="../main.qml" line="242"/>
         <source>No valid drive selected</source>
-        <translation></translation>
+        <translation>Nenhuma unidade válida foi selecionada</translation>
     </message>
     <message>
         <location filename="../main.qml" line="249"/>
         <source>The selected drive is too small for the image</source>
-        <translation></translation>
+        <translation>A unidade selecionada é muito pequena para a imagem</translation>
     </message>
     <message>
         <location filename="../main.qml" line="255"/>
         <source>Ready to write!</source>
-        <translation></translation>
+        <translation>Pronto para gravar!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="308"/>
         <source>Overwrite data?</source>
-        <translation></translation>
+        <translation>Sobrescrever dados?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="309"/>
         <source>By continuing here, you will LOSE ALL DATA on the Device
 %1!
 Are you sure?</source>
-        <translation></translation>
+        <translation>Ao continuar, você PERDERÁ TODOS OS DADOS no dispositivo
+%1!
+Tem certeza?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="326"/>
         <source>Could not start task</source>
-        <translation></translation>
+        <translation>Não foi possível iniciar a tarefa</translation>
     </message>
     <message>
         <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
-        <translation></translation>
+        <translation>Falha ao abrir %1 para gravação:
+%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="349"/>
         <source>Start!</source>
-        <translation></translation>
+        <translation>Iniciar!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
-        <translation></translation>
+        <translation>Disco de destino</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation></translation>
+        <translation>Lista de tarefas</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation></translation>
+        <translation>Sobre o openSUSE ImageWriter</translation>
     </message>
 </context>
 </TS>
