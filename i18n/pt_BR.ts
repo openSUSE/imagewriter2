@@ -6,17 +6,17 @@
     <message>
         <location filename="../AboutDialog.qml" line="18"/>
         <source>About openSUSE Image Writer</source>
-        <translation></translation>
+        <translation>Sobre o openSUSE Image Writer</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
         <source>About</source>
-        <translation></translation>
+        <translation>Sobre</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>Configurações</translation>
     </message>
 </context>
 <context>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation></translation>
+        <translation>Site: &lt;a href=&quot;%1&quot;&gt;no GitHub&lt;/a&gt;&lt;br/&gt;Um projeto &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt;&lt;br/&gt;Criado por Fabian Vogt</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
         <source>Close</source>
-        <translation></translation>
+        <translation>Fechar</translation>
     </message>
 </context>
 <context>
@@ -42,32 +42,32 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="7"/>
         <source>Writing to %1</source>
-        <translation></translation>
+        <translation>Gravando em %1</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="36"/>
         <source>Unable to find the SCSI device</source>
-        <translation></translation>
+        <translation>Não foi possível encontrado o dispositivo SCSI</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
         <source>Writing successful</source>
-        <translation></translation>
+        <translation>Gravado com sucesso</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="76"/>
         <source>Writing failed</source>
-        <translation></translation>
+        <translation>Falha na gravação</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="78"/>
         <source>Writing failed: %1</source>
-        <translation></translation>
+        <translation>Falha na gravação: %1</translation>
     </message>
 </context>
 <context>
@@ -75,57 +75,57 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="12"/>
         <source>Downloading checksum</source>
-        <translation></translation>
+        <translation>Baixando soma de verificação</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="45"/>
         <source>Failed to open GPG keyring</source>
-        <translation></translation>
+        <translation>Falha ao abrir o chaveiro GPG</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
-        <translation></translation>
+        <translation>Download ignorado, soma de verificação feita</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="71"/>
         <source>No network connectivity</source>
-        <translation></translation>
+        <translation>Sem conectividade de rede</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="80"/>
         <source>Could not create target file</source>
-        <translation></translation>
+        <translation>Não foi possível criar o arquivo de destino</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="90"/>
         <source>Starting checksum download</source>
-        <translation></translation>
+        <translation>Iniciando download da soma de verificação</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="108"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="126"/>
         <source>Download failed: %1</source>
-        <translation></translation>
+        <translation>Falha no download: %1</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="147"/>
         <source>Failed to verify signature of checksum</source>
-        <translation></translation>
+        <translation>Falha ao verificar a assinatura da soma de verificação</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="152"/>
         <source>Download finished, could not rename</source>
-        <translation></translation>
+        <translation>Download concluído, não foi possível renomear</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="158"/>
         <source>Checksum downloaded and verified</source>
-        <translation></translation>
+        <translation>Soma de verificação baixada e verificada</translation>
     </message>
 </context>
 <context>
@@ -133,7 +133,7 @@
     <message>
         <location filename="../imagedownloadtask.cpp" line="14"/>
         <source>Downloading %1</source>
-        <translation></translation>
+        <translation>Baixando %1</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="58"/>
@@ -143,52 +143,52 @@
     <message>
         <location filename="../imagedownloadtask.cpp" line="88"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>Cancelado</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="114"/>
         <source>Download failed: %1</source>
-        <translation></translation>
+        <translation>Falha no download: %1</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="134"/>
         <source>Download finished, but checksum failed</source>
-        <translation></translation>
+        <translation>Download concluído, mas a soma de verificação falhou</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="139"/>
         <source>Download finished, could not rename</source>
-        <translation></translation>
+        <translation>Download concluído, não foi possível renomear</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="145"/>
         <source>Download done</source>
-        <translation></translation>
+        <translation>Download concluído</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="162"/>
         <source>No checksum available for this image</source>
-        <translation></translation>
+        <translation>Nenhuma soma de verificação disponível para esta imagem</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="170"/>
         <source>Download skipped, found in cache</source>
-        <translation></translation>
+        <translation>Download ignorado, encontrado no cache</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="178"/>
         <source>No network connectivity</source>
-        <translation></translation>
+        <translation>Sem conectividade de rede</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="187"/>
         <source>Could not create target file</source>
-        <translation></translation>
+        <translation>Não foi possível criar o arquivo de destino</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="197"/>
         <source>Starting download</source>
-        <translation></translation>
+        <translation>Iniciando o download</translation>
     </message>
 </context>
 <context>
@@ -196,12 +196,12 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="39"/>
         <source>Downloading image</source>
-        <translation></translation>
+        <translation>Baixando imagem</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="60"/>
         <source>Writing image</source>
-        <translation></translation>
+        <translation>Gravando imagem</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="72"/>
