@@ -95,7 +95,7 @@ QHash<int, QByteArray> TaskManager::roleNames() const
 
 MetadataDownloadTask *TaskManager::createMetadataDownloadTask(QString serviceName)
 {
-    QUrl metadataUrl = QUrl(QStringLiteral("http://w3.suse.de/~fvogt/images.xml"));
+    QUrl metadataUrl = QUrl(QStringLiteral("https://software.opensuse.org/images.xml"));
 
     if(serviceName != QStringLiteral("opensuse"))
         return nullptr;
