@@ -11,12 +11,12 @@
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
         <source>About</source>
-        <translation></translation>
+        <translation>關於</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
         <source>Settings</source>
-        <translation></translation>
+        <translation>設定</translation>
     </message>
 </context>
 <context>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation></translation>
+        <translation>首頁：&lt;a href=&quot;%1&quot;&gt;GitHub 上&lt;/a&gt;&lt;br/&gt;一個&lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; 專案&lt;br/&gt;由 Fabian Vogt 製作</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
         <source>Close</source>
-        <translation></translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -42,17 +42,17 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="7"/>
         <source>Writing to %1</source>
-        <translation></translation>
+        <translation type="unfinished">Writing to %1</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="36"/>
         <source>Unable to find the SCSI device</source>
-        <translation></translation>
+        <translation type="unfinished">Unable to find the SCSI device</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation type="unfinished">Aborted</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
