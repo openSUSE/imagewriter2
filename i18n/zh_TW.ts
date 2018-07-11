@@ -6,7 +6,7 @@
     <message>
         <location filename="../AboutDialog.qml" line="18"/>
         <source>About openSUSE Image Writer</source>
-        <translation></translation>
+        <translation>關於 openSUSE 映像寫入工具</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
