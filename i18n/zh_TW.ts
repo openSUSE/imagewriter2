@@ -148,47 +148,47 @@
     <message>
         <location filename="../imagedownloadtask.cpp" line="114"/>
         <source>Download failed: %1</source>
-        <translation></translation>
+        <translation>下載失敗：%1</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="134"/>
         <source>Download finished, but checksum failed</source>
-        <translation></translation>
+        <translation>下載完成，但雜湊值失敗</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="139"/>
         <source>Download finished, could not rename</source>
-        <translation></translation>
+        <translation>下載完成，但不能重新命名</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="145"/>
         <source>Download done</source>
-        <translation></translation>
+        <translation>下載完成</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="162"/>
         <source>No checksum available for this image</source>
-        <translation></translation>
+        <translation>沒有這個映像可用的雜湊值</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="170"/>
         <source>Download skipped, found in cache</source>
-        <translation></translation>
+        <translation>已跳過下載，因為在快取中找到下載內容</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="178"/>
         <source>No network connectivity</source>
-        <translation></translation>
+        <translation>沒有網路連線能力</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="187"/>
         <source>Could not create target file</source>
-        <translation></translation>
+        <translation>無法建立目標檔案</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="197"/>
         <source>Starting download</source>
-        <translation></translation>
+        <translation>正在開始下載</translation>
     </message>
 </context>
 <context>
@@ -221,7 +221,7 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
-        <translation></translation>
+        <translation>Deploying %1 to %</translation>
     </message>
 </context>
 <context>
@@ -229,37 +229,37 @@
     <message>
         <location filename="../metadatadownloadtask.cpp" line="9"/>
         <source>Getting information about %1 images</source>
-        <translation></translation>
+        <translation>取得關於 %1 映像的資訊</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="27"/>
         <source>Downloading metadata</source>
-        <translation></translation>
+        <translation>正在下載中繼檔案</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="45"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="69"/>
         <source>Metadata download failed, using cache</source>
-        <translation></translation>
+        <translation>中繼檔案下載失敗，改使用快取</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="75"/>
         <source>Metadata download failed, cache not available</source>
-        <translation></translation>
+        <translation>中繼檔案下載失敗，且沒有可以使用的快取</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="87"/>
         <source>Metadata downloaded</source>
-        <translation></translation>
+        <translation>已下載中繼檔案</translation>
     </message>
     <message>
         <location filename="../metadatadownloadtask.cpp" line="94"/>
         <source>Failed to save metadata</source>
-        <translation></translation>
+        <translation>無法儲存中繼檔案</translation>
     </message>
 </context>
 <context>
@@ -290,22 +290,22 @@
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="248"/>
         <source>%1 DVD at %2</source>
-        <translation></translation>
+        <translation>於 %2 的 %1 DVD</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="251"/>
         <source>%1 Harddisk at %2</source>
-        <translation></translation>
+        <translation>於 %2 的 %1 硬碟</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="254"/>
         <source>%1 USB Drive at %2</source>
-        <translation></translation>
+        <translation>於 %2 的 %1 USB 硬碟</translation>
     </message>
     <message>
         <location filename="../removabledevicesmodeludisks2.cpp" line="257"/>
         <source>Unknown %1 device at %2</source>
-        <translation></translation>
+        <translation>於 %2 的未知 %1 裝置</translation>
     </message>
 </context>
 <context>
@@ -313,17 +313,17 @@
     <message>
         <location filename="../SettingsView.qml" line="32"/>
         <source>Only download images (this session only)</source>
-        <translation></translation>
+        <translation>只下載映像（僅這個工作階段）</translation>
     </message>
     <message>
         <location filename="../SettingsView.qml" line="44"/>
         <source>Cache:</source>
-        <translation></translation>
+        <translation>快取：</translation>
     </message>
     <message>
         <location filename="../SettingsView.qml" line="61"/>
         <source>Clear cache</source>
-        <translation></translation>
+        <translation>清除快取</translation>
     </message>
 </context>
 <context>
@@ -331,32 +331,32 @@
     <message>
         <location filename="../usbimagewritertask.cpp" line="73"/>
         <source>Writing %1 to %2</source>
-        <translation></translation>
+        <translation>正在寫入 %1 至 %2</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="102"/>
         <source>%1 / %2 (%3/s)</source>
-        <translation></translation>
+        <translation>%1 / %2 (%3 / 秒)</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="108"/>
         <source>Starting write</source>
-        <translation></translation>
+        <translation>正在開始寫入</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="127"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="150"/>
         <source>Writing successful</source>
-        <translation></translation>
+        <translation>寫入成功</translation>
     </message>
     <message>
         <location filename="../usbimagewritertask.cpp" line="155"/>
         <source>Writing failed: %1</source>
-        <translation></translation>
+        <translation>寫入失敗：%1</translation>
     </message>
 </context>
 <context>
@@ -364,47 +364,47 @@
     <message>
         <location filename="../main.qml" line="19"/>
         <source>openSUSE Image Writer</source>
-        <translation></translation>
+        <translation>openSUSE 映像寫入工具</translation>
     </message>
     <message>
         <location filename="../main.qml" line="49"/>
         <source>Could not load metadata</source>
-        <translation></translation>
+        <translation>無法載入中繼資料</translation>
     </message>
     <message>
         <location filename="../main.qml" line="50"/>
         <source>The downloaded Metadata was invalid.</source>
-        <translation></translation>
+        <translation>下載的中繼檔案無效。</translation>
     </message>
     <message>
         <location filename="../main.qml" line="128"/>
         <source>Source Image</source>
-        <translation></translation>
+        <translation>來源映像</translation>
     </message>
     <message>
         <location filename="../main.qml" line="232"/>
         <source>No valid image selected</source>
-        <translation></translation>
+        <translation>未選擇有效映像</translation>
     </message>
     <message>
         <location filename="../main.qml" line="242"/>
         <source>No valid drive selected</source>
-        <translation></translation>
+        <translation>未選擇有效硬碟</translation>
     </message>
     <message>
         <location filename="../main.qml" line="249"/>
         <source>The selected drive is too small for the image</source>
-        <translation></translation>
+        <translation>選取的硬碟小於這個映像的大小</translation>
     </message>
     <message>
         <location filename="../main.qml" line="255"/>
         <source>Ready to write!</source>
-        <translation></translation>
+        <translation>開始寫入！</translation>
     </message>
     <message>
         <location filename="../main.qml" line="308"/>
         <source>Overwrite data?</source>
-        <translation></translation>
+        <translation>覆寫資料？</translation>
     </message>
     <message>
         <location filename="../main.qml" line="309"/>
@@ -422,27 +422,28 @@ Are you sure?</source>
         <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
-        <translation></translation>
+        <translation type="unfinished">Opening of %1 for writing failed:
+%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="349"/>
         <source>Start!</source>
-        <translation></translation>
+        <translation type="unfinished">Start!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
-        <translation></translation>
+        <translation type="unfinished">Target Disk</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation></translation>
+        <translation type="unfinished">Task List</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation></translation>
+        <translation type="unfinished">About openSUSE ImageWriter</translation>
     </message>
 </context>
 </TS>
