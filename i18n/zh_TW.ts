@@ -57,17 +57,17 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
         <source>Writing successful</source>
-        <translation></translation>
+        <translation>成功寫入</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="76"/>
         <source>Writing failed</source>
-        <translation></translation>
+        <translation>寫入失敗</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="78"/>
         <source>Writing failed: %1</source>
-        <translation></translation>
+        <translation>寫入失敗：%1</translation>
     </message>
 </context>
 <context>
@@ -75,57 +75,57 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="12"/>
         <source>Downloading checksum</source>
-        <translation></translation>
+        <translation>正在下載雜湊值</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="45"/>
         <source>Failed to open GPG keyring</source>
-        <translation></translation>
+        <translation>無法開啟 GPG 鑰匙圈</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
-        <translation></translation>
+        <translation>已跳過下載，雜湊值已驗證。</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="71"/>
         <source>No network connectivity</source>
-        <translation></translation>
+        <translation>沒有網路連線能力</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="80"/>
         <source>Could not create target file</source>
-        <translation></translation>
+        <translation>無法建立目標檔案</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="90"/>
         <source>Starting checksum download</source>
-        <translation></translation>
+        <translation>正在開始下載雜湊值</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="108"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="126"/>
         <source>Download failed: %1</source>
-        <translation></translation>
+        <translation>下載失敗：%1</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="147"/>
         <source>Failed to verify signature of checksum</source>
-        <translation></translation>
+        <translation>無法驗證雜湊值簽名</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="152"/>
         <source>Download finished, could not rename</source>
-        <translation></translation>
+        <translation>下載完成，但無法重新命名</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="158"/>
         <source>Checksum downloaded and verified</source>
-        <translation></translation>
+        <translation>雜湊值已經下載並驗證</translation>
     </message>
 </context>
 <context>
@@ -133,17 +133,17 @@
     <message>
         <location filename="../imagedownloadtask.cpp" line="14"/>
         <source>Downloading %1</source>
-        <translation></translation>
+        <translation>正在下載 %1</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="58"/>
         <source>%1 / %2 (%3/s)</source>
-        <translation></translation>
+        <translation>%1 / %2 (%3 / 秒)</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="88"/>
         <source>Aborted</source>
-        <translation></translation>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../imagedownloadtask.cpp" line="114"/>
