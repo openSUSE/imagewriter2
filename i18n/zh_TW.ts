@@ -42,17 +42,17 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="7"/>
         <source>Writing to %1</source>
-        <translation type="unfinished">Writing to %1</translation>
+        <translation>寫至 %1</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="36"/>
         <source>Unable to find the SCSI device</source>
-        <translation type="unfinished">Unable to find the SCSI device</translation>
+        <translation>無法找尋 SCSI 裝置</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
-        <translation type="unfinished">Aborted</translation>
+        <translation>被取消</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
