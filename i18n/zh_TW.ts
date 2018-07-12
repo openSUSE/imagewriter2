@@ -52,7 +52,7 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
-        <translation>被取消</translation>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
@@ -196,32 +196,32 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="39"/>
         <source>Downloading image</source>
-        <translation></translation>
+        <translation>正在下載映像</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="60"/>
         <source>Writing image</source>
-        <translation></translation>
+        <translation>正在寫入映像</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="72"/>
         <source>Downloading failed</source>
-        <translation></translation>
+        <translation>下載失敗</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="99"/>
         <source>Done</source>
-        <translation></translation>
+        <translation>完成</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="104"/>
         <source>Writing failed</source>
-        <translation></translation>
+        <translation>寫入失敗</translation>
     </message>
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
-        <translation>Deploying %1 to %</translation>
+        <translation>部署 %1 至 %2</translation>
     </message>
 </context>
 <context>
@@ -411,39 +411,41 @@
         <source>By continuing here, you will LOSE ALL DATA on the Device
 %1!
 Are you sure?</source>
-        <translation></translation>
+        <translation>如果繼續，您將會遺失
+%1
+裝置上的資料！您確定嗎？</translation>
     </message>
     <message>
         <location filename="../main.qml" line="326"/>
         <source>Could not start task</source>
-        <translation></translation>
+        <translation>無法開始工作</translation>
     </message>
     <message>
         <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
-        <translation type="unfinished">Opening of %1 for writing failed:
+        <translation>以寫入方式開啟 %1 失敗：
 %2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="349"/>
         <source>Start!</source>
-        <translation type="unfinished">Start!</translation>
+        <translation>開始！</translation>
     </message>
     <message>
         <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
-        <translation type="unfinished">Target Disk</translation>
+        <translation>目標硬碟</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation type="unfinished">Task List</translation>
+        <translation>工作列表</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation type="unfinished">About openSUSE ImageWriter</translation>
+        <translation>關於 openSUSE ImageWriter</translation>
     </message>
 </context>
 </TS>
