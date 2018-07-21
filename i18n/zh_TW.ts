@@ -85,7 +85,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
-        <translation>已跳過下載，雜湊值已驗證。</translation>
+        <translation>已跳過下載，已驗證雜湊值</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="71"/>
