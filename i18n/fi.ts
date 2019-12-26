@@ -29,7 +29,7 @@
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation>Kotisivu: &lt;a href=&quot;%1&quot;&gt;GitHub&lt;/a&gt;issa&lt;br/&gt;Fabian Vogtin luoma&lt;br/&gt;&lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt;-projekti</translation>
+        <translation>Kotisivu: &lt;a href=&quot;%1&quot;&gt;GitHub&lt;/a&gt;&lt;br/&gt; &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; &lt;br/&gt;Fabian Vogtin luoma projekti</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
@@ -364,7 +364,7 @@
     <message>
         <location filename="../main.qml" line="19"/>
         <source>openSUSE Image Writer</source>
-        <translation></translation>
+        <translation>openSUSE Image Writer (levykuvan kirjoittaja)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="49"/>
