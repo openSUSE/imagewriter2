@@ -221,7 +221,7 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
-        <translation></translation>
+        <translation>Otetaan käyttöön %1 kohteeseen %2</translation>
     </message>
 </context>
 <context>
