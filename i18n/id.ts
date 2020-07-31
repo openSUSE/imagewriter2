@@ -221,7 +221,7 @@
     <message>
         <location filename="../imagedownloaderwritertask.cpp" line="109"/>
         <source>Deploying %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Menyebarkan %1 ke %2</translation>
     </message>
 </context>
 <context>
@@ -364,85 +364,88 @@
     <message>
         <location filename="../main.qml" line="19"/>
         <source>openSUSE Image Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>openSUSE Image Writer</translation>
     </message>
     <message>
         <location filename="../main.qml" line="49"/>
         <source>Could not load metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak dapat memuat metadata</translation>
     </message>
     <message>
         <location filename="../main.qml" line="50"/>
         <source>The downloaded Metadata was invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Metadata yang diunduh tidak valid.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="128"/>
         <source>Source Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Citra Sumber</translation>
     </message>
     <message>
         <location filename="../main.qml" line="232"/>
         <source>No valid image selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Citra yang dipilih tidak valid</translation>
     </message>
     <message>
         <location filename="../main.qml" line="242"/>
         <source>No valid drive selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Perangkat yang dipilih tidak valid</translation>
     </message>
     <message>
         <location filename="../main.qml" line="249"/>
         <source>The selected drive is too small for the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Perangkat yang dipilih terlalu kecil untuk Citra</translation>
     </message>
     <message>
         <location filename="../main.qml" line="255"/>
         <source>Ready to write!</source>
-        <translation type="unfinished"></translation>
+        <translation>Siap menulis!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="308"/>
         <source>Overwrite data?</source>
-        <translation type="unfinished"></translation>
+        <translation>Timpa data?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="309"/>
         <source>By continuing here, you will LOSE ALL DATA on the Device
 %1!
 Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dengan melanjutkan, Anda akan KEHILANGAN SEMUA DATA
+pada Perangkat %1!
+Apakah Anda yakin?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="326"/>
         <source>Could not start task</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak dapat memulai tugas</translation>
     </message>
     <message>
         <location filename="../main.qml" line="327"/>
         <source>Opening of %1 for writing failed:
 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal membuka %1 untuk penulisan:
+%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="349"/>
         <source>Start!</source>
-        <translation type="unfinished"></translation>
+        <translation>Mulai!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Diska Tujuan</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation type="unfinished"></translation>
+        <translation>Daftar Tugas</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentang openSUSE ImageWriter</translation>
     </message>
 </context>
 </TS>
