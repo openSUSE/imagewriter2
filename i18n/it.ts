@@ -6,17 +6,17 @@
     <message>
         <location filename="../AboutDialog.qml" line="18"/>
         <source>About openSUSE Image Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni su openSUSE Image Writer</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni su</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Impostazioni</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../AboutView.qml" line="23"/>
         <source>openSUSE ImageWriter 2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">openSUSE ImageWriter 2</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="34"/>
