@@ -6,17 +6,17 @@
     <message>
         <location filename="../AboutDialog.qml" line="18"/>
         <source>About openSUSE Image Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Apie openSUSE atvaizdžių rašymo programą</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="54"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Apie</translation>
     </message>
     <message>
         <location filename="../AboutDialog.qml" line="63"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuostatos</translation>
     </message>
 </context>
 <context>
@@ -24,17 +24,17 @@
     <message>
         <location filename="../AboutView.qml" line="23"/>
         <source>openSUSE ImageWriter 2</source>
-        <translation type="unfinished"></translation>
+        <translation>openSUSE ImageWriter 2</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation type="unfinished"></translation>
+        <translation>Internetinė svetainė: &lt;a href=&quot;%1&quot;&gt;„GitHub“&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; projektas&lt;br/&gt;Sukūrė Fabian Vogt</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Užverti</translation>
     </message>
 </context>
 <context>
@@ -42,32 +42,32 @@
     <message>
         <location filename="../cdrecordburntask.cpp" line="7"/>
         <source>Writing to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rašoma į %1</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="36"/>
         <source>Unable to find the SCSI device</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko rasti SCSI įrenginio</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="61"/>
         <source>Aborted</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutraukta</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="69"/>
         <source>Writing successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Rašymas sėkmingas</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="76"/>
         <source>Writing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Rašymas nepavyko</translation>
     </message>
     <message>
         <location filename="../cdrecordburntask.cpp" line="78"/>
         <source>Writing failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rašymas nepavyko: %1</translation>
     </message>
 </context>
 <context>
@@ -75,17 +75,17 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="12"/>
         <source>Downloading checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Atsisiunčiama kontrolinė suma</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="45"/>
         <source>Failed to open GPG keyring</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepavyko atverti GPG raktinės</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="57"/>
         <source>Download skipped, checksum verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Atsiuntimas praleistas, kontrolinė suma patikrinta</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="71"/>
