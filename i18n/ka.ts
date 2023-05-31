@@ -430,22 +430,22 @@ Are you sure?</source>
     <message>
         <location filename="../main.qml" line="349"/>
         <source>Start!</source>
-        <translation type="unfinished"></translation>
+        <translation>დაწყება!</translation>
     </message>
     <message>
         <location filename="../main.qml" line="394"/>
         <source>Target Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>სამიზნე დისკი</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation type="unfinished"></translation>
+        <translation>ამოცანების სია</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
         <source>About openSUSE ImageWriter</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSUSE ImageWriter-ის შესახებ</translation>
     </message>
 </context>
 </TS>
