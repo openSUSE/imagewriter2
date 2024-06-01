@@ -100,7 +100,7 @@
     <message>
         <location filename="../gpgchecksumtask.cpp" line="90"/>
         <source>Starting checksum download</source>
-        <translation>საკონტროლო ჯამის გადმოწერა</translation>
+        <translation>საკონტროლო ჯამის გადმოწერის გაშვება</translation>
     </message>
     <message>
         <location filename="../gpgchecksumtask.cpp" line="108"/>
