@@ -440,7 +440,7 @@ Are you sure?</source>
     <message>
         <location filename="../main.qml" line="462"/>
         <source>Task List</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppgiftslista</translation>
     </message>
     <message>
         <location filename="../main.qml" line="472"/>
