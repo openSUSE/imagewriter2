@@ -356,7 +356,7 @@
     <message>
         <location filename="../usbimagewritertask.cpp" line="155"/>
         <source>Writing failed: %1</source>
-        <translation>Schreibvorgang fehlgeschlagen</translation>
+        <translation>Schreibvorgang fehlgeschlagen: %1</translation>
     </message>
 </context>
 <context>
