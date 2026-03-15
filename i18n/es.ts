@@ -29,7 +29,7 @@
     <message>
         <location filename="../AboutView.qml" line="34"/>
         <source>Homepage: &lt;a href=&quot;%1&quot;&gt;On GitHub&lt;/a&gt;&lt;br/&gt;An &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt; project&lt;br/&gt;Created by Fabian Vogt</source>
-        <translation>Página del proyecto: &lt;a href=&quot;%1&quot;&gt;en GitHub&lt;/a&gt;&lt;br/&gt;Un proyecto de &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt;&lt;br/&gt;Creado por Fabian Vogt</translation>
+        <translation>Página principal: &lt;a href=&quot;%1&quot;&gt;En GitHub&lt;/a&gt;&lt;br/&gt;Un proyecto de &lt;a href=&quot;%2&quot;&gt;openSUSE&lt;/a&gt;&lt;br/&gt;Creado por Fabian Vogt</translation>
     </message>
     <message>
         <location filename="../AboutView.qml" line="58"/>
